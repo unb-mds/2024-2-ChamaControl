@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import App from "./pages/App/App";
 import Home from './pages/Home/Home';
 import Maps from './pages/Maps/Maps';
@@ -12,7 +12,7 @@ function AppRoutes() {
     return (
         <AuthProvider>
             <Routes>
-                <Route path="/" element={<App />} />
+                <Route path="/" element={<Navigate to="/home" />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/maps" element={<Maps />} />
                 <Route path="/alert" element={<Alert />} /> 
