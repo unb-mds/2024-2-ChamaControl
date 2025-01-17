@@ -1,15 +1,9 @@
-Aqui está uma versão diferenciada em markdown:
-
----
-
 # [ChamaControl](https://github.com/unb-mds/2024-2-ChamaControl)
 
 O [ChamaControl](https://github.com/unb-mds/2024-2-ChamaControl) é uma iniciativa da disciplina **Métodos de Desenvolvimento de Software** com o propósito de criar uma plataforma intuitiva, onde cidadãos possam ter acesso e monitorar informações sobre queimadas que possam estar acontecendo pelo território brasileiro. A ideia central é facilitar o acesso e a transparência, permitindo que usuários possam:
 
-- **Visualizar Informações sobre Queimadas:** Consultar facilmente registros, condições climáticas alarmantes e alertas de possíveis ocorrências de queimadas.
+- **Visualizar Informações sobre Focos de incêndios:** Consultar facilmente focos registrados por satélite com base em região, estado, município, ano e mês. Os focos registrados se iniciam em 2003 e vão até 2023.
 - **Receber alertas personalizados:** Usuários podem filtrar determinada área do território para receber alertas.
-
-Este projeto é distribuído como software livre, sob a licença [MIT](https://github.com/unb-mds/2024-2-ChamaControl/blob/main/LICENSE).
 
 ## 📑 Índice
 
@@ -18,10 +12,8 @@ Este projeto é distribuído como software livre, sob a licença [MIT](https://g
   - [👤 Equipe](#-equipe)
   - [🚀 Primeiros Passos](#-primeiros-passos)
     - [🛠 Pré-requisitos](#-pré-requisitos)
-    - [⚙️ Configuração do Ambiente](#️-configuração-do-ambiente)
     - [📦 Instalação das Dependências](#-instalação-das-dependências)
     - [▶️ Execução do Projeto](#️-execução-do-projeto)
-      - [Sobre o Docker](#sobre-o-docker)
   - [📖 Documentação](#-documentação)
   - [🔗 Links Úteis](#-links-úteis)
     - [Diagrama de Arquitetura](#diagrama-de-arquitetura)
@@ -45,62 +37,58 @@ git clone https://github.com/unb-mds/2024-2-ChamaControl.git
 
 Antes de rodar o projeto, instale as seguintes ferramentas:
 
-- GNU Make 4.4 ou superior
-- Python 3.10.12 e Pip 22.0.2 ou superior
-
-### ⚙️ Configuração do Ambiente
-
-Para configurar o ambiente de desenvolvimento, execute:
-
-```bash
-make config
-```
+- **Node** 22.12 ou superior
+- **MySql** 8.0 ou superior
 
 ### 📦 Instalação das Dependências
 
 Execute os seguintes comandos para instalar as dependências:
 
 ```bash
-# Crie o ambiente virtual do Python
-python3 -m venv api/env
-
-# Ative o ambiente virtual
-source api/env/bin/activate
-
-# Instale as bibliotecas para Python e Node
-make install
+# Execute o seguinte comando dentro das pasta /web e /backend
+npm install
 ```
 
 ### ▶️ Execução do Projeto
 
-Para iniciar o projeto, rode:
+#### Front-end
 
-```bash
-docker compose up
+Dentro de `/web`
+```shell
+# Na pasta /web execute os comandos
+npm run dev
 ```
 
-#### Sobre o Docker
+O front-end ficara disponivel em: http://localhost:5173/
 
-Para usos específicos do Docker, veja abaixo:
+#### Back-end
 
-```bash
-# Executar em segundo plano
-docker compose up -d
+Primeiro, rode o arquivo `script-db.sql` em seu **MySql** para criar as tabelas.
 
-# Reconstruir imagens após mudanças no Dockerfile
-docker compose up --build
+Dentro de `/backend`
 
-# Remover volumes, se necessário
-docker compose down -v
+```shell
+# Crie um arquivo .env com as seguintes variáveis
+SECRET_KEY=seu_segredo
+TOKEN_EXPIRATION=10m
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=sua_senha_do_banco_de_dados
+DB_NAME=mdschama
 ```
 
-```bash
-# Atualizar a base de dados para os períodos desejados
-make updatedb-all
+Depois:
+```shell
+# Para popular o banco de dados execute (isso deve ser feito apenas uma vez)
+npm run populaFocos
 
-# Comando alternativo
-docker exec django-api python3 ./manage.py updatedb -a
+# Para iniciar a API execute
+npm run app
 ```
+
+O back-end ficara disponivel em: http://localhost:3000
+
+E para testar abra http://localhost:3000/api/hello
 
 ## 📖 Documentação
 
@@ -114,8 +102,12 @@ Acesse a documentação completa do projeto [aqui](https://unb-mds.github.io/202
 
 ### Arquitetura
 
-- Visualize o diagrama de arquitetura do projeto, clique [aqui](https://www.figma.com/).
+- Visualize o diagrama de arquitetura do projeto, clique [aqui](https://www.figma.com/design/4eVXq7dgs2j8SpdVHSLbB1/Arquitetura---ChamaControl?node-id=0-1&t=rv9rNCBxhKdR6XxI-1).
 
 ### Protótipo Visual
 
 - Para visualizar o protótipo do projeto, clique [aqui](https://www.figma.com/design/mPqnz5g1fNN7PVtIgwt0ln/Queimadas-UnB?node-id=0-1&node-type=canvas&t=oHqySMJ71eFv4Tow-0).
+
+---
+
+Este projeto é distribuído como software livre, sob a licença [MIT](https://github.com/unb-mds/2024-2-ChamaControl/blob/main/LICENSE).

@@ -1,20 +1,27 @@
 /* src/components/LoginPage.module.css */
 .loginContainer {
     display: flex;
-    align-items: center;
+    align-items: stretch; /* Garante que os itens tenham a mesma altura */
     justify-content: center;
+    background: #f9f9f9;
+    padding: 30px;
     min-height: calc(100vh - 165px);
-    background: hsl(0, 0%, 96%);
   }
   
   .loginBox {
     background: #fff;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 40px;
-    padding-top: 0px;
+    padding-bottom: 10px;
     width: 320px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border: 2px solid #f0f0f0;
     text-align: center;
+    position: relative;
+    margin-right: -30px;
+    z-index: 1;
+    max-height: min-content;
+    padding-bottom: 35px;
   }
   
   .loginBox h2 {
@@ -44,7 +51,9 @@
   }
   
   .loginButton {
-    background: #f3c404;
+    display: block;
+    background: #f57c00;
+    color: #fff;
     border: none;
     width: 100%;
     padding: 12px;
@@ -56,7 +65,7 @@
   }
   
   .loginButton:hover {
-    background: #cfa200;
+    background: #e66a00;
   }
   
   .errorMessage {
@@ -66,4 +75,18 @@
     padding: 10px;
     margin-bottom: 20px;
     text-align: left;
+  }
+
+  .successMessage {
+    background-color:   #f0f4c3;
+    color: #33691e;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .text {
+    text-align: left;
+    padding: 0.7rem 0;
   }

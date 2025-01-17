@@ -41,6 +41,8 @@ nav:
      - Sprint 2: sprints/Sprint-2.md
      - Sprint 3: sprints/Sprint-3.md
      - Sprint 4: sprints/Sprint-4.md
+     - Sprint 5: sprints/Sprint-5.md 
+  - Como Contribuir?: CONTRIBUTING.md
 
 markdown_extensions:
   - pymdownx.highlight:

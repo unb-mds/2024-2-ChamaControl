@@ -1,30 +1,30 @@
-// src/components/LoginPage/LoginPage.js
-import { useState, useContext } from "react";
 import styles from "./Login.module.css";
-import { useNavigate } from "react-router-dom";
 
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 const LoginPage = () => {
   const [email, setEmail] = useState(""); // Alterado de username para email
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // Para mensagens de erro
-  const [loading, setLoading] = useState(false); // Para indicar carregamento
+  const [senha, setSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
   const navigate = useNavigate(); // Hook para redirecionamento
-  const { login } = useContext(AuthContext); // Usar o contexto
+  const { login, loading } = useContext(AuthContext); // Usar o contexto
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
+
     try {
-      await login(email, password); // Tente fazer login com o e-mail e senha
-      navigate("/dashboard"); // Redireciona para o dashboard após o login
-    } catch (err) {
-      setError("Credenciais inválidas"); // Exibe mensagem de erro se falhar
-    } finally {
-      setLoading(false);
-    }
+      await login(email, senha);
+      setMensagem({ text: "Usuário logado com sucesso!", type: "success" }); 
+      setTimeout(() => {
+        navigate('/'); 
+      }, 1000); 
+  
+    } catch (Error) {
+      setMensagem({ text: Error.message, type: "error" });
+    } 
   };
 
   return (
@@ -32,7 +32,17 @@ const LoginPage = () => {
       <div className={styles.loginContainer}>
         <div className={styles.loginBox}>
           <h2>Fazer Login</h2>
-          {error && <div className={styles.errorMessage}>{error}</div>}
+          {mensagem && (
+            <div
+              className={
+                mensagem.type === "error"
+                  ? styles.errorMessage
+                  : styles.successMessage
+              }
+            >
+              {mensagem.text}
+            </div>
+          )}
           <form onSubmit={handleLogin}>
             <div className={styles.inputGroup}>
               <label htmlFor="email">E-mail</label>
@@ -50,8 +60,8 @@ const LoginPage = () => {
               <input
                 type="password"
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
                 placeholder="Sua senha"
                 required
               />
@@ -63,6 +73,8 @@ const LoginPage = () => {
             >
               {loading ? "Entrando..." : "Entrar"}
             </button>
+            <p className={styles.text}>Não tem uma conta?</p>
+            <Link to="/Register" className={styles.loginButton}>Criar conta</Link>
           </form>
         </div>
       </div>

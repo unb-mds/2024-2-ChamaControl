@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Maps.css';
+import Navbar from '../../layout/Navbar';
 
 const Maps = () => {
     const [selectedRegion, setSelectedRegion] = useState("Brasil");
@@ -10,20 +11,7 @@ const Maps = () => {
 
     return (
         <div className="maps-page">
-            <header className="home-header">
-                <img src="/src/assets/logo-png.png" alt="ChamaControl" className="logo-image" />
-                <nav className="navigation">
-                    <a href="/home">Início</a>
-                    <a href="/maps" className="active">Consultar Mapa</a>
-                    <a href="/about">Equipe</a>
-                </nav>
-                <div className="nav-actions">
-                    <a href="/alert">
-                        <button className="alert-button">Receber Alertas</button>
-                    </a>
-                    <div className="user-icon"></div>
-                </div>
-            </header>
+            <Navbar/>
 
             <main className="maps-content">
                 <section className="map-section">
