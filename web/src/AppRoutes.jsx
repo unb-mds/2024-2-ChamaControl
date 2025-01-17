@@ -1,25 +1,28 @@
-import { Route, Routes, Navigate } from "react-router-dom";
-import App from "./pages/App/App";
-import Home from './pages/Home/Home';
-import Maps from './pages/Maps/Maps';
-import Alert from './pages/Alert/Alert'; 
-import About from './pages/About/About';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
+import { Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import { AuthProvider } from "./context/AuthProvider";
+import Loading from "./layout/Loading";
+
+const Home = lazy(() => import("./pages/Home/Home"));
+const Maps = lazy(() => import("./pages/Maps/Maps"));
+const Alert = lazy(() => import("./pages/Alert/Alert"));
+const About = lazy(() => import("./pages/About/About"));
+const Login = lazy(() => import("./pages/Login/Login"));
+const Register = lazy(() => import("./pages/Register/Register"));
 
 function AppRoutes() {
     return (
         <AuthProvider>
-            <Routes>
-                <Route path="/" element={<Navigate to="/home" />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/maps" element={<Maps />} />
-                <Route path="/alert" element={<Alert />} /> 
-                <Route path="/about" element={<About />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-            </Routes>
+            <Suspense fallback={<Loading />}>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/maps" element={<Maps />} />
+                    <Route path="/alert" element={<Alert />} /> 
+                    <Route path="/about" element={<About />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                </Routes>
+            </Suspense>
         </AuthProvider>
     );
 }
