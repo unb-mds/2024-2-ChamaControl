@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "populaFocos": "node scraper/coletaAnual.js && node scraper/processaDados.js",
+    "populaFocosAnual": "node scraper/processaDadosAnual.js",
     "app": "node app.js"
   },
   "keywords": [],
