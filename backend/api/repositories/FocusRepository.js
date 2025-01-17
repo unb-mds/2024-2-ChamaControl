@@ -4,7 +4,7 @@ export default class FocusRepository {
 
     async getCountByYear(ano) {
         return new Promise((resolve, reject) => {
-            const query = 'SELECT count(*) FROM focos WHERE ano = ?';
+            const query = 'SELECT sum(quantidade_focos) FROM focos WHERE ano = ?';
             connection.query(query, [ano], (err, results) => {
                 if (err) {
                     return reject(new Error('Erro ao obter dados: ' + err.message));
@@ -16,10 +16,11 @@ export default class FocusRepository {
 
     async getMonthlyFocusByEstate(month, year) {
         const query = `
-            SELECT ano, MONTH(data_pas) AS mes, estado, COUNT(*) AS contagem
+            SELECT estado, sum(quantidade_focos) AS quantidade_focos, mes, ano
             FROM focos
-            WHERE MONTH(data_pas) = ? AND ano = ?
-            GROUP BY mes, estado;
+            WHERE mes = ? AND ano = ?
+            GROUP BY mes, estado
+            order by estado
         `;
 
         return new Promise((resolve, reject) => {
@@ -34,10 +35,11 @@ export default class FocusRepository {
 
     async getMonthlyFocusByRegion(month, year) {
         const query = `
-            SELECT ano, MONTH(data_pas) AS mes, regiao, COUNT(*) AS contagem
+            SELECT regiao, sum(quantidade_focos) as quantidade_focos, mes, ano
             FROM focos
-            WHERE MONTH(data_pas) = ? AND ano = ?
-            GROUP BY mes, regiao;
+            WHERE mes = ? AND ano = ?
+            GROUP BY mes, regiao
+            order by regiao;
         `;
 
         return new Promise((resolve, reject) => {
@@ -52,10 +54,10 @@ export default class FocusRepository {
 
     async getYearFocusFromRegion(region, year) {
         const query = `
-            SELECT ano, MONTH(data_pas) as mes, regiao, count(*) as quantidade_focos
+            SELECT mes, regiao, sum(quantidade_focos) as quantidade_focos, ano
             FROM focos
             WHERE ano = ? AND regiao = ?
-            GROUP BY MONTH(data_pas)
+            GROUP BY mes
             ORDER BY mes;
         `;
 
@@ -71,10 +73,10 @@ export default class FocusRepository {
 
     async getYearFocusFromEstate(estate, year) {
         const query = `
-            SELECT ano, MONTH(data_pas) as mes, estado, count(*) as quantidade_focos
+            SELECT mes, estado, sum(quantidade_focos) as quantidade_focos, ano
             FROM focos
             WHERE ano = ? AND estado = ?
-            GROUP BY MONTH(data_pas)
+            GROUP BY mes
             ORDER BY mes;
         `;
 
