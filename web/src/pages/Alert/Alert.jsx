@@ -1,36 +1,23 @@
 import { useState } from 'react';
 import './Alert.css';
+import Navbar from '../../layout/Navbar';
 
 const Alert = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [region, setRegion] = useState('Brasil');
-    const [year, setYear] = useState(new Date().getFullYear());
 
     const regions = ['Brasil', 'Norte', 'Nordeste', 'Centro-oeste', 'Sudeste', 'Sul'];
-    const years = Array.from({ length: 2024 - 2003 + 1 }, (_, i) => 2003 + i);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert(`Nome: ${name}\nEmail: ${email}\nRegião: ${region}\nAno: ${year}`);
+        alert(`Nome: ${name}\nEmail: ${email}\nRegião: ${region}`);
         // Lógica para enviar os dados para o backend aqui
     };
 
     return (
         <div className="alert-page">
-            {/* Navbar */}
-            <header className="home-header">
-                <img src="/src/assets/logo-png.png" alt="ChamaControl" className="logo-image" />
-                <nav className="navigation">
-                    <a href="/">Início</a>
-                    <a href="/maps">Consultar Mapa</a>
-                    <a href="/about">Equipe</a>
-                </nav>
-                <a href="/alert">
-                    <button className="alert-button">Receber Alertas</button>
-                </a>
-                <div className="user-icon"></div>
-            </header>
+            <Navbar/>
 
             {/* Formulário */}
             <main className="alert-content">
@@ -68,20 +55,6 @@ const Alert = () => {
                             {regions.map((region) => (
                                 <option key={region} value={region}>
                                     {region}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="year">Ano:</label>
-                        <select
-                            id="year"
-                            value={year}
-                            onChange={(e) => setYear(e.target.value)}
-                        >
-                            {years.map((year) => (
-                                <option key={year} value={year}>
-                                    {year}
                                 </option>
                             ))}
                         </select>

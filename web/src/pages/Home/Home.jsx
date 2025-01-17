@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Home.css';
+import Navbar from '../../layout/Navbar';
 
 const Home = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -26,22 +27,7 @@ const Home = () => {
 
     return (
         <div className="home-page">
-            {/* Navbar */}
-            <header className="home-header">
-                <img src="/src/assets/logo-png.png" alt="ChamaControl" className="logo-image" />
-                <nav className="navigation">
-                    <a href="/" className="active">Início</a>
-                    <a href="/maps">Consultar Mapa</a>
-                    <a href="/about">Equipe</a>
-                </nav>
-                <div className="nav-actions">
-                    <a href="/alert">
-                        <button className="alert-button">Receber Alertas</button>
-                    </a>
-                    <div className="user-icon"></div>
-                </div>
-            </header>
-
+            <Navbar/>
 
             {/* Banner com Slider */}
             <div className="banner-slider">
