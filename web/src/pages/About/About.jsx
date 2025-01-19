@@ -79,10 +79,10 @@ const About = () => {
                             <div className="member-info">
                                 <h3>{member.name}</h3>
                                 <p>{member.role}</p>
-                                <Link to={member.github} target="_blank" rel="noopener noreferrer">
+                                <a href={member.github} target="_blank" rel="noopener noreferrer">
                                     <img src="/src/assets/logo-github.png" alt="GitHub" className="github-icon" />
                                     GitHub
-                                </Link>
+                                </a>
                             </div>
                         </div>
                     ))}
