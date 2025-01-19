@@ -8,7 +8,7 @@ const members = [
         name: 'Artur Krauspenhar',
         role: 'Função',
         github: 'https://github.com/Arturhk05',
-        photo: arthur,
+        photo: '/src/assets/members/artur.png',
     },
     {
         name: 'Diassis Nascimento',
