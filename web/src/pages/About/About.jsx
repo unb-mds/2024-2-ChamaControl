@@ -6,7 +6,7 @@ const members = [
         name: 'Artur Krauspenhar',
         role: 'Função',
         github: 'https://github.com/Arturhk05',
-        photo: '/src/assets/members/artur.png',
+        photo: '/public/assets/members/artur.png',
     },
     {
         name: 'Diassis Nascimento',

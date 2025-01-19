@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react';
 import './Home.css';
+
 import Navbar from '../../layout/Navbar';
+
+import bannerMaps from   '../../../public/assets/banners/banner-maps.png'
+import bannerAlerts from '../../../public/assets/banners/banner-alerts.png'
 
 const Home = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
         {
-            image: '/src/assets/banners/banner-maps.png',
+            image: bannerMaps,
             alt: 'Consultar Mapa',
             link: '/maps',
         },
         {
-            image: '/src/assets/banners/banner-alerts.png',
+            image: bannerAlerts,
             alt: 'Receber Alertas',
             link: '/alert',
         },
