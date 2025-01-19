@@ -5,6 +5,8 @@ import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement,  CategoryScale, LinearScale, BarElement, LogarithmicScale } from 'chart.js';
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
 
+import Navbar from "../../layout/Navbar"
+
 ChartJS.register(CategoryScale, LogarithmicScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
 const Maps = () => {
@@ -26,9 +28,24 @@ const Maps = () => {
                 );
                 const apiData = response.data;
 
-                const labels = apiData.map((item) => `Mês ${item.mes}`);
-                const data = apiData.map((item) => item.quantidade_focos);
-                const totalFocosCurrent = data.reduce((sum, value) => sum + value, 0)
+                // const labels = apiData.map((item) => `Mês ${item.mes}`);
+                // const data = apiData.map((item) => item.quantidade_focos);
+                
+                const totalFocosCurrent = apiData.reduce((sum, item) => sum + item.quantidade_focos, 0);
+                
+                setChartData({
+                    labels: [`Ano ${selectedYear}`], // Exibe apenas o ano
+                    datasets: [
+                        {
+                            data: [totalFocosCurrent], // Só usa o total de focos do ano
+                            backgroundColor: ['#FF6384'],
+                            borderColor: 'white',
+                            borderWidth: 1,
+                        },
+                    ],
+                });
+
+                // const totalFocosCurrent = data.reduce((sum, value) => sum + value, 0)
 
                 if (selectedYear > 2003) {
                     const responsePrevious = await axios.get(
@@ -45,21 +62,21 @@ const Maps = () => {
                 }
 
                 setTotalFocos(totalFocosCurrent)
-                setChartData({
-                    labels,
-                    datasets: [
-                        {
-                            data,
-                            backgroundColor: [
-                                '#FF6384', '#36A2EB', '#FFCE56', '#FF6384',
-                                '#36A2EB', '#FFCE56', '#FF6384', '#36A2EB',
-                                '#FFCE56', '#FF6384', '#36A2EB', '#FFCE56',
-                            ],
-                            borderColor: 'white',
-                            borderWidth: 1,
-                        },
-                    ],
-                });
+                // setChartData({
+                //     labels,
+                //     datasets: [
+                //         {
+                //             data,
+                //             backgroundColor: [
+                //                 '#FF6384', '#36A2EB', '#FFCE56', '#FF6384',
+                //                 '#36A2EB', '#FFCE56', '#FF6384', '#36A2EB',
+                //                 '#FFCE56', '#FF6384', '#36A2EB', '#FFCE56',
+                //             ],
+                //             borderColor: 'white',
+                //             borderWidth: 1,
+                //         },
+                //     ],
+                // });
             } catch (error) {
                 console.error("Erro ao buscar dados da API:", error);
             }
@@ -122,7 +139,7 @@ const Maps = () => {
                     <div className="statistics">
                         <h3>Estatísticas</h3>
                         <br></br>
-                        <p><strong>Total de Focos:</strong> {totalFocos ? (totalFocos) : <p>Carregando...</p>}</p>
+                        <p><strong>Total de Focos:</strong> {totalFocos ? (totalFocos) : <span>Carregando...</span>}</p>
                         {comparison !== null && (
                             <p>
                                 <strong>Comparativo com {selectedYear - 1}: </strong> 
@@ -152,26 +169,41 @@ const Maps = () => {
                                 scales: {
                                     x: {
                                         title: {
-                                            display: false,
-                                            text: 'Meses',
+                                            display: true,
+                                            text: 'Ano',
                                         },
                                     },
                                     y: {
-                                        type: 'logarithmic',
+                                        type: 'linear', // Escala linear
                                         title: {
                                             display: true,
                                             text: 'Quantidade de Focos',
                                         },
-                                        ticks: {
-                                            display: false,
-                                            drawTicks: false,
-                                        },
-                                        grid: {
-                                            drawOnChartArea: false,
-                                            drawTicks: false,
-                                        },
                                     },
-                                },
+                                },                                
+                                // scales: {
+                                //     x: {
+                                //         title: {
+                                //             display: false,
+                                //             text: 'Meses',
+                                //         },
+                                //     },
+                                //     y: {
+                                //         type: 'logarithmic',
+                                //         title: {
+                                //             display: true,
+                                //             text: 'Quantidade de Focos',
+                                //         },
+                                //         ticks: {
+                                //             display: false,
+                                //             drawTicks: false,
+                                //         },
+                                //         grid: {
+                                //             drawOnChartArea: false,
+                                //             drawTicks: false,
+                                //         },
+                                //     },
+                                // },
                             }} />
                         ) : (
                             <p>Carregando gráfico...</p>
