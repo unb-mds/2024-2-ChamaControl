@@ -1,12 +1,14 @@
 import Navbar from '../../layout/Navbar';
 import './About.css';
 
+import arthur from '/src/assets/members/artur.png';
+
 const members = [
     {
         name: 'Artur Krauspenhar',
         role: 'Função',
         github: 'https://github.com/Arturhk05',
-        photo: '/src/assets/members/artur.png',
+        photo: arthur,
     },
     {
         name: 'Diassis Nascimento',
