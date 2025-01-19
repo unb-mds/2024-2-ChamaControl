@@ -1,21 +1,24 @@
 import { useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
+import { Link } from "react-router-dom";
+import logoPng from "../../public/assets/logo-png.png";
+
 function Navbar() {
     const location = useLocation();
 
     return (
         <div className={styles.home_header}>
-            <img src="/src/assets/logo-png.png" alt="ChamaControl" className="logo-image" />
+            <img src={logoPng} alt="ChamaControl" className="logo-image" />
             <nav className={styles.navigation}>
-                <a href="/" className={location.pathname === "/" ? styles.active : ""}>Início</a>
-                <a href="/maps" className={location.pathname === "/maps" ? styles.active : ""}>Consultar Mapa</a>
-                <a href="/about" className={location.pathname === "/about" ? styles.active : ""}>Equipe</a>
+                <Link to="/" className={location.pathname === "/" ? styles.active : ""}>Início</Link>
+                <Link to="/maps" className={location.pathname === "/maps" ? styles.active : ""}>Consultar Mapa</Link>
+                <Link to="/about" className={location.pathname === "/about" ? styles.active : ""}>Equipe</Link>
             </nav>
             <div className={styles.nav_actions}>
-                <a href="/alert">
+                <Link to="/alert">
                     <button className={styles.alert_button}>Receber Alertas</button>
-                </a>
+                </Link>
             </div>
         </div>
     );
