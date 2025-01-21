@@ -9,6 +9,7 @@ import Navbar from "../../components/Navbar/Navbar.jsx"
 
 ChartJS.register(CategoryScale, LogarithmicScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
+
 const Maps = () => {
     const [selectedRegion, setSelectedRegion] = useState("Norte");
     const [selectedYear, setSelectedYear] = useState(2011);
