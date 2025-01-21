@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { AuthProvider } from "./context/AuthProvider";
-import Loading from "./layout/Loading";
+import Loading from "./components/Loading/Loading.jsx";
+
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const Maps = lazy(() => import("./pages/Maps/Maps"));

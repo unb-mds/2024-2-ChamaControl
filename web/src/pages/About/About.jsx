@@ -1,4 +1,4 @@
-import Navbar from '../../layout/Navbar';
+import Navbar from '../../components/Navbar/Navbar.jsx';
 import './About.css';
 
 const members = [

@@ -5,7 +5,7 @@ import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement,  CategoryScale, LinearScale, BarElement, LogarithmicScale } from 'chart.js';
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
 
-import Navbar from "../../layout/Navbar"
+import Navbar from "../../components/Navbar/Navbar.jsx"
 
 ChartJS.register(CategoryScale, LogarithmicScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
