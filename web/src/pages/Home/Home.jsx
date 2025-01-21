@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar/Navbar.jsx';
 import bannerMaps from   '../../../public/banners/banner-maps.png'
 import bannerAlerts from '../../../public/banners/banner-alerts.png'
 
+
 const Home = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
