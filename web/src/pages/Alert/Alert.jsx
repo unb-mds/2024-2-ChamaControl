@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './Alert.css';
-import Navbar from '../../layout/Navbar';
+import Navbar from '../../components/Navbar/Navbar.jsx';
 
 const Alert = () => {
     const [name, setName] = useState('');

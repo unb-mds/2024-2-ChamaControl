@@ -1,4 +1,5 @@
-import Navbar from '../../layout/Navbar';
+import Navbar from '../../components/Navbar/Navbar.jsx';
+
 import './About.css';
 
 import artur from '../../../public/assets/members/artur.png';   // Importa as imagens dos membros
