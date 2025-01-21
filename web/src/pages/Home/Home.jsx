@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import './Home.css';
 import Navbar from '../../components/Navbar/Navbar.jsx';
 
-import Navbar from '../../layout/Navbar';
-
 import bannerMaps from   '../../../public/assets/banners/banner-maps.png'
 import bannerAlerts from '../../../public/assets/banners/banner-alerts.png'
 
