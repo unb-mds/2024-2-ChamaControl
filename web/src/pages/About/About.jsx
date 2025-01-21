@@ -2,13 +2,14 @@ import Navbar from '../../components/Navbar/Navbar.jsx';
 
 import './About.css';
 
-import artur from '../../../public/assets/members/artur.png';   // Importa as imagens dos membros
-import diassis from '../../../public/assets/members/diassis.png';
-import eduardo from '../../../public/assets/members/eduardo.png';
-import filipe from '../../../public/assets/members/filipe.png';
-import gustavo from '../../../public/assets/members/gustavo.png';
-import leonardo from '../../../public/assets/members/leonardo.png';
-import logoGithub from '../../../public/assets/logo-github.png';
+import artur from '../../../public/members/artur.png';   // Importa as imagens dos membros
+import diassis from '../../../public/members/diassis.png';
+import eduardo from '../../../public/members/eduardo.png';
+import filipe from '../../../public/members/filipe.png';
+import gustavo from '../../../public/members/gustavo.png';
+import leonardo from '../../../public/members/leonardo.png';
+
+import logoGithub from '../../../public/logos/logo-github.png';
 
 const members = [
     {
