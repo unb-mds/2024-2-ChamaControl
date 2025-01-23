@@ -32,6 +32,15 @@ export default class FocusService {
         return data;
     }
 
+    async getFocusByRegion(year) {
+        if (!Number.isInteger(year) || year.toString().length !== 4) {
+            throw new Error('O ano deve ser um número inteiro com 4 dígitos.');
+        }
+
+        const data = await this.focusRepository.getFocusByRegion(year);
+        return data;
+    }
+
     async getYearFocusFromRegion(region, year) {
         if (!Number.isInteger(year) || year.toString().length !== 4) {
             throw new Error('O ano deve ser um número inteiro com 4 dígitos.');
@@ -47,6 +56,11 @@ export default class FocusService {
         }
 
         const data = await this.focusRepository.getYearFocusFromEstate(estate, year);
+        return data;
+    }
+
+    async getAllYearsFocusFromEstate(estate) {
+        const data = await this.focusRepository.getAllYearsFocusFromEstate(estate);
         return data;
     }
 }

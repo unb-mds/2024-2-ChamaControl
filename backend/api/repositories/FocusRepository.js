@@ -52,6 +52,25 @@ export default class FocusRepository {
         });
     }
 
+    async getFocusByRegion(year) {
+        const query = `
+            SELECT regiao, sum(quantidade_focos) as quantidade_focos, ano
+            FROM focos
+            WHERE ano = ?
+            GROUP BY regiao
+            order by regiao;
+        `;
+
+        return new Promise((resolve, reject) => {
+            connection.query(query, [year], (err, results) => {
+                if (err) {
+                    reject(new Error('Erro ao obter dados: ' + err.message));
+                }
+                resolve(results);
+            });
+        });
+    }
+
     async getYearFocusFromRegion(region, year) {
         const query = `
             SELECT mes, regiao, sum(quantidade_focos) as quantidade_focos, ano
@@ -82,6 +101,25 @@ export default class FocusRepository {
 
         return new Promise((resolve, reject) => {
             connection.query(query, [year, estate], (err, results) => {
+                if (err) {
+                    reject(new Error('Erro ao obter dados: ' + err.message));
+                }
+                resolve(results);
+            });
+        });
+    }
+
+    async getAllYearsFocusFromEstate(estate) {
+        const query = `
+            SELECT mes, estado, sum(quantidade_focos) as quantidade_focos, ano
+            FROM focos
+            WHERE estado = ?
+            GROUP BY mes, ano
+            ORDER BY mes;
+        `;
+
+        return new Promise((resolve, reject) => {
+            connection.query(query, [estate], (err, results) => {
                 if (err) {
                     reject(new Error('Erro ao obter dados: ' + err.message));
                 }

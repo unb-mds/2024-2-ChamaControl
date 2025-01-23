@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "populaFocosAnual": "node scraper/processaDadosAnual.js",
     "app": "node app.js"
   },
@@ -22,5 +22,8 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.5",
     "unzipper": "^0.12.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
