@@ -8,6 +8,8 @@ export default class FocusController {
         this.getMonthlyFocusByRegion = this.getMonthlyFocusByRegion.bind(this);
         this.getYearFocusFromRegion = this.getYearFocusFromRegion.bind(this);
         this.getYearFocusFromEstate = this.getYearFocusFromEstate.bind(this);
+        this.getFocusByRegion = this.getFocusByRegion.bind(this);
+        this.getAllYearsFocusFromEstate = this.getAllYearsFocusFromEstate.bind(this);
     }
 
     async getMonthlyFocusByEstate(req, res) {
@@ -32,6 +34,17 @@ export default class FocusController {
         }
     }
 
+    async getFocusByRegion(req, res) {
+        const { year } = req.params;
+
+        try {
+            const data = await this.focusService.getFocusByRegion(parseInt(year, 10));
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
     async getYearFocusFromRegion(req, res) {
         const { region, year } = req.params;
 
@@ -48,6 +61,17 @@ export default class FocusController {
 
         try {
             const data = await this.focusService.getYearFocusFromEstate(estate, parseInt(year, 10));
+            res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+
+    async getAllYearsFocusFromEstate(req, res) {
+        const { estate } = req.params;
+
+        try {
+            const data = await this.focusService.getAllYearsFocusFromEstate(estate);
             res.status(200).json(data);
         } catch (error) {
             res.status(500).json({ error: error.message });

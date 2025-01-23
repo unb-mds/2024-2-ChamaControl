@@ -25,5 +25,7 @@ router.get('/focusEstateMonthYear/:month/:year', focusController.getMonthlyFocus
 router.get('/focusRegionMonthYear/:month/:year', focusController.getMonthlyFocusByRegion)
 router.get('/focusYearRegionYear/:region/:year', focusController.getYearFocusFromRegion)
 router.get('/focusYearEstateYear/:estate/:year', focusController.getYearFocusFromEstate)
+router.get('/focusRegionYear/:year', focusController.getFocusByRegion)
+router.get('/focusEstateAllYears/:estate', focusController.getAllYearsFocusFromEstate)
 
 export default router;
