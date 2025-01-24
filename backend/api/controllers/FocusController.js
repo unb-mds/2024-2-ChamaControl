@@ -1,6 +1,6 @@
-import FocusService from "../services/FocusService.js";
+const FocusService = require("../services/FocusService.js");
 
-export default class FocusController {
+class FocusController {
     constructor() {
         this.focusService = new FocusService();
 
@@ -78,3 +78,5 @@ export default class FocusController {
         }
     }
 }
+
+module.exports = FocusController;

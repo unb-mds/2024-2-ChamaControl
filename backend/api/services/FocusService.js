@@ -1,7 +1,6 @@
-import FocusRepository from "../repositories/FocusRepository.js";
+const FocusRepository = require('../repositories/FocusRepository.js');
 
-
-export default class FocusService {
+class FocusService {
     constructor() {
         this.focusRepository = new FocusRepository();
     }
@@ -64,3 +63,5 @@ export default class FocusService {
         return data;
     }
 }
+
+module.exports = FocusService;

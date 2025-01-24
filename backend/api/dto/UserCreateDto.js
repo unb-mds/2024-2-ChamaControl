@@ -1,4 +1,4 @@
-export default class UserCreateDto {
+module.exports = class UserCreateDto {
     constructor({ nome, email, senha }) {
         this.nome = nome;
         this.email = email;

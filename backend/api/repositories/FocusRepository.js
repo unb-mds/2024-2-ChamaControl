@@ -1,6 +1,6 @@
-import connection from '../../config/db.js'
+const connection = require('../../config/db.js');
 
-export default class FocusRepository {
+class FocusRepository {
 
     async getCountByYear(ano) {
         return new Promise((resolve, reject) => {
@@ -128,3 +128,5 @@ export default class FocusRepository {
         });
     }
 }
+
+module.exports = FocusRepository;

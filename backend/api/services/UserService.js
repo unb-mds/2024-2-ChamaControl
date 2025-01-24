@@ -1,7 +1,7 @@
-import UserRepository from '../repositories/UserRepository.js';
-import bcrypt from 'bcryptjs';
+const UserRepository = require('../repositories/UserRepository.js');
+const bcrypt = require('bcryptjs');
 
-export default class UserService {
+class UserService {
     constructor() {
         this.userRepository = new UserRepository();
     }
@@ -74,3 +74,5 @@ export default class UserService {
         }
     }
 }
+
+module.exports = UserService;

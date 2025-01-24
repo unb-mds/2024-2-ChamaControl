@@ -1,11 +1,11 @@
-import UserRepository from "../repositories/UserRepository.js";
-import UserService from './UserService.js';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+const UserRepository = require("../repositories/UserRepository.js");
+const UserService = require('./UserService.js');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
-export default class AuthService {
+class AuthService {
     constructor() {
         this.userRepository = new UserRepository();
         this.userService = new UserService();
@@ -36,3 +36,5 @@ export default class AuthService {
         return token;
     }
 }
+
+module.exports = AuthService;

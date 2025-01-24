@@ -1,9 +1,9 @@
-import express from 'express';
-import UserController from '../api/controllers/UserController.js';
-import AuthController from '../api/controllers/AuthController.js';
-import authenticateToken from '../api/middlewares/AuthMiddleware.js';
-import authenticateAdminToken from '../api/middlewares/AdminMiddleware.js';
-import FocusController from '../api/controllers/FocusController.js';
+const express = require('express');
+const UserController = require('../api/controllers/UserController.js');
+const AuthController = require('../api/controllers/AuthController.js');
+const authenticateToken = require('../api/middlewares/AuthMiddleware.js');
+const authenticateAdminToken = require('../api/middlewares/AdminMiddleware.js');
+const FocusController = require('../api/controllers/FocusController.js');
 
 const userController = new UserController();
 const authController = new AuthController();
@@ -28,4 +28,4 @@ router.get('/focusYearEstateYear/:estate/:year', focusController.getYearFocusFro
 router.get('/focusRegionYear/:year', focusController.getFocusByRegion)
 router.get('/focusEstateAllYears/:estate', focusController.getAllYearsFocusFromEstate)
 
-export default router;
+module.exports = router;

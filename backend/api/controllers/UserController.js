@@ -1,9 +1,9 @@
-import UserCreateDto from "../dto/UserCreateDto.js";
-import UserResponseDto from "../dto/UserResponse.js";
-import UserCompleteResponseDto from "../dto/UserCompleteResponseDto.js"
-import UserService from "../services/UserService.js";
+const UserCreateDto = require('../dto/UserCreateDto.js');
+const UserResponseDto = require('../dto/UserResponse.js');
+const UserCompleteResponseDto = require('../dto/UserCompleteResponseDto.js');
+const UserService = require('../services/UserService.js');
 
-export default class UserController {
+class UserController {
     constructor() {
         this.userService = new UserService();
 
@@ -45,3 +45,5 @@ export default class UserController {
         }
     }
 }
+
+module.exports = UserController;

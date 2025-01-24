@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
-export default function authenticateAdminToken(req, res, next) {
+function authenticateAdminToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
@@ -24,3 +24,5 @@ export default function authenticateAdminToken(req, res, next) {
         next();
     });
 }
+
+module.exports = authenticateAdminToken;

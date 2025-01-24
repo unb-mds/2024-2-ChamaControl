@@ -1,6 +1,6 @@
-import connection from '../../config/db.js'
+const connection = require('../../config/db.js')
 
-export default class UserRepository {
+class UserRepository {
 
     async create(user) {
         return new Promise((resolve, reject) => {
@@ -50,3 +50,5 @@ export default class UserRepository {
         });
     }
 }
+
+module.exports = UserRepository;
