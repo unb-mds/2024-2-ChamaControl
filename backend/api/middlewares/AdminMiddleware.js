@@ -1,28 +1,28 @@
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
 
-dotenv.config();
+dotenv.config()
 
-function authenticateAdminToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+function authenticateAdminToken (req, res, next) {
+  const authHeader = req.headers.authorization
+  const token = authHeader && authHeader.split(' ')[1]
 
-    if (!token) {
-        return res.status(401).json({ error: 'Token não fornecido.' });
+  if (!token) {
+    return res.status(401).json({ error: 'Token não fornecido.' })
+  }
+
+  jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+    if (err) {
+      return res.status(403).json({ error: 'Token inválido.' })
     }
 
-    jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
-        if (err) {
-            return res.status(403).json({ error: 'Token inválido.' });
-        }
+    if (user.eAdmin !== 1) {
+      return res.status(403).json({ error: 'Acesso negado.' })
+    }
 
-        if (user.eAdmin != 1) {
-            return res.status(403).json({ error: 'Acesso negado.' });
-        }
-
-        req.user = user;
-        next();
-    });
+    req.user = user
+    next()
+  })
 }
 
-module.exports = authenticateAdminToken;
+module.exports = authenticateAdminToken

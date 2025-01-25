@@ -1,19 +1,19 @@
-const express = require('express');
-const UserController = require('../api/controllers/UserController.js');
-const AuthController = require('../api/controllers/AuthController.js');
-const authenticateToken = require('../api/middlewares/AuthMiddleware.js');
-const authenticateAdminToken = require('../api/middlewares/AdminMiddleware.js');
-const FocusController = require('../api/controllers/FocusController.js');
+const express = require('express')
+const UserController = require('../api/controllers/UserController.js')
+const AuthController = require('../api/controllers/AuthController.js')
+const authenticateToken = require('../api/middlewares/AuthMiddleware.js')
+const authenticateAdminToken = require('../api/middlewares/AdminMiddleware.js')
+const FocusController = require('../api/controllers/FocusController.js')
 
-const userController = new UserController();
-const authController = new AuthController();
-const focusController = new FocusController();
+const userController = new UserController()
+const authController = new AuthController()
+const focusController = new FocusController()
 
-const router = express.Router();
+const router = express.Router()
 
 router.get('/hello', (req, res) => {
-    res.send('Hello world')
-});
+  res.send('Hello world')
+})
 
 router.post('/users', userController.createUser)
 router.get('/users', authenticateAdminToken, userController.findAll)
@@ -28,4 +28,4 @@ router.get('/focusYearEstateYear/:estate/:year', focusController.getYearFocusFro
 router.get('/focusRegionYear/:year', focusController.getFocusByRegion)
 router.get('/focusEstateAllYears/:estate', focusController.getAllYearsFocusFromEstate)
 
-module.exports = router;
+module.exports = router
