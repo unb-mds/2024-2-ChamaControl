@@ -14,7 +14,7 @@ const Home = () => {
         {
             image: bannerMaps,
             alt: 'Consultar Mapa',
-            link: '/maps',
+            link: '/',
         },
         {
             image: bannerAlerts,
