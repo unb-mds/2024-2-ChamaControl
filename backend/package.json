@@ -5,7 +5,8 @@
   "scripts": {
     "populaFocosAnual": "node scraper/processaDadosAnual.js",
     "app": "node app.js",
-    "lint": "standard --fix",
+    "lint:fix": "standard --fix",
+    "lint": "standard",
     "test": "jest --colors --noStackTrace --passWithNoTests --runInBand",
     "test:ci": "npm test -- --coverage --silent"
   },

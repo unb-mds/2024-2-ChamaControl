@@ -6,11 +6,11 @@ module.exports = {
     'api/**/*.{js,jsx}',
     'config/**/*.{js,jsx}',
     'routes/**/*.{js,jsx}',
-    'scraper/**/*.{js,jsx}', 
+    'scraper/**/*.{js,jsx}',
     'app.js',
     '!**/node_modules/**',
     '!**/coverage/**',
-    '!**/*.test.{js,jsx}', 
-    '!**/__tests__/**',
-  ],
+    '!**/*.test.{js,jsx}',
+    '!**/__tests__/**'
+  ]
 }
