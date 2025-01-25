@@ -14,7 +14,7 @@ function Navbar() {
             <nav className={styles.navigation}>
                 <Link to="/" className={location.pathname === "/" ? styles.active : ""}>Início</Link>
                 <Link to="/dashboard" className={location.pathname === "/dashboard" ? styles.active : ""}>Dashboard</Link>
-                <Link to="/maps" className={location.pathname === "/maps" ? styles.active : ""}>Consultar Mapa</Link>
+                {/* <Link to="/maps" className={location.pathname === "/maps" ? styles.active : ""}>Consultar Mapa</Link> */}
                 <Link to="/about" className={location.pathname === "/about" ? styles.active : ""}>Equipe</Link>
             </nav>
             <div className={styles.nav_actions}>

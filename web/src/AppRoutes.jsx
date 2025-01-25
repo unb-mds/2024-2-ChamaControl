@@ -5,7 +5,7 @@ import Loading from "./components/Loading/Loading.jsx";
 
 
 const Home = lazy(() => import("./pages/Home/Home"));
-const Maps = lazy(() => import("./pages/Maps/Maps"));
+// const Maps = lazy(() => import("./pages/Maps/Maps"));
 const Alert = lazy(() => import("./pages/Alert/Alert"));
 const About = lazy(() => import("./pages/About/About"));
 const Login = lazy(() => import("./pages/Login/Login"));
@@ -18,7 +18,7 @@ function AppRoutes() {
             <Suspense fallback={<Loading />}>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/maps" element={<Maps />} />
+                    {/* <Route path="/maps" element={<Maps />} /> */}
                     <Route path="/alert" element={<Alert />} /> 
                     <Route path="/about" element={<About />} />
                     <Route path="/login" element={<Login />} />

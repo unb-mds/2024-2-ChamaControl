@@ -13,6 +13,7 @@ import {
     ArcElement,
 } from 'chart.js';
 import axios from 'axios';
+import LoadingGraphs from "../../components/LoadingGraphs/LoadingGraphs.jsx";
 
 ChartJS.register(
     CategoryScale,
@@ -39,6 +40,11 @@ const Dashboard = () => {
     const [selectedEstate, setSelectedEstate] = useState('PA');
     const [historicalData, setHistoricalData] = useState([]);
     const [selectedHistoricalEstate, setSelectedHistoricalEstate] = useState('PA');
+
+    const [loadingEstateMonth, setLoadingEstateMonth] = useState(false);
+    const [loadingRegion, setLoadingRegion] = useState(false);
+    const [loadingYearEstate, setLoadingYearEstate] = useState(false);
+    const [loadingHistorical, setLoadingHistorical] = useState(false);
 
     const estados = [
         { value: 'AC', label: 'Acre' },
@@ -89,6 +95,7 @@ const Dashboard = () => {
 
     const fetchEstateData = async () => {
         try {
+            setLoadingEstateMonth(true);
             const estateMonth = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusEstateMonthYear/${selectedMonth}/${selectedYear}`);
             setEstateMonthData({
                 labels: estateMonth.data.map(item => item.estado),
@@ -102,11 +109,14 @@ const Dashboard = () => {
             });
         } catch (error) {
             console.error('Erro ao buscar dados por estado:', error);
+        } finally {
+            setLoadingEstateMonth(false);
         }
     };
 
     const fetchRegionData = async () => {
         try {
+            setLoadingRegion(true);
             const regionMonth = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusRegionYear/${selectedRegionYear}`);
             setRegionMonthData({
                 labels: regionMonth.data.map(item => item.regiao),
@@ -132,11 +142,15 @@ const Dashboard = () => {
             });
         } catch (error) {
             console.error('Erro ao buscar dados por região:', error);
+        } finally {
+            setLoadingRegion(false);
         }
     };
 
     const fetchYearEstateData = async () => {
         try {
+            setLoadingYearEstate(true);
+
             const estadoNome = estados.find(e => e.value === selectedEstate)?.label;
             const yearEstate = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusYearEstateYear/${estadoNome}/${selectedEstateYear}`);
             setYearEstateData({
@@ -151,16 +165,22 @@ const Dashboard = () => {
             });
         } catch (error) {
             console.error('Erro ao buscar dados por estado:', error);
+        } finally {
+            setLoadingYearEstate(false);
         }
     };
 
     const fetchHistoricalData = async () => {
         try {
+            setLoadingHistorical(true);
+
             const estadoNome = estados.find(e => e.value === selectedHistoricalEstate)?.label;
             const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusEstateAllYears/${estadoNome}`);
             setHistoricalData(response.data);
         } catch (error) {
             console.error('Erro ao buscar dados históricos:', error);
+        } finally {
+            setLoadingHistorical(false);
         }
     };
 
@@ -186,6 +206,7 @@ const Dashboard = () => {
         plugins: {
             legend: {
                 position: 'top',
+                onClick: null,
             }
         }
     };
@@ -230,7 +251,11 @@ const Dashboard = () => {
                     </div>
                     <h3>Focos por Estado ({months.find(m => m.value === selectedMonth)?.label} de {selectedYear})</h3>
                     <div style={{ height: '300px', width: '800px' }}>
-                        <Bar data={estateMonthData} options={options} />
+                        {loadingEstateMonth ? (
+                            <LoadingGraphs />
+                        ) : (
+                            <Bar data={estateMonthData} options={options} />
+                        )}
                     </div>
                 </div>
 
@@ -254,7 +279,11 @@ const Dashboard = () => {
                     </div>
                     <h3>Focos por Região ({selectedRegionYear})</h3>
                     <div style={{ height: '300px' }}>
-                        <Pie data={regionMonthData} options={options} />
+                        {loadingRegion ? (
+                            <LoadingGraphs />
+                        ) : (
+                            <Pie data={regionMonthData} options={options} />
+                        )}
                     </div>
                 </div>
 
@@ -301,7 +330,11 @@ const Dashboard = () => {
                     </div>
                     <h3>Focos em {estados.find(e => e.value === selectedEstate)?.label} por Mês ({selectedEstateYear})</h3>
                     <div style={{ height: '300px' }}>
-                        <Bar data={yearEstateData} options={options} />
+                        {loadingYearEstate ? (
+                            <LoadingGraphs />
+                        ) : (
+                            <Bar data={yearEstateData} options={options} />
+                        )}
                     </div>
                 </div>
 
@@ -325,40 +358,44 @@ const Dashboard = () => {
                     </div>
                     <h3>Histórico de Focos de Incêndio em {estados.find(e => e.value === selectedHistoricalEstate)?.label}</h3>
                     <div className="table-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center' }}>
-                            <thead style={{ position: 'sticky', top: 0, background: 'white' }}>
-                                <tr>
-                                    <th style={{ padding: '8px', border: '1px solid #ddd' }}>Ano</th>
-                                    {months.map(month => (
-                                        <th key={month.value} style={{ padding: '8px', border: '1px solid #ddd' }}>
-                                            {month.label}
-                                        </th>
-                                    ))}
-                                    <th style={{ padding: '8px', border: '1px solid #ddd' }}>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {years.map(year => {
-                                    const yearData = historicalData.filter(item => item.ano === year);
-                                    const yearTotal = yearData.reduce((sum, item) => sum + parseInt(item.quantidade_focos || 0), 0);
-                                    
-                                    return (
-                                        <tr key={year}>
-                                            <td style={{ padding: '8px', border: '1px solid #ddd', fontWeight: 'bold' }}>{year}</td>
-                                            {months.map(month => {
-                                                const monthData = yearData.find(item => item.mes === month.value);
-                                                return (
-                                                    <td key={month.value} style={{ padding: '8px', border: '1px solid #ddd' }}>
-                                                        {monthData ? monthData.quantidade_focos : '-'}
-                                                    </td>
-                                                );
-                                            })}
-                                            <td style={{ padding: '8px', border: '1px solid #ddd', fontWeight: 'bold' }}>{yearTotal}</td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
+                        {loadingHistorical ? (
+                            <LoadingGraphs />
+                        ) : (
+                            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center' }}>
+                                <thead style={{ position: 'sticky', top: 0, background: 'white' }}>
+                                    <tr>
+                                        <th style={{ padding: '8px', border: '1px solid #ddd' }}>Ano</th>
+                                        {months.map(month => (
+                                            <th key={month.value} style={{ padding: '8px', border: '1px solid #ddd' }}>
+                                                {month.label}
+                                            </th>
+                                        ))}
+                                        <th style={{ padding: '8px', border: '1px solid #ddd' }}>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {years.map(year => {
+                                        const yearData = historicalData.filter(item => item.ano === year);
+                                        const yearTotal = yearData.reduce((sum, item) => sum + parseInt(item.quantidade_focos || 0), 0);
+                                        
+                                        return (
+                                            <tr key={year}>
+                                                <td style={{ padding: '8px', border: '1px solid #ddd', fontWeight: 'bold' }}>{year}</td>
+                                                {months.map(month => {
+                                                    const monthData = yearData.find(item => item.mes === month.value);
+                                                    return (
+                                                        <td key={month.value} style={{ padding: '8px', border: '1px solid #ddd' }}>
+                                                            {monthData ? monthData.quantidade_focos : '-'}
+                                                        </td>
+                                                    );
+                                                })}
+                                                <td style={{ padding: '8px', border: '1px solid #ddd', fontWeight: 'bold' }}>{yearTotal}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        )}
                     </div>
                 </div>
             </div>

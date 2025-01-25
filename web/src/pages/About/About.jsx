@@ -66,7 +66,7 @@ const About = () => {
             </div>
 
             {/* Navbar */}
-            <Navbar/>
+            <Navbar />
 
             {/* Conteúdo */}
             <main className="about-content">
@@ -74,7 +74,7 @@ const About = () => {
                     <h1>Quem somos nós?</h1>
                     <p>
                         Somos alunos de Engenharia de Software. Este projeto foi confeccionado para a disciplina
-                        de Métodos de Desenvolvimento de Software, lecionada pela professora Carla Rocha. Nosso
+                        de Métodos de Desenvolvimento de Software, lecionada pela professora <a href="https://carlarocha.org/" target="_blank" rel="noopener noreferrer">Carla Rocha</a>. Nosso
                         objetivo é oferecer uma solução tecnológica para o monitoramento e combate às queimadas no Brasil.
                     </p>
                 </section>
