@@ -1,4 +1,4 @@
-# [ChamaControl](https://github.com/unb-mds/2024-2-ChamaControl)
+# [ChamaControl](https://2024-2-chama-control.vercel.app/)
 
 O [ChamaControl](https://2024-2-chama-control.vercel.app/) é uma iniciativa da disciplina **Métodos de Desenvolvimento de Software** com o propósito de criar uma plataforma intuitiva, onde cidadãos possam ter acesso e monitorar informações sobre queimadas que possam estar acontecendo pelo território brasileiro. A ideia central é facilitar o acesso e a transparência, permitindo que usuários possam:
 
