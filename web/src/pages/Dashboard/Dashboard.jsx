@@ -30,7 +30,7 @@ const Dashboard = () => {
 
     const [estateMonthData, setEstateMonthData] = useState({ labels: [], datasets: [] });
     const [regionMonthData, setRegionMonthData] = useState({ labels: [], datasets: [] });
-    const [yearRegionData, setYearRegionData] = useState({ labels: [], datasets: [] });
+
     const [yearEstateData, setYearEstateData] = useState({ labels: [], datasets: [] });
     const [selectedMonth, setSelectedMonth] = useState(currentMonth);
     const [selectedYear, setSelectedYear] = useState(2016);
@@ -89,7 +89,7 @@ const Dashboard = () => {
 
     const fetchEstateData = async () => {
         try {
-            const estateMonth = await axios.get(`http://localhost:3000/api/focusEstateMonthYear/${selectedMonth}/${selectedYear}`);
+            const estateMonth = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusEstateMonthYear/${selectedMonth}/${selectedYear}`);
             setEstateMonthData({
                 labels: estateMonth.data.map(item => item.estado),
                 datasets: [{
@@ -107,7 +107,7 @@ const Dashboard = () => {
 
     const fetchRegionData = async () => {
         try {
-            const regionMonth = await axios.get(`http://localhost:3000/api/focusRegionYear/${selectedRegionYear}`);
+            const regionMonth = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusRegionYear/${selectedRegionYear}`);
             setRegionMonthData({
                 labels: regionMonth.data.map(item => item.regiao),
                 datasets: [{
@@ -138,7 +138,7 @@ const Dashboard = () => {
     const fetchYearEstateData = async () => {
         try {
             const estadoNome = estados.find(e => e.value === selectedEstate)?.label;
-            const yearEstate = await axios.get(`http://localhost:3000/api/focusYearEstateYear/${estadoNome}/${selectedEstateYear}`);
+            const yearEstate = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusYearEstateYear/${estadoNome}/${selectedEstateYear}`);
             setYearEstateData({
                 labels: yearEstate.data.map(item => item.mes),
                 datasets: [{
@@ -157,38 +157,12 @@ const Dashboard = () => {
     const fetchHistoricalData = async () => {
         try {
             const estadoNome = estados.find(e => e.value === selectedHistoricalEstate)?.label;
-            const response = await axios.get(`http://localhost:3000/api/focusEstateAllYears/${estadoNome}`);
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusEstateAllYears/${estadoNome}`);
             setHistoricalData(response.data);
         } catch (error) {
             console.error('Erro ao buscar dados históricos:', error);
         }
     };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // Buscar dados anuais por região (Norte)
-                const yearRegion = await axios.get(`http://localhost:3000/api/focusYearRegionYear/Norte/${currentYear}`);
-                setYearRegionData({
-                    labels: yearRegion.data.map(item => item.mes),
-                    datasets: [{
-                        label: 'Focos de Incêndio - Região Norte',
-                        data: yearRegion.data.map(item => parseInt(item.quantidade_focos)),
-                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }]
-                });
-            } catch (error) {
-                console.error('Erro ao buscar dados:', error);
-            }
-        };
-
-        fetchData();
-        fetchRegionData();
-        fetchYearEstateData();
-        fetchHistoricalData();
-    }, []);
 
     useEffect(() => {
         fetchEstateData();
@@ -221,7 +195,6 @@ const Dashboard = () => {
             <Navbar/>
             <div className="dashboard-container">
                 <h2>Dashboard de Focos de Incêndio</h2>
-                
                 <div className="chart-container">
                     <div className="filter-container" style={{ marginBottom: '20px', display: 'flex', gap: '20px' }}>
                         <div>
