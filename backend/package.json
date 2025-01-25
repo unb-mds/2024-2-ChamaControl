@@ -5,12 +5,24 @@
   "scripts": {
     "test": "jest",
     "populaFocosAnual": "node scraper/processaDadosAnual.js",
-    "app": "node app.js"
+    "app": "node app.js",
+    "lint": "standard --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
+  "standard": {
+    "globals": [
+      "describe",
+      "it",
+      "expect",
+      "beforeAll",
+      "afterAll",
+      "beforeEach",
+      "afterEach"
+    ]
+  },
   "dependencies": {
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
@@ -24,6 +36,7 @@
   },
   "devDependencies": {
     "jest": "^29.7.0",
+    "standard": "^17.1.2",
     "supertest": "^7.0.0"
   }
 }
