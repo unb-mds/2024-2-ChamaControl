@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
     "populaFocosAnual": "node scraper/processaDadosAnual.js",
     "app": "node app.js",
-    "lint": "standard --fix"
+    "lint": "standard --fix",
+    "test": "jest --colors --noStackTrace --passWithNoTests --runInBand",
+    "test:ci": "npm test -- --coverage --silent"
   },
   "keywords": [],
   "author": "",
