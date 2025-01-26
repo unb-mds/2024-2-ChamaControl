@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Rodape.module.css";
+import { FaGithub } from "react-icons/fa";
 
 const Rodape = () => {
   return (
@@ -21,8 +22,8 @@ const Rodape = () => {
         <p className={styles.copyright}>
           &copy; 2024 | <a href="/"><b>Chama Control</b></a>
         </p>
-        <a href="https://github.com/unb-mds/2024-2-ChamaControl" target="blank">
-        <img className={styles.github_logo} src="../../logos/logo-github.png" alt="logo-github" />
+        <a href="https://github.com/unb-mds/2024-2-ChamaControl?tab=readme-ov-file#chamacontrol" target="blank">
+        <FaGithub size={30} color="#000" style={{ marginTop: "20px" }}/>
         </a>
 
       </div>
