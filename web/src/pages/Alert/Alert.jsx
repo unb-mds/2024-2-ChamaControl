@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './Alert.css';
 import Navbar from '../../components/Navbar/Navbar.jsx';
+import Rodape from '../../components/Rodape/Rodape.jsx';
 
 const Alert = () => {
     const [name, setName] = useState('');
@@ -64,6 +65,7 @@ const Alert = () => {
                     </button>
                 </form>
             </main>
+            <Rodape/>
         </div>
     );
 };
