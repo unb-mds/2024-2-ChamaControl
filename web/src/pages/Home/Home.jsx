@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 import './Home.css';
 
 import Navbar from '../../components/Navbar/Navbar.jsx';
+import Rodape from '../../components/Rodape/Rodape.jsx';
 
-import bannerMaps from   '../../../public/banners/banner-maps.png'
-import bannerAlerts from '../../../public/banners/banner-alerts.png'
+import bannerMaps from   '/banners/banner-maps.png';
+import bannerAlerts from '/banners/banner-alerts.png';
 
 
 const Home = () => {
@@ -65,6 +66,8 @@ const Home = () => {
                     mais saudável e sustentável.
                 </p>
             </section>
+
+            <Rodape/>
         </div>
     );
 };

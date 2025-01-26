@@ -2,14 +2,15 @@ import Navbar from '../../components/Navbar/Navbar.jsx';
 
 import './About.css';
 
-import artur from '../../../public/members/artur.png';   // Importa as imagens dos membros
-import diassis from '../../../public/members/diassis.png';
-import eduardo from '../../../public/members/eduardo.png';
-import filipe from '../../../public/members/filipe.png';
-import gustavo from '../../../public/members/gustavo.png';
-import leonardo from '../../../public/members/leonardo.png';
+import artur from '/members/artur.png';   // Importa as imagens dos membros
+import diassis from '/members/diassis.png';
+import eduardo from '/members/eduardo.png';
+import filipe from '/members/filipe.png';
+import gustavo from '/members/gustavo.png';
+import leonardo from '/members/leonardo.png';
 
-import logoGithub from '../../../public/logos/logo-github.png';
+import logoGithub from '/logos/logo-github.png';
+import Rodape from '../../components/Rodape/Rodape.jsx';
 
 const members = [
     {
@@ -98,6 +99,7 @@ const About = () => {
                     ))}
                 </section>
             </main>
+            <Rodape/>
         </div>
     );
 };

@@ -14,6 +14,7 @@ import {
 } from 'chart.js';
 import axios from 'axios';
 import LoadingGraphs from "../../components/LoadingGraphs/LoadingGraphs.jsx";
+import Rodape from '../../components/Rodape/Rodape.jsx';
 
 ChartJS.register(
     CategoryScale,
@@ -26,7 +27,7 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-    const currentYear = 2018;
+    const currentYear = 2024;
     const currentMonth = new Date().getMonth() + 1;
 
     const [estateMonthData, setEstateMonthData] = useState({ labels: [], datasets: [] });
@@ -34,12 +35,12 @@ const Dashboard = () => {
 
     const [yearEstateData, setYearEstateData] = useState({ labels: [], datasets: [] });
     const [selectedMonth, setSelectedMonth] = useState(currentMonth);
-    const [selectedYear, setSelectedYear] = useState(2016);
+    const [selectedYear, setSelectedYear] = useState(2024);
     const [selectedRegionYear, setSelectedRegionYear] = useState(currentYear);
     const [selectedEstateYear, setSelectedEstateYear] = useState(currentYear);
-    const [selectedEstate, setSelectedEstate] = useState('PA');
+    const [selectedEstate, setSelectedEstate] = useState('DF');
     const [historicalData, setHistoricalData] = useState([]);
-    const [selectedHistoricalEstate, setSelectedHistoricalEstate] = useState('PA');
+    const [selectedHistoricalEstate, setSelectedHistoricalEstate] = useState('DF');
 
     const [loadingEstateMonth, setLoadingEstateMonth] = useState(false);
     const [loadingRegion, setLoadingRegion] = useState(false);
@@ -102,8 +103,8 @@ const Dashboard = () => {
                 datasets: [{
                     label: 'Focos de Incêndio',
                     data: estateMonth.data.map(item => parseInt(item.quantidade_focos)),
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: '#f57c00',
+                    borderColor: '#f57c00',
                     borderWidth: 1
                 }]
             });
@@ -124,19 +125,20 @@ const Dashboard = () => {
                     label: 'Focos de Incêndio',
                     data: regionMonth.data.map(item => parseInt(item.quantidade_focos)),
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 206, 86, 0.5)',
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(245, 124, 0, 0.5)',
+                        'rgba(255, 193, 7, 0.5)',
+                        'rgba(76, 175, 80, 0.5)',
+                        'rgba(33, 150, 243, 0.5)',
+                        'rgba(156, 39, 176, 0.5)',
                     ],
                     borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
+                        'rgba(245, 124, 0, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(76, 175, 80, 1)',
+                        'rgba(33, 150, 243, 1)',
+                        'rgba(156, 39, 176, 1)',
                     ],
+                    
                     borderWidth: 1
                 }]
             });
@@ -154,15 +156,19 @@ const Dashboard = () => {
             const estadoNome = estados.find(e => e.value === selectedEstate)?.label;
             const yearEstate = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusYearEstateYear/${estadoNome}/${selectedEstateYear}`);
             setYearEstateData({
-                labels: yearEstate.data.map(item => item.mes),
+                labels: yearEstate.data.map(item => {
+                    const monthObj = months.find(m => m.value === item.mes);
+                    return monthObj ? monthObj.label : item.mes;
+                }),
                 datasets: [{
                     label: `Focos de Incêndio - ${estadoNome}`,
                     data: yearEstate.data.map(item => parseInt(item.quantidade_focos)),
-                    backgroundColor: 'rgba(153, 102, 255, 0.5)',
-                    borderColor: 'rgba(153, 102, 255, 1)',
+                    backgroundColor: '#f57c00',
+                    borderColor: '#f57c00',
                     borderWidth: 1
                 }]
             });
+            
         } catch (error) {
             console.error('Erro ao buscar dados por estado:', error);
         } finally {
@@ -215,7 +221,7 @@ const Dashboard = () => {
         <div className="dashboard-page">
             <Navbar/>
             <div className="dashboard-container">
-                <h2>Dashboard de Focos de Incêndio</h2>
+                <div className="title-container"><h1>Dashboard de Focos de Incêndio</h1></div>
                 <div className="chart-container">
                     <div className="filter-container" style={{ marginBottom: '20px', display: 'flex', gap: '20px' }}>
                         <div>
@@ -356,7 +362,22 @@ const Dashboard = () => {
                             </select>
                         </div>
                     </div>
-                    <h3>Histórico de Focos de Incêndio em {estados.find(e => e.value === selectedHistoricalEstate)?.label}</h3>
+
+                    <h3>
+  Histórico de Focos de Incêndio 
+  {
+    (() => {
+      const concordancia = {
+        'AC': ' no', 'AL': ' em', 'AP': ' no', 'AM': ' no', 'BA': ' na', 'CE': ' no', 'DF': ' no', 'ES': ' no', 'GO': ' em',
+        'MA': ' no', 'MT': ' no', 'MS': ' no', 'MG': ' em', 'PA': ' no', 'PB': ' na', 'PR': ' no', 'PE': ' em', 'PI': ' no', 
+        'RJ': ' no', 'RN': ' no', 'RS': ' no', 'RO': ' em', 'RR': ' em', 'SC': ' em', 'SP': ' em', 'SE': ' em', 'TO': ' no'
+      };
+      return `${concordancia[selectedHistoricalEstate] || ' em'} ${estados.find(e => e.value === selectedHistoricalEstate)?.label}`;
+    })()
+  }
+</h3>
+
+
                     <div className="table-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
                         {loadingHistorical ? (
                             <LoadingGraphs />
@@ -399,6 +420,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            <Rodape/>
         </div>
     );
 };
