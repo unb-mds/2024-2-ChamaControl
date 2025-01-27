@@ -1,13 +1,12 @@
-import fs from 'fs'
-import csv from 'csv-parser'
-import connection from '../config/db.js'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import axios from 'axios'
-import unzipper from 'unzipper'
+const fs = require('fs')
+const csv = require('csv-parser')
+const connection = require('../config/db.js')
+const path = require('path')
+const axios = require('axios')
+const unzipper = require('unzipper')
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
 
 const csvDir = path.join(__dirname, 'extrato')
 const dadosAgregados = new Map()

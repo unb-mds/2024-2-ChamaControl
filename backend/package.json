@@ -12,6 +12,7 @@
   },
   "keywords": [],
   "author": "",
+  "type": "commonjs",
   "license": "ISC",
   "description": "",
   "standard": {
