@@ -28,6 +28,7 @@ body {
     display: flex;
     flex-wrap: nowrap;
     gap: 10px;
+    aspect-ratio: 3 / 1;
 }
 
 .slide {
@@ -152,7 +153,8 @@ body {
 /* Responsividade */
 @media (max-width: 1024px) {
     .banner-slider {
-        height: 300px;
+        height: auto;
+        aspect-ratio: 3 / 1;
     }
 
     .banner-cta {
@@ -171,7 +173,8 @@ body {
 
 @media (max-width: 768px) {
     .banner-slider {
-        height: 250px;
+        height: auto;
+        aspect-ratio: 3 / 1;
         gap: 5px;
     }
 
@@ -197,7 +200,8 @@ body {
 
 @media (max-width: 480px) {
     .banner-slider {
-        height: 200px;
+        height: auto;
+        aspect-ratio: 3 / 1;
     }
 
     .banner-cta {
