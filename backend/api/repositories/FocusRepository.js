@@ -70,6 +70,25 @@ class FocusRepository {
     })
   }
 
+  async getFocusFromBiomes (year) {
+    const query = `
+            SELECT bioma, sum(quantidade_focos) as quantidade_focos, ano
+            FROM focos
+            WHERE ano = ?
+            GROUP BY bioma
+            order by bioma;
+        `
+
+    return new Promise((resolve, reject) => {
+      connection.query(query, [year], (err, results) => {
+        if (err) {
+          reject(new Error('Erro ao obter dados: ' + err.message))
+        }
+        resolve(results)
+      })
+    })
+  }
+
   async getYearFocusFromRegion (region, year) {
     const query = `
             SELECT mes, regiao, sum(quantidade_focos) as quantidade_focos, ano

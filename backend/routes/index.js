@@ -26,6 +26,7 @@ router.get('/focusRegionMonthYear/:month/:year', focusController.getMonthlyFocus
 router.get('/focusYearRegionYear/:region/:year', focusController.getYearFocusFromRegion)
 router.get('/focusYearEstateYear/:estate/:year', focusController.getYearFocusFromEstate)
 router.get('/focusRegionYear/:year', focusController.getFocusByRegion)
+router.get('/focusBiomesYear/:year', focusController.getFocusFromBiomes)
 router.get('/focusEstateAllYears/:estate', focusController.getAllYearsFocusFromEstate)
 
 module.exports = router
