@@ -28,7 +28,8 @@
     ],
     "ignore": [
       "tests/config/db.test.js",
-      "tests/services/FocusService.test.js"
+      "tests/services/FocusService.test.js",
+      "tests/services/FocusController.test.js"
     ]
   },
   "dependencies": {
