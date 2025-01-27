@@ -193,12 +193,73 @@ body {
     height: 30px;
     background-color: #f57c00;
     border-radius: 50%;
+    margin-right: 25px;
 }
 
-.user-icon {
-    width: 30px;
-    height: 30px;
-    background-color: #f57c00;
-    border-radius: 50%;
-    margin-right: 25px;
+/* Responsividade */
+@media (max-width: 768px) {
+    .members-section {
+        grid-template-columns: 1fr; /* Apenas 1 coluna */
+        gap: 15px;
+    }
+
+    .about-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .about-header .logo-image {
+        height: 40px;
+        margin-bottom: 10px;
+    }
+
+    .nav-actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .alert-button {
+        padding: 8px 16px;
+    }
+
+    .about-intro h1 {
+        font-size: 28px; /* Tamanho menor */
+    }
+
+    .about-intro p {
+        font-size: 16px;
+    }
+
+    .background-photo {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-header {
+        padding: 5px;
+    }
+
+    .members-section {
+        gap: 10px;
+    }
+
+    .about-intro {
+        padding: 15px;
+    }
+
+    .about-intro h1 {
+        font-size: 24px;
+    }
+
+    .about-intro p {
+        font-size: 14px;
+    }
+
+    .background-photo {
+        width: 60px;
+        height: 60px;
+    }
 }

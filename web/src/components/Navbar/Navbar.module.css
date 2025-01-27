@@ -1,3 +1,4 @@
+/* Geral */
 .home_header {
     width: 100%;
     padding: 10px 20px;
@@ -7,10 +8,23 @@
     align-items: center;
     justify-content: space-between;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Logo */
+.logo_image {
+    height: 50px;
+}
+
+/* Navegação */
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease;
 }
 
 .navigation a {
-    margin: 0 15px;
     text-decoration: none;
     font-weight: bold;
     color: #333;
@@ -24,6 +38,16 @@
     color: #f57c00;
 }
 
+/* Botão "Hambúrguer" */
+.hamburger {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Botão de alerta */
 .alert_button {
     background-color: #f57c00;
     color: #fff;
@@ -36,4 +60,34 @@
 
 .alert_button:hover {
     background-color: #e76a00;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .navigation {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        transform: translateY(-200%);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        z-index: 1000;
+    }
+
+    .navigation.open {
+        transform: translateY(0);
+    }
+
+    .hamburger {
+        display: block;
+        position: relative;
+        z-index: 1001;
+    }
+
+    .nav_actions {
+        display: none;
+    }
 }
