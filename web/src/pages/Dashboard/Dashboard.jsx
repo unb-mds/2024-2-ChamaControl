@@ -256,7 +256,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <h3>Focos por Estado ({months.find(m => m.value === selectedMonth)?.label} de {selectedYear})</h3>
-                    <div style={{ height: '300px', width: '800px' }}>
+                    <div className='grafico1'>
                         {loadingEstateMonth ? (
                             <LoadingGraphs />
                         ) : (
@@ -284,7 +284,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <h3>Focos por Região ({selectedRegionYear})</h3>
-                    <div style={{ height: '300px' }}>
+                    <div className='grafico1'>
                         {loadingRegion ? (
                             <LoadingGraphs />
                         ) : (
@@ -335,7 +335,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <h3>Focos em {estados.find(e => e.value === selectedEstate)?.label} por Mês ({selectedEstateYear})</h3>
-                    <div style={{ height: '300px' }}>
+                    <div className='grafico1'>
                         {loadingYearEstate ? (
                             <LoadingGraphs />
                         ) : (
