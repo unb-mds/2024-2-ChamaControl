@@ -146,12 +146,79 @@ body {
     height: 30px;
     background-color: #f57c00;
     border-radius: 50%;
+    margin-right: 25px;
 }
 
-.user-icon {
-    width: 30px;
-    height: 30px;
-    background-color: #f57c00;
-    border-radius: 50%;
-    margin-right: 25px;
+/* Responsividade */
+@media (max-width: 1024px) {
+    .banner-slider {
+        height: 300px;
+    }
+
+    .banner-cta {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+    .about-project h1 {
+        font-size: 30px;
+    }
+
+    .about-project p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner-slider {
+        height: 250px;
+        gap: 5px;
+    }
+
+    .banner-cta {
+        font-size: 14px;
+        bottom: 10px;
+        left: 10px;
+        padding: 6px 12px;
+    }
+
+    .about-project {
+        padding: 20px;
+    }
+
+    .about-project h1 {
+        font-size: 24px;
+    }
+
+    .about-project p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-slider {
+        height: 200px;
+    }
+
+    .banner-cta {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    .about-project {
+        padding: 15px;
+    }
+
+    .about-project h1 {
+        font-size: 20px;
+    }
+
+    .about-project p {
+        font-size: 12px;
+    }
+
+    .alert-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
 }
