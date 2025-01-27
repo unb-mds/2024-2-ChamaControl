@@ -334,7 +334,20 @@ const Dashboard = () => {
                             </select>
                         </div>
                     </div>
-                    <h3>Focos em {estados.find(e => e.value === selectedEstate)?.label} por Mês ({selectedEstateYear})</h3>
+                    <h3>
+                        Focos
+                        {
+                            (() => {
+                            const concordancia = {
+                                'AC': ' no', 'AL': ' em', 'AP': ' no', 'AM': ' no', 'BA': ' na', 'CE': ' no', 'DF': ' no', 'ES': ' no', 'GO': ' em',
+                                'MA': ' no', 'MT': ' no', 'MS': ' no', 'MG': ' em', 'PA': ' no', 'PB': ' na', 'PR': ' no', 'PE': ' em', 'PI': ' no', 
+                                'RJ': ' no', 'RN': ' no', 'RS': ' no', 'RO': ' em', 'RR': ' em', 'SC': ' em', 'SP': ' em', 'SE': ' em', 'TO': ' no'
+                            };
+                            return `${concordancia[selectedEstate] || ' em'} ${estados.find(e => e.value === selectedEstate)?.label}`;
+                            })()
+                        }
+                        {' '} por Mês ({selectedEstateYear})
+                    </h3>
                     <div className='grafico1'>
                         {loadingYearEstate ? (
                             <LoadingGraphs />
