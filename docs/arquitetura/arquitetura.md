@@ -1,51 +1,160 @@
-# Arquitetura
-
-## Introdução
-A arquitetura de software é o alicerce de qualquer sistema, representando as decisões fundamentais sobre a estrutura e organização de seus componentes. Ela define como diferentes partes do sistema interagem entre si e como essas interações sustentam as funcionalidades desejadas. Este documento apresentará as informações necessárias para entender a arquitetura e o funcionamento do nosso software.
-
-### Diagrama de arquitetura
-![Diagrama arquitetura](diagrama.png)
+# Documentação do Projeto ChamaControl
 
 ## Visão Geral
 
-1. O Usuário irá acessar nossa página
-2. Irá selecionar qual Estado deseja obter informações 
-3. O usuário irá observar no mapa as informações que deseja
-4. O usuário decide se quer receber atualizações em seu e-mail da pesquisa (necessário ter conta)
+O **ChamaControl** é um sistema desenvolvido para visualização de queimadas pelo terrotório brasileiro, fornecendo uma interface interativa para visualização e gestão de dados relacionados a focos de incêndio. O projeto é estruturado em uma arquitetura baseada em **backend e frontend**, garantindo escalabilidade e modularidade.
 
-## Tecnologias
 
-A nossa aplicação será desenvolvida em três partes principais, sendo elas:
+## Componentes Principais
+O sistema é dividido em três camadas principais:
 
-- Front-end:
-    - React;
-- Back-end:
-    - JavaScript;
-    - Python;
-    - NodeJS;
-- Banco de Dados:
-    - MySql;
+- Front-end
+- Back-end
+- Banco de Dados
 
-### Front-End:
-O front-end é a camada responsável pela interface do usuário, sendo a parte visível e interativa de um sistema. Ele conecta o usuário final às funcionalidades da aplicação, garantindo uma experiência fluida, intuitiva e visualmente agradável. Essa camada lida com a exibição de informações e a captura de entradas. Para a construção desta aplicação, será utilizado o React, uma biblioteca JavaScript amplamente adotada, conhecida por sua eficiência e flexibilidade no desenvolvimento de interfaces modernas e reutilizáveis.
 
-### Back-End:
-O back-end é a camada que gerencia a lógica de negócios, processamento de dados e comunicação entre o front-end e o banco de dados. Ele é responsável por garantir que as funcionalidades do sistema sejam executadas de forma eficiente e segura, fornecendo as informações necessárias ao usuário e processando as ações realizadas na interface. Nesta aplicação, será utilizado o Node.js para o desenvolvimento da API, oferecendo alta performance e escalabilidade na comunicação entre as partes do sistema. Para complementar, será utilizada a linguagem de programação Python na implementação de scrapers, que serão responsáveis por coletar e processar dados, estes dados serão retirados do Programa de Queimadas do INPE, garantindo acesso a informações confiáveis e atualizadas sobre ocorrências de incêndios no território brasileiro.
+## 1. Front-end
+### Cliente (Web)
+O front-end do ChamaControl é responsável pela interface do usuário (UI), permitindo interações intuitivas e responsivas. O desenvolvimento utiliza **Vite**, que oferece um ambiente rápido para desenvolvimento moderno de JavaScript.
 
-### Banco de Dados:
-O banco de dados é responsável por armazenar e gerenciar as informações da aplicação de forma segura e eficiente. Para este projeto, será utilizado o MySQL, uma solução robusta e confiável, ideal para lidar com operações de leitura, escrita e atualização dos dados.
-  
-## Tecnologias utilizadas 
+#### Tecnologias
+- **Framework**: React
+- **Gerenciador de Pacotes**: npm
+- **Estilização**: CSS
+- **Build Tool**: Vite
 
-- DevOps:
-    - Docker: Docker é utilizado para containerizar o ambiente de desenvolvimento e produção, garantindo consistência entre diferentes máquinas e facilitando a implantação de novas versões da aplicação.
+#### Como rodar o front-end
+```sh
+cd web
+npm install
+npm run dev
+```
+Isso iniciará o servidor de desenvolvimento. 
+### O front-end ficará disponível em: ```http://localhost:5173/```
 
-- Back-end:
-    - Node.js: Utilizado para construir APIs rápidas e escaláveis, aproveitando sua arquitetura baseada em eventos para gerenciar um grande número de requisições simultâneas.
-    - Python: Responsável pelo desenvolvimento de scripts e serviços de apoio, como processamento de dados e integração com outras ferramentas, aproveitando sua ampla gama de bibliotecas.
+---
 
-- Front-end:
-    - React: Framework JavaScript utilizado para criar interfaces dinâmicas e responsivas, proporcionando uma experiência de usuário interativa e fluida.
+## 2. Back-end
+O back-end é desenvolvido em **Node.js** utilizando **Express**, responsável por gerenciar a lógica de negócio e as requisições do sistema.
 
-- Banco de Dados:
-    - PostgreSQL: Banco de dados relacional utilizado para armazenamento confiável e eficiente, com suporte a consultas complexas e segurança robusta.
+### Estrutura do Back-end
+- **API**: Expõe endpoints para o front-end consumir.
+- **Users**: Gerencia autenticação e dados dos usuários.
+- **Routes**: Define as rotas do sistema.
+- **Scraper**: Contém scripts para [extração/manipulação de dados].
+
+#### Como rodar o back-end
+
+Primeiro, rode o arquivo `script-db.sql` em seu **MySql** para criar as tabelas.
+
+Dentro de `/backend`
+
+```shell
+# Crie um arquivo .env com as seguintes variáveis
+SECRET_KEY=seu_segredo
+TOKEN_EXPIRATION=10m
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=sua_senha_do_banco_de_dados
+DB_NAME=mdschama
+```
+Dentro de `/web`
+
+```shell
+# Crie um arquivo .env com a seguinte variável
+VITE_BACKEND_URL=http://localhost:3000
+```
+Depois:
+```shell
+# Para popular o banco de dados execute (isso deve ser feito apenas uma vez)
+npm run populaFocosAnual
+
+# Para iniciar a API execute
+npm run app
+```
+
+### O back-end ficará disponível em: ```http://localhost:3000```
+
+E para testar abra ```http://localhost:3000/api/hello```
+
+Isso iniciará o servidor na porta definida no arquivo de configuração.
+
+
+## 3. Banco de Dados
+O sistema utiliza **MySQL** para armazenar informações dos usuários e demais entidades.
+
+### Configuração do Banco de Dados
+- O esquema do banco pode ser encontrado em `backend/script-db.sql`.
+- Para rodar o banco localmente:
+  ```sh
+  docker-compose up -d
+  ```
+
+
+## Tecnologias Utilizadas:
+
+### 1. **Node.js** *(Backend)*
+- O backend do projeto é desenvolvido utilizando **Node.js**, que permite a criação de uma API REST responsável pelo processamento dos dados e fornecimento das informações para o frontend.
+- Utiliza o **Express.js** (framework minimalista para Node.js) para gerenciar as rotas e requisições HTTP.
+- O backend está sendo hospedado no **[Heroku](https://www.heroku.com/)**.
+
+**Conexão com outras tecnologias:**
+- O **Node.js** se comunica com o banco de dados para armazenar e recuperar informações.
+- Serve como interface para que o frontend possa consumir os dados.
+
+
+### 2. **React.js** *(Frontend)*
+
+- O frontend da aplicação foi desenvolvido utilizando **React.js**, permitindo uma interface responsiva e dinâmica para os usuários.
+- Utiliza bibliotecas como **React Router** para navegação e **Axios** para chamadas de API.
+- O frontend está sendo hospedado no **[Vercel App](https://2024-2-chama-control.vercel.app/)**.
+
+**Conexão com outras tecnologias:**
+
+- O frontend consome a API do backend hospedado no **Heroku** para exibir os dados de queimadas e usuários.
+- Utiliza autenticação para segurança e controle de acessos.
+
+
+
+### 3. **MkDocs** *(Documentação)*
+
+- O **MkDocs** é utilizado para gerar e hospedar a documentação do projeto.
+- A estrutura de documentação é definida no arquivo `mkdocs.yml`, permitindo a geração de uma documentação navegável e responsiva.
+
+**Conexão com outras tecnologias:**
+
+- Armazena a documentação do backend e instruções para os desenvolvedores sobre o uso da API.
+
+
+## Estrutura do Banco de Dados
+
+O sistema utiliza um **banco de dados relacional** para armazenar informações sobre os focos de incêndio cadastrados no [INPE](https://www.gov.br/inpe/pt-br).
+
+### Principal Tabela:
+   
+1. **Focos_Incendio**
+   - `id` (int, PK)
+   - `latitude` (float)
+   - `longitude` (float)
+   - `data_registro` (timestamp)
+   - `nivel_severidade` (int)
+   - `descricao` (text)
+
+### Conexão com outras tecnologias:
+- O **backend (Node.js)** faz requisições SQL ao banco de dados para armazenar e recuperar informações.
+- O **frontend** consome essas informações para exibir os dados de maneira visual.
+
+
+## Fluxo de Conexão entre Tecnologias
+
+1. **Frontend** envia uma requisição HTTP para o backend.
+2. **Node.js** processa a requisição e, se necessário, consulta o banco de dados.
+3. **Banco de Dados** retorna os dados solicitados ao backend.
+4. **Backend** formata e envia a resposta ao frontend.
+5. **Frontend** exibe os dados para o usuário final.
+6. **MkDocs** armazena documentação para consulta dos desenvolvedores.
+
+Esse fluxo garante um sistema modular e escalável, permitindo futuras expansões e otimizações.
+
+
+
