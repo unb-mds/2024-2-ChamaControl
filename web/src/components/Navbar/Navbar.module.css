@@ -40,6 +40,7 @@
 
 /* Botão "Hambúrguer" */
 .hamburger {
+    color: #f57c00;
     display: none;
     font-size: 24px;
     background: none;
