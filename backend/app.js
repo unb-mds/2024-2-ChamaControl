@@ -6,7 +6,6 @@ const cors = require('cors')
 
 const app = express()
 
-// a
 app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: false }))
