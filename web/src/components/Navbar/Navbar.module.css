@@ -74,6 +74,7 @@
         transform: translateY(-200%);
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         padding: 10px;
+        z-index: 1000;
     }
 
     .navigation.open {
@@ -82,9 +83,11 @@
 
     .hamburger {
         display: block;
+        position: relative;
+        z-index: 1001;
     }
 
     .nav_actions {
-        display: none; /* Opcional: esconder em dispositivos menores */
+        display: none;
     }
 }
