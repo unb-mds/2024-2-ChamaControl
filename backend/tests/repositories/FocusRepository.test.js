@@ -206,4 +206,32 @@ describe('FocusRepository', () => {
       await expect(focusRepository.getAllYearsFocusFromEstate('SP')).rejects.toThrow('Erro ao obter dados: Erro de banco de dados')
     })
   })
+
+  describe('getFocusFromBiomes', () => {
+    it('deve retornar focos por bioma em um ano específico', async () => {
+      const mockResults = [
+        { bioma: 'Amazônia', quantidade_focos: 150, ano: 2023 }
+      ]
+      connection.query.mockImplementation((query, params, callback) => {
+        callback(null, mockResults)
+      })
+
+      const result = await focusRepository.getFocusFromBiomes(2023)
+      expect(result).toEqual(mockResults)
+      expect(connection.query).toHaveBeenCalledWith(
+        expect.stringContaining('SELECT bioma, sum(quantidade_focos)'),
+        [2023],
+        expect.any(Function)
+      )
+    })
+
+    it('deve rejeitar com erro quando a query falha', async () => {
+      const mockError = new Error('Erro de banco de dados')
+      connection.query.mockImplementation((query, params, callback) => {
+        callback(mockError)
+      })
+
+      await expect(focusRepository.getFocusFromBiomes(2023)).rejects.toThrow('Erro ao obter dados: Erro de banco de dados')
+    })
+  })
 })

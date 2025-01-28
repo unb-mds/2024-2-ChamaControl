@@ -9,7 +9,8 @@ jest.mock('../../api/repositories/FocusRepository', () => {
     getFocusByRegion: jest.fn(),
     getYearFocusFromRegion: jest.fn(),
     getYearFocusFromEstate: jest.fn(),
-    getAllYearsFocusFromEstate: jest.fn()
+    getAllYearsFocusFromEstate: jest.fn(),
+    getFocusFromBiomes: jest.fn()
   }))
 })
 
@@ -139,6 +140,29 @@ describe('FocusService', () => {
 
       expect(result).toEqual(mockData)
       expect(service.focusRepository.getAllYearsFocusFromEstate).toHaveBeenCalledWith('SP')
+    })
+  })
+
+  describe('getFocusFromBiomes', () => {
+    it('deve retornar dados por bioma quando o ano é válido', async () => {
+      const mockData = [{ bioma: 'Amazônia', quantidade_focos: 150, ano: 2023 }]
+      const service = new FocusService()
+      service.focusRepository.getFocusFromBiomes = jest.fn().mockResolvedValue(mockData)
+
+      const result = await service.getFocusFromBiomes(2023)
+
+      expect(result).toEqual(mockData)
+      expect(service.focusRepository.getFocusFromBiomes).toHaveBeenCalledWith(2023)
+    })
+
+    it('deve lançar erro quando o ano não tem 4 dígitos', async () => {
+      await expect(focusService.getFocusFromBiomes(23))
+        .rejects.toThrow('O ano deve ser um número inteiro com 4 dígitos.')
+    })
+
+    it('deve lançar erro quando o ano não é um número inteiro', async () => {
+      await expect(focusService.getFocusFromBiomes(2023.5))
+        .rejects.toThrow('O ano deve ser um número inteiro com 4 dígitos.')
     })
   })
 })
