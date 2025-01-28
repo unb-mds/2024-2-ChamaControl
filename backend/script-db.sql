@@ -3,12 +3,24 @@ USE mdschama;
 
 CREATE TABLE focos (
     foco_id INT NOT NULL AUTO_INCREMENT,
-    estado VARCHAR(100) NOT NULL,
-    bioma VARCHAR(100) NOT NULL,
-    regiao VARCHAR(100) NOT NULL,
-    mes INT NOT NULL,
+    estado VARCHAR(20) NOT NULL,
+    bioma VARCHAR(15) NOT NULL,
+    regiao VARCHAR(15) NOT NULL,
+    mes SMALLINT NOT NULL,
     quantidade_focos INT NOT NULL,
-    ano INT NOT NULL,
+    ano SMALLINT NOT NULL,
+    PRIMARY KEY (foco_id)
+);
+
+CREATE TABLE focosDiarios (
+    foco_id INT NOT NULL AUTO_INCREMENT,
+    estado VARCHAR(20) NOT NULL,
+    bioma VARCHAR(15) NOT NULL,
+    regiao VARCHAR(15) NOT NULL,
+    dia SMALLINT NOT NULL,
+    mes SMALLINT NOT NULL,
+    quantidade_focos INT NOT NULL,
+    ano SMALLINT NOT NULL,
     PRIMARY KEY (foco_id)
 );
 
