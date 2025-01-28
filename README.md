@@ -1,9 +1,10 @@
 # [ChamaControl](https://2024-2-chama-control.vercel.app/)
 
-O [ChamaControl](https://2024-2-chama-control.vercel.app/) é uma iniciativa da disciplina **Métodos de Desenvolvimento de Software** com o propósito de criar uma plataforma intuitiva, onde cidadãos possam ter acesso e monitorar informações sobre queimadas que possam estar acontecendo pelo território brasileiro. A ideia central é facilitar o acesso e a transparência, permitindo que usuários possam:
+O [ChamaControl](https://2024-2-chama-control.vercel.app/) é um software produzido na disciplina **Métodos de Desenvolvimento de Software** com o propósito de criar uma plataforma intuitiva, onde cidadãos possam ter acesso e monitorar informações sobre focos de incêndio registrados no Brasil. A ideia central é facilitar o acesso e a transparência aos dados sobre incêndios do [INPE](https://terrabrasilis.dpi.inpe.br/queimadas/portal/), permitindo que usuários, por meio de um site intuitivo, possam:
 
-- **Visualizar Informações sobre Focos de incêndios:** Consultar facilmente focos registrados por satélite com base em região, estado, município, ano e mês. Os focos registrados se iniciam em 2003 e vão até 2024.
-- **Receber alertas personalizados:** Usuários podem filtrar determinada área do território, como estado ou região, para receber alertas.
+- **Visualizar Informações Sobre Focos de Incêndios Anuais:** Consultar facilmente focos registrados por satélite com base em região, estado, município, ano e mês. Os focos registrados se iniciam em 2003 e vão até 2024.
+
+- **Visualizar Focos Diários dos Últimos 30 Dias:** Permite aos usuários acompanhar os focos de incêndio registrados diariamente, pelo stélite ``AQUA_M-T``, nos últimos 30 dias, fornecendo uma visão atualizada e detalhada sobre a situação recente dos incêndios em diferentes regiões do Brasil.
 
 ## 🔗 Link do Deploy
 
