@@ -18,11 +18,11 @@ app.use('/api', routes)
 
 cron.schedule('0 12 * * *', () => {
   console.log('Iniciando processamento diário de focos...')
-  
+
   const scriptPath = path.join(__dirname, 'scraper', 'processaDadoDiario.js')
-  
+
   const processDiario = fork(scriptPath)
-  
+
   processDiario.on('exit', (code) => {
     if (code === 0) {
       console.log('Processamento diário concluído com sucesso.')
@@ -32,7 +32,7 @@ cron.schedule('0 12 * * *', () => {
   })
 }, {
   scheduled: true,
-  timezone: "America/Sao_Paulo"
+  timezone: 'America/Sao_Paulo'
 })
 
 console.log('Cron job configurado para executar todos os dias às 12:00 (horário de Brasília)')
