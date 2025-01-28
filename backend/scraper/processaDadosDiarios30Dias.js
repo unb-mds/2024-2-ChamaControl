@@ -3,25 +3,7 @@ const fs = require('fs')
 const fsPromises = require('fs/promises')
 const csvParser = require('csv-parser')
 const path = require('path')
-const mysql = require('mysql2')
-const dotenv = require('dotenv')
-
-dotenv.config({ path: path.join(__dirname, '../.env') })
-
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
-})
-
-connection.connect((err) => {
-  if (err) {
-    console.error('Erro ao conectar ao banco de dados:', err)
-    process.exit(1)
-  }
-  console.log('Conexão ao banco de dados estabelecida com sucesso.')
-})
+const connection = require('../config/db.js')
 
 const BASE_URL = 'https://dataserver-coids.inpe.br/queimadas/queimadas/focos/csv/diario/Brasil'
 const OUTPUT_DIR = path.join(__dirname, 'extrato')
