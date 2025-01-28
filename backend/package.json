@@ -4,11 +4,13 @@
   "main": "app.js",
   "scripts": {
     "populaFocosAnual": "node scraper/processaDadosAnual.js",
+    "populaFocos30Dias": "node scraper/processaDadosDiarios30Dias.js",
     "app": "node app.js",
     "lint:fix": "standard --fix",
     "lint": "standard",
     "test": "jest --colors --noStackTrace --passWithNoTests --runInBand",
-    "test:ci": "npm test -- --coverage --silent"
+    "test:ci": "npm test -- --coverage --silent",
+    "criarTabelas": "node scripts/criaTabelas.js"
   },
   "keywords": [],
   "author": "",

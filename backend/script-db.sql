@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS mdschama;
 USE mdschama;
 
-CREATE TABLE focos (
+CREATE TABLE IF NOT EXISTS focos (
     foco_id INT NOT NULL AUTO_INCREMENT,
     estado VARCHAR(20) NOT NULL,
     bioma VARCHAR(15) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE focos (
     PRIMARY KEY (foco_id)
 );
 
-CREATE TABLE focosDiarios (
+CREATE TABLE IF NOT EXISTS focosDiarios (
     foco_id INT NOT NULL AUTO_INCREMENT,
     estado VARCHAR(20) NOT NULL,
     bioma VARCHAR(15) NOT NULL,
@@ -24,13 +24,13 @@ CREATE TABLE focosDiarios (
     PRIMARY KEY (foco_id)
 );
 
-CREATE INDEX idx_mesAno ON focos(mes, ano);
-CREATE INDEX idx_estadoAno ON focos(estado, ano);
-CREATE INDEX idx_regiaoAno ON focos(regiao, ano);
-CREATE INDEX idx_regiao ON focos(regiao);
-CREATE INDEX idx_estado ON focos(estado);
+-- CREATE INDEX idx_mesAno ON focos(mes, ano);
+-- CREATE INDEX idx_estadoAno ON focos(estado, ano);
+-- CREATE INDEX idx_regiaoAno ON focos(regiao, ano);
+-- CREATE INDEX idx_regiao ON focos(regiao);
+-- CREATE INDEX idx_estado ON focos(estado);
 
-CREATE TABLE USUARIO (
+CREATE TABLE IF NOT EXISTS USUARIO (
     idUsuario INT NOT NULL auto_increment,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
