@@ -11,7 +11,9 @@ const OUTPUT_DIR = path.join(__dirname, 'extrato')
 const getLastNDays = (n) => {
   const dates = []
   const today = new Date()
-  for (let i = 1; i < n; i++) {
+  const currentHour = today.getHours()
+  let i = currentHour < 12 ? 2 : 1
+  for (i; i < n; i++) {
     const date = new Date(today)
     date.setDate(today.getDate() - i)
     const formatted = date.toISOString().split('T')[0].replace(/-/g, '')
@@ -147,7 +149,7 @@ const processCSV = async (filePath, co) => {
 
 const main = async () => {
   await fsPromises.mkdir(OUTPUT_DIR, { recursive: true })
-  const dates = getLastNDays(30)
+  const dates = getLastNDays(31)
 
   for (const date of dates) {
     const filePath = await downloadCSV(date)
