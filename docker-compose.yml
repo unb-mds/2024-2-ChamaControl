@@ -1,0 +1,46 @@
+services:
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mds
+      MYSQL_USER: user
+      MYSQL_PASSWORD: senha
+    ports:
+      - "3307:3306"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
+
+  backend:
+    build: ./backend
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: sh -c "npm run app && npm run criarTabelas"
+    environment:
+      DB_HOST: mysql
+      DB_USER: user
+      DB_PASSWORD: senha
+      DB_NAME: mds
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+  
+  frontend:
+    build: ./web
+    ports:
+      - "80:80"
+    environment:
+      - VITE_BACKEND_URL=http://localhost:3000
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

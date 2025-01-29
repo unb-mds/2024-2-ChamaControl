@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS mdschama;
-USE mdschama;
-
 CREATE TABLE IF NOT EXISTS focos (
     foco_id INT NOT NULL AUTO_INCREMENT,
     estado VARCHAR(20) NOT NULL,
