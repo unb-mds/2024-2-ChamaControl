@@ -16,7 +16,7 @@ app.use(bodyParser.json())
 
 app.use('/api', routes)
 
-cron.schedule('0 13 * * *', () => {
+cron.schedule('0 12 * * *', () => {
   console.log('Iniciando processamento diário de focos...')
 
   const scriptPath = path.join(__dirname, 'scraper', 'processaDadoDiario.js')
