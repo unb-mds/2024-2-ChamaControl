@@ -193,10 +193,6 @@ body {
     .about-project h1 {
         font-size: 24px;
     }
-
-    .about-project p {
-        font-size: 14px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -219,11 +215,10 @@ body {
     }
 
     .about-project p {
-        font-size: 12px;
+        font-size: 14px;
     }
 
-    .alert-button {
-        padding: 8px 16px;
-        font-size: 14px;
+    .home-page {
+        height: 100%;
     }
 }
