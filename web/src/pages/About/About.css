@@ -73,6 +73,7 @@ body {
 .about-content {
     position: relative;
     z-index: 2; 
+    padding-bottom: 15px;
 }
 
 /* Introdução */

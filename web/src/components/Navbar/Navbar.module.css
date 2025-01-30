@@ -89,6 +89,7 @@
         display: block;
         position: relative;
         z-index: 1001;
+        padding-right: 30px;
     }
 
     .nav_actions {
