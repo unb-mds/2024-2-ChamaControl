@@ -145,6 +145,25 @@ class FocusRepository {
       })
     })
   }
+
+  async getDailyFocusByEstateMonth (estate, month) {
+    const query = `
+            SELECT dia, estado, SUM(quantidade_focos) AS quantidade_focos, ano
+            FROM focosdiarios
+            WHERE estado = ? and mes = ? and ano = 2025
+            GROUP BY dia, ano
+            ORDER BY dia;
+        `
+
+    return new Promise((resolve, reject) => {
+      connection.query(query, [estate, month], (err, results) => {
+        if (err) {
+          reject(new Error('Erro ao obter dados: ' + err.message))
+        }
+        resolve(results)
+      })
+    })
+  }
 }
 
 module.exports = FocusRepository
