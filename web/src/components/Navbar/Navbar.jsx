@@ -31,11 +31,6 @@ function Navbar() {
                     Equipe
                 </Link>
             </nav>
-            <div className={styles.nav_actions}>
-                <Link to="/alert">
-                    <button className={styles.alert_button}>Receber Alertas</button>
-                </Link>
-            </div>
         </header>
     );
 }

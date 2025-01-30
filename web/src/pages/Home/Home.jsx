@@ -20,7 +20,7 @@ const Home = () => {
         {
             image: bannerAlerts,
             alt: 'Receber Alertas',
-            link: '/alert',
+            link: '/',
         },
     ];
 
