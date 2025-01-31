@@ -112,30 +112,38 @@ const Dashboard = () => {
             
             if (selectedYear === 2025) {
                 response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusDailyEstatesMonth/${selectedMonth}`);
+                
+                const dataMap = new Map(response.data.map(item => [item.estado, item.quantidade_focos]));
+                
+                const formattedData = estados.map(estado => ({
+                    estado: estado.label,
+                    quantidade_focos: dataMap.get(estado.label.toUpperCase()) || 0
+                }));
+
+                setEstateMonthData({
+                    labels: formattedData.map(item => item.estado),
+                    datasets: [{
+                        label: 'Focos de Incêndio',
+                        data: formattedData.map(item => parseInt(item.quantidade_focos)),
+                        backgroundColor: '#f57c00',
+                        borderColor: '#f57c00',
+                        borderWidth: 1
+                    }]
+                });
             } else {
                 response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusEstateMonthYear/${selectedMonth}/${selectedYear}`);
+                
+                setEstateMonthData({
+                    labels: response.data.map(item => item.estado),
+                    datasets: [{
+                        label: 'Focos de Incêndio',
+                        data: response.data.map(item => parseInt(item.quantidade_focos)),
+                        backgroundColor: '#f57c00',
+                        borderColor: '#f57c00',
+                        borderWidth: 1
+                    }]
+                });
             }
-
-            let formattedData;
-            if (selectedYear === 2025) {
-                formattedData = response.data.map(item => ({
-                    estado: item.estado,
-                    quantidade_focos: item.quantidade_focos
-                }));
-            } else {
-                formattedData = response.data;
-            }
-
-            setEstateMonthData({
-                labels: formattedData.map(item => item.estado),
-                datasets: [{
-                    label: 'Focos de Incêndio',
-                    data: formattedData.map(item => parseInt(item.quantidade_focos)),
-                    backgroundColor: '#f57c00',
-                    borderColor: '#f57c00',
-                    borderWidth: 1
-                }]
-            });
         } catch (error) {
             console.error('Erro ao buscar dados por estado:', error);
         } finally {
