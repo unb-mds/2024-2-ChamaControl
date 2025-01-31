@@ -11,6 +11,8 @@ import {
     Tooltip,
     Legend,
     ArcElement,
+    LineElement,
+    PointElement,
 } from 'chart.js';
 import axios from 'axios';
 import LoadingGraphs from "../../components/LoadingGraphs/LoadingGraphs.jsx";
@@ -24,6 +26,8 @@ ChartJS.register(
     Tooltip,
     Legend,
     ArcElement,
+    LineElement,
+    PointElement,
 );
 
 const Dashboard = () => {
@@ -46,6 +50,11 @@ const Dashboard = () => {
     const [loadingRegion, setLoadingRegion] = useState(false);
     const [loadingYearEstate, setLoadingYearEstate] = useState(false);
     const [loadingHistorical, setLoadingHistorical] = useState(false);
+
+    const [dailyData, setDailyData] = useState([]);
+    const [selectedDailyMonth, setSelectedDailyMonth] = useState(currentMonth);
+    const [selectedDailyEstate, setSelectedDailyEstate] = useState('AC');
+    const [loadingDaily, setLoadingDaily] = useState(false);
 
     const estados = [
         { value: 'AC', label: 'Acre' },
@@ -138,7 +147,7 @@ const Dashboard = () => {
                         'rgba(33, 150, 243, 1)',
                         'rgba(156, 39, 176, 1)',
                     ],
-                    
+
                     borderWidth: 1
                 }]
             });
@@ -168,7 +177,7 @@ const Dashboard = () => {
                     borderWidth: 1
                 }]
             });
-            
+
         } catch (error) {
             console.error('Erro ao buscar dados por estado:', error);
         } finally {
@@ -190,6 +199,19 @@ const Dashboard = () => {
         }
     };
 
+    const fetchDailyData = async () => {
+        try {
+            setLoadingDaily(true);
+            const estadoNome = estados.find(e => e.value === selectedDailyEstate)?.label;
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusDailyEstateMonth/${selectedDailyMonth}/${estadoNome}`);
+            setDailyData(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar dados diários:', error);
+        } finally {
+            setLoadingDaily(false);
+        }
+    };
+
     useEffect(() => {
         fetchEstateData();
     }, [selectedMonth, selectedYear]);
@@ -206,6 +228,10 @@ const Dashboard = () => {
         fetchHistoricalData();
     }, [selectedHistoricalEstate]);
 
+    useEffect(() => {
+        fetchDailyData();
+    }, [selectedDailyMonth, selectedDailyEstate]);
+
     const options = {
         responsive: true,
         maintainAspectRatio: false,
@@ -217,11 +243,90 @@ const Dashboard = () => {
         }
     };
 
+    const getTotalFocos = (data) => {
+        return data.reduce((sum, item) => sum + parseInt(item.quantidade_focos || 0), 0);
+    };
+
     return (
         <div className="dashboard-page">
-            <Navbar/>
+            <Navbar />
             <div className="dashboard-container">
                 <div className="title-container"><h1>Dashboard de Focos de Incêndio</h1></div>
+
+                <div className="chart-container">
+                    <div className="filter-container" style={{ marginBottom: '20px', display: 'flex', gap: '20px' }}>
+                        <div>
+                            <label htmlFor="daily-estate-select" style={{ marginRight: '10px' }}>Estado:</label>
+                            <select
+                                id="daily-estate-select"
+                                value={selectedDailyEstate}
+                                onChange={(e) => setSelectedDailyEstate(e.target.value)}
+                                style={{ padding: '5px' }}
+                            >
+                                {estados.map(estado => (
+                                    <option key={estado.value} value={estado.value}>
+                                        {estado.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="daily-month-select" style={{ marginRight: '10px' }}>Mês:</label>
+                            <select
+                                id="daily-month-select"
+                                value={selectedDailyMonth}
+                                onChange={(e) => setSelectedDailyMonth(parseInt(e.target.value))}
+                                style={{ padding: '5px' }}
+                            >
+                                {months.map(month => (
+                                    month.value <= currentMonth ?
+                                        <option key={month.value} value={month.value}>
+                                            {month.label}
+                                        </option>
+                                        : null
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <h3>Focos Diários {estados.find(e => e.value === selectedDailyEstate)?.label} - {months.find(m => m.value === selectedDailyMonth)?.label}</h3>
+                    <div style={{ overflowX: 'auto' }}>
+                        {loadingDaily ? (
+                            <LoadingGraphs />
+                        ) : getTotalFocos(dailyData) === 0 ? (
+                            <div style={{
+                                padding: '20px',
+                                textAlign: 'center',
+                                backgroundColor: '#f5f5f5',
+                                border: '1px solid #ddd',
+                                borderRadius: '4px'
+                            }}>
+                                Não foram registrados focos de incêndio neste período
+                            </div>
+                        ) : (
+                            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center' }}>
+                                <thead>
+                                    <tr>
+                                        {dailyData.map((item, index) => (
+                                            <th key={index} style={{ padding: '8px', border: '1px solid #ddd' }}>
+                                                {item.dia}/{item.mes}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {dailyData.map((item, index) => (
+                                            <td key={index} style={{ padding: '8px', border: '1px solid #ddd' }}>
+                                                {item.quantidade_focos}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+                </div>
+
                 <div className="chart-container">
                     <div className="filter-container" style={{ marginBottom: '20px', display: 'flex', gap: '20px' }}>
                         <div>
@@ -338,12 +443,12 @@ const Dashboard = () => {
                         Focos
                         {
                             (() => {
-                            const concordancia = {
-                                'AC': ' no', 'AL': ' em', 'AP': ' no', 'AM': ' no', 'BA': ' na', 'CE': ' no', 'DF': ' no', 'ES': ' no', 'GO': ' em',
-                                'MA': ' no', 'MT': ' no', 'MS': ' no', 'MG': ' em', 'PA': ' no', 'PB': ' na', 'PR': ' no', 'PE': ' em', 'PI': ' no', 
-                                'RJ': ' no', 'RN': ' no', 'RS': ' no', 'RO': ' em', 'RR': ' em', 'SC': ' em', 'SP': ' em', 'SE': ' em', 'TO': ' no'
-                            };
-                            return `${concordancia[selectedEstate] || ' em'} ${estados.find(e => e.value === selectedEstate)?.label}`;
+                                const concordancia = {
+                                    'AC': ' no', 'AL': ' em', 'AP': ' no', 'AM': ' no', 'BA': ' na', 'CE': ' no', 'DF': ' no', 'ES': ' no', 'GO': ' em',
+                                    'MA': ' no', 'MT': ' no', 'MS': ' no', 'MG': ' em', 'PA': ' no', 'PB': ' na', 'PR': ' no', 'PE': ' em', 'PI': ' no',
+                                    'RJ': ' no', 'RN': ' no', 'RS': ' no', 'RO': ' em', 'RR': ' em', 'SC': ' em', 'SP': ' em', 'SE': ' em', 'TO': ' no'
+                                };
+                                return `${concordancia[selectedEstate] || ' em'} ${estados.find(e => e.value === selectedEstate)?.label}`;
                             })()
                         }
                         {' '} por Mês ({selectedEstateYear})
@@ -377,18 +482,18 @@ const Dashboard = () => {
                     </div>
 
                     <h3>
-  Histórico de Focos de Incêndio 
-  {
-    (() => {
-      const concordancia = {
-        'AC': ' no', 'AL': ' em', 'AP': ' no', 'AM': ' no', 'BA': ' na', 'CE': ' no', 'DF': ' no', 'ES': ' no', 'GO': ' em',
-        'MA': ' no', 'MT': ' no', 'MS': ' no', 'MG': ' em', 'PA': ' no', 'PB': ' na', 'PR': ' no', 'PE': ' em', 'PI': ' no', 
-        'RJ': ' no', 'RN': ' no', 'RS': ' no', 'RO': ' em', 'RR': ' em', 'SC': ' em', 'SP': ' em', 'SE': ' em', 'TO': ' no'
-      };
-      return `${concordancia[selectedHistoricalEstate] || ' em'} ${estados.find(e => e.value === selectedHistoricalEstate)?.label}`;
-    })()
-  }
-</h3>
+                        Histórico de Focos de Incêndio
+                        {
+                            (() => {
+                                const concordancia = {
+                                    'AC': ' no', 'AL': ' em', 'AP': ' no', 'AM': ' no', 'BA': ' na', 'CE': ' no', 'DF': ' no', 'ES': ' no', 'GO': ' em',
+                                    'MA': ' no', 'MT': ' no', 'MS': ' no', 'MG': ' em', 'PA': ' no', 'PB': ' na', 'PR': ' no', 'PE': ' em', 'PI': ' no',
+                                    'RJ': ' no', 'RN': ' no', 'RS': ' no', 'RO': ' em', 'RR': ' em', 'SC': ' em', 'SP': ' em', 'SE': ' em', 'TO': ' no'
+                                };
+                                return `${concordancia[selectedHistoricalEstate] || ' em'} ${estados.find(e => e.value === selectedHistoricalEstate)?.label}`;
+                            })()
+                        }
+                    </h3>
 
 
                     <div className="table-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
@@ -411,7 +516,7 @@ const Dashboard = () => {
                                     {years.map(year => {
                                         const yearData = historicalData.filter(item => item.ano === year);
                                         const yearTotal = yearData.reduce((sum, item) => sum + parseInt(item.quantidade_focos || 0), 0);
-                                        
+
                                         return (
                                             <tr key={year}>
                                                 <td style={{ padding: '8px', border: '1px solid #ddd', fontWeight: 'bold' }}>{year}</td>
@@ -433,7 +538,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <Rodape/>
+            <Rodape />
         </div>
     );
 };
