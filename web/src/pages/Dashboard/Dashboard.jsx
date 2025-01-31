@@ -103,16 +103,34 @@ const Dashboard = () => {
     ];
 
     const years = Array.from({ length: 2024 - 2003 + 1 }, (_, i) => 2003 + i);
+    const yearsWithPrediction = Array.from({ length: 2025 - 2003 + 1 }, (_, i) => 2003 + i);
 
     const fetchEstateData = async () => {
         try {
             setLoadingEstateMonth(true);
-            const estateMonth = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusEstateMonthYear/${selectedMonth}/${selectedYear}`);
+            let response;
+            
+            if (selectedYear === 2025) {
+                response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusDailyEstatesMonth/${selectedMonth}`);
+            } else {
+                response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusEstateMonthYear/${selectedMonth}/${selectedYear}`);
+            }
+
+            let formattedData;
+            if (selectedYear === 2025) {
+                formattedData = response.data.map(item => ({
+                    estado: item.estado,
+                    quantidade_focos: item.quantidade_focos
+                }));
+            } else {
+                formattedData = response.data;
+            }
+
             setEstateMonthData({
-                labels: estateMonth.data.map(item => item.estado),
+                labels: formattedData.map(item => item.estado),
                 datasets: [{
                     label: 'Focos de Incêndio',
-                    data: estateMonth.data.map(item => parseInt(item.quantidade_focos)),
+                    data: formattedData.map(item => parseInt(item.quantidade_focos)),
                     backgroundColor: '#f57c00',
                     borderColor: '#f57c00',
                     borderWidth: 1
@@ -365,11 +383,14 @@ const Dashboard = () => {
                                 onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
                                 style={{ padding: '5px' }}
                             >
-                                {months.map(month => (
-                                    <option key={month.value} value={month.value}>
-                                        {month.label}
-                                    </option>
-                                ))}
+                                {months
+                                    .filter(month => selectedYear !== 2025 || month.value <= currentMonth)
+                                    .map(month => (
+                                        <option key={month.value} value={month.value}>
+                                            {month.label}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
                         <div>
@@ -377,10 +398,18 @@ const Dashboard = () => {
                             <select
                                 id="year-select"
                                 value={selectedYear}
-                                onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+                                onChange={(e) => {
+                                    const newYear = parseInt(e.target.value);
+                                    setSelectedYear(newYear);
+                                    // Reset to January if switching from 2025 to another year
+                                    // Or set to current month if switching to 2025 and selected month is beyond current month
+                                    if (newYear === 2025 && selectedMonth > currentMonth) {
+                                        setSelectedMonth(currentMonth);
+                                    }
+                                }}
                                 style={{ padding: '5px' }}
                             >
-                                {years.map(year => (
+                                {yearsWithPrediction.map(year => (
                                     <option key={year} value={year}>
                                         {year}
                                     </option>
