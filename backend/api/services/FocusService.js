@@ -80,6 +80,15 @@ class FocusService {
     const data = await this.focusRepository.getDailyFocusByEstateMonth(estate, month)
     return data
   }
+
+  async getDailyFocusBiomeByMonth (month) {
+    if (!Number.isInteger(month) || month < 1 || month > 12) {
+      throw new Error('O mês deve ser um número inteiro entre 1 e 12.')
+    }
+
+    const data = await this.focusRepository.getDailyFocusBiomeByMonth(month)
+    return data
+  }
 }
 
 module.exports = FocusService
