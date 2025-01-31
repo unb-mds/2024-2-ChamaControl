@@ -149,7 +149,7 @@ class FocusRepository {
   async getDailyFocusByEstateMonth (estate, month) {
     const query = `
             SELECT dia, mes, estado, SUM(quantidade_focos) AS quantidade_focos, ano
-            FROM focosdiarios
+            FROM focosDiarios
             WHERE estado = ? and mes = ? and ano = 2025
             GROUP BY dia, ano
             ORDER BY dia;
@@ -168,7 +168,7 @@ class FocusRepository {
   async getDailyFocusFromEstatesByMonth (month) {
     const query = `
             SELECT mes, estado, SUM(quantidade_focos) AS quantidade_focos, ano
-            FROM focosdiarios
+            FROM focosDiarios
             WHERE mes = ? and ano = 2025
             GROUP BY estado
             ORDER BY estado;
@@ -187,7 +187,7 @@ class FocusRepository {
   async getDailyFocusBiomeByMonth (month) {
     const query = `
             SELECT mes, bioma, SUM(quantidade_focos) AS quantidade_focos, ano
-            FROM focosdiarios
+            FROM focosDiarios
             WHERE mes = ? and ano = 2025
             GROUP BY ano, bioma, mes
             ORDER BY bioma;
