@@ -36,6 +36,7 @@ const Dashboard = () => {
 
     const [estateMonthData, setEstateMonthData] = useState({ labels: [], datasets: [] });
     const [regionMonthData, setRegionMonthData] = useState({ labels: [], datasets: [] });
+    const [biomeMonthData, setBiomeMonthData] = useState({ labels: [], datasets: [] });
 
     const [yearEstateData, setYearEstateData] = useState({ labels: [], datasets: [] });
     const [selectedMonth, setSelectedMonth] = useState(currentMonth);
@@ -151,8 +152,35 @@ const Dashboard = () => {
                     borderWidth: 1
                 }]
             });
+
+            const biomeMonth = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusBiomesYear/${selectedRegionYear}`);
+            setBiomeMonthData({
+                labels: biomeMonth.data.map(item => item.bioma),
+                datasets: [{
+                    label: 'Focos de Incêndio',
+                    data: biomeMonth.data.map(item => parseInt(item.quantidade_focos)),
+                    backgroundColor: [
+                        'rgba(245, 124, 0, 0.5)',
+                        'rgba(255, 193, 7, 0.5)',
+                        'rgba(76, 175, 80, 0.5)',
+                        'rgba(33, 150, 243, 0.5)',
+                        'rgba(156, 39, 176, 0.5)',
+                        'rgba(187, 33, 33, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(245, 124, 0, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(76, 175, 80, 1)',
+                        'rgba(33, 150, 243, 1)',
+                        'rgba(156, 39, 176, 1)',
+                        'rgb(187, 33, 33)',
+                    ],
+
+                    borderWidth: 1
+                }]
+            });
         } catch (error) {
-            console.error('Erro ao buscar dados por região:', error);
+            console.error('Erro ao buscar dados por bioma:', error);
         } finally {
             setLoadingRegion(false);
         }
@@ -388,13 +416,27 @@ const Dashboard = () => {
                             </select>
                         </div>
                     </div>
-                    <h3>Focos por Região ({selectedRegionYear})</h3>
-                    <div className='grafico1'>
-                        {loadingRegion ? (
-                            <LoadingGraphs />
-                        ) : (
-                            <Pie data={regionMonthData} options={options} />
-                        )}
+                    <div className="graficosJuntos">
+                        <div className='conteudo'>
+                            <h3>Focos por Região ({selectedRegionYear})</h3>
+                            <div className='graficoPizza'>
+                                {loadingRegion ? (
+                                    <LoadingGraphs />
+                                ) : (
+                                    <Pie data={regionMonthData} options={options} />
+                                )}
+                            </div>
+                        </div>
+                        <div className='conteudo'>
+                            <h3>Focos por Bioma ({selectedRegionYear})</h3>
+                            <div className='graficoPizza'>
+                                {loadingRegion ? (
+                                    <LoadingGraphs />
+                                ) : (
+                                    <Pie data={biomeMonthData} options={options} />
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
