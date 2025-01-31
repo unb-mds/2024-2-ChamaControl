@@ -165,6 +165,25 @@ class FocusRepository {
     })
   }
 
+  async getDailyFocusFromEstatesByMonth (month) {
+    const query = `
+            SELECT mes, estado, SUM(quantidade_focos) AS quantidade_focos, ano
+            FROM focosdiarios
+            WHERE mes = ? and ano = 2025
+            GROUP BY estado
+            ORDER BY estado;
+        `
+
+    return new Promise((resolve, reject) => {
+      connection.query(query, [month], (err, results) => {
+        if (err) {
+          reject(new Error('Erro ao obter dados: ' + err.message))
+        }
+        resolve(results)
+      })
+    })
+  }
+
   async getDailyFocusBiomeByMonth (month) {
     const query = `
             SELECT mes, bioma, SUM(quantidade_focos) AS quantidade_focos, ano

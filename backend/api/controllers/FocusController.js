@@ -13,6 +13,7 @@ class FocusController {
     this.getFocusFromBiomes = this.getFocusFromBiomes.bind(this)
     this.getDailyFocusByEstateMonth = this.getDailyFocusByEstateMonth.bind(this)
     this.getDailyFocusBiomeByMonth = this.getDailyFocusBiomeByMonth.bind(this)
+    this.getDailyFocusFromEstatesByMonth = this.getDailyFocusFromEstatesByMonth.bind(this)
   }
 
   async getMonthlyFocusByEstate (req, res) {
@@ -108,6 +109,17 @@ class FocusController {
 
     try {
       const data = await this.focusService.getDailyFocusBiomeByMonth(parseInt(month, 10))
+      res.status(200).json(data)
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
+  }
+
+  async getDailyFocusFromEstatesByMonth (req, res) {
+    const { month } = req.params
+
+    try {
+      const data = await this.focusService.getDailyFocusFromEstatesByMonth(parseInt(month, 10))
       res.status(200).json(data)
     } catch (error) {
       res.status(500).json({ error: error.message })
