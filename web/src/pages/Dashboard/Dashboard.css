@@ -153,6 +153,11 @@ body {
     height: 400px;
 }
 
+.chart-container h2 {
+    color: #f57c00;
+    margin-bottom: 15px;
+}
+
 .chart-container h3 {
     color: #f57c00;
     margin-bottom: 15px;

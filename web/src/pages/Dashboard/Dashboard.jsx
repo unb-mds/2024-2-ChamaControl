@@ -39,7 +39,7 @@ const Dashboard = () => {
     const [biomeMonthData, setBiomeMonthData] = useState({ labels: [], datasets: [] });
 
     const [yearEstateData, setYearEstateData] = useState({ labels: [], datasets: [] });
-    const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+    const [selectedMonth, setSelectedMonth] = useState(1);
     const [selectedYear, setSelectedYear] = useState(2024);
     const [selectedRegionYear, setSelectedRegionYear] = useState(currentYear);
     const [selectedEstateYear, setSelectedEstateYear] = useState(currentYear);
@@ -308,7 +308,8 @@ const Dashboard = () => {
                 <div className="title-container"><h1>Dashboard de Focos de Incêndio</h1></div>
 
                 <div className="chart-container">
-                    <div className="filter-container" style={{ marginBottom: '20px', display: 'flex', gap: '20px' }}>
+                    <h2>Quantidade de focos registrados diariamente pelo stélite AQUA_M-T em 2025</h2>
+                    <div className="filter-container" style={{ marginBottom: '20px', display: 'flex', gap: '20px',  }}>
                         <div>
                             <label htmlFor="daily-estate-select" style={{ marginRight: '10px' }}>Estado:</label>
                             <select
@@ -342,7 +343,7 @@ const Dashboard = () => {
                             </select>
                         </div>
                     </div>
-                    <h3>Focos Diários {estados.find(e => e.value === selectedDailyEstate)?.label} - {months.find(m => m.value === selectedDailyMonth)?.label}</h3>
+                    {/* <h3>Focos Diários {estados.find(e => e.value === selectedDailyEstate)?.label} - {months.find(m => m.value === selectedDailyMonth)?.label}</h3> */}
                     <div style={{ overflowX: 'auto' }}>
                         {loadingDaily ? (
                             <LoadingGraphs />
@@ -519,7 +520,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <h3>
-                        Focos
+                        Focos registrados
                         {
                             (() => {
                                 const concordancia = {
@@ -530,7 +531,7 @@ const Dashboard = () => {
                                 return `${concordancia[selectedEstate] || ' em'} ${estados.find(e => e.value === selectedEstate)?.label}`;
                             })()
                         }
-                        {' '} por Mês ({selectedEstateYear})
+                        {' '} ({selectedEstateYear})
                     </h3>
                     <div className='grafico1'>
                         {loadingYearEstate ? (
