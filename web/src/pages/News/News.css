@@ -7,11 +7,12 @@ body {
 }
 
 .news-title {
+    color: #414141;
     padding: 20px;
     font-size: 50px;
     text-align: center;
 }
-  
+
 .news-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
@@ -21,7 +22,7 @@ body {
     padding: 0 20px 20px 1rem;
 }
 
-  
+
 .news-list:only-child {
     grid-template-columns: 1fr; 
 }
@@ -45,12 +46,23 @@ body {
     font-size: 24px;
     width: 60%;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     margin-top: 20px;
 }
 
 .load-more-btn:hover {
     background-color: #e76a00;
 }
-  
- 
+
+@media screen and (max-width: 840px) {
+    .news-list {
+        grid-template-columns: 1fr;
+    }
+    
+}
+
+@media screen and (max-width: 420px) {
+    .load-more-btn {
+        font-size: 18px;
+    }
+}
