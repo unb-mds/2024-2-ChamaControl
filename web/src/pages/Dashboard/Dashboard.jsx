@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import './Dashboard.css';
 import Navbar from "../../components/Navbar/Navbar.jsx";
