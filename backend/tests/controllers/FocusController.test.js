@@ -8,7 +8,8 @@ jest.mock('../../api/services/FocusService', () => {
     getFocusByRegion: jest.fn(),
     getYearFocusFromRegion: jest.fn(),
     getYearFocusFromEstate: jest.fn(),
-    getAllYearsFocusFromEstate: jest.fn()
+    getAllYearsFocusFromEstate: jest.fn(),
+    getFocusFromBiomes: jest.fn()
   }))
 })
 
@@ -194,6 +195,35 @@ describe('FocusController', () => {
       focusController.focusService.getAllYearsFocusFromEstate.mockRejectedValue(error)
 
       await focusController.getAllYearsFocusFromEstate(mockReq, mockRes)
+
+      expect(mockRes.status).toHaveBeenCalledWith(500)
+      expect(mockRes.json).toHaveBeenCalledWith({ error: error.message })
+    })
+  })
+
+  describe('getFocusFromBiomes', () => {
+    beforeEach(() => {
+      mockReq = {
+        params: { year: '2023' }
+      }
+    })
+
+    it('deve retornar dados de focos por bioma com sucesso', async () => {
+      const mockData = [{ bioma: 'Amazônia', quantidade_focos: 150, ano: 2023 }]
+      focusController.focusService.getFocusFromBiomes.mockResolvedValue(mockData)
+
+      await focusController.getFocusFromBiomes(mockReq, mockRes)
+
+      expect(mockRes.status).toHaveBeenCalledWith(200)
+      expect(mockRes.json).toHaveBeenCalledWith(mockData)
+      expect(focusController.focusService.getFocusFromBiomes).toHaveBeenCalledWith(2023)
+    })
+
+    it('deve retornar erro 500 quando o serviço falha', async () => {
+      const error = new Error('Erro no serviço')
+      focusController.focusService.getFocusFromBiomes.mockRejectedValue(error)
+
+      await focusController.getFocusFromBiomes(mockReq, mockRes)
 
       expect(mockRes.status).toHaveBeenCalledWith(500)
       expect(mockRes.json).toHaveBeenCalledWith({ error: error.message })

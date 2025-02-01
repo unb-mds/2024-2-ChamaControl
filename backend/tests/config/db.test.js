@@ -12,6 +12,7 @@ describe('Database Configuration', () => {
   const mockEnv = {
     DB_HOST: 'localhost',
     DB_USER: 'test_user',
+    DB_PORT: '3306',
     DB_PASSWORD: 'test_password',
     DB_NAME: 'test_db'
   }
@@ -42,6 +43,7 @@ describe('Database Configuration', () => {
     expect(mysql.createConnection).toHaveBeenCalledWith({
       host: mockEnv.DB_HOST,
       user: mockEnv.DB_USER,
+      port: mockEnv.DB_PORT,
       password: mockEnv.DB_PASSWORD,
       database: mockEnv.DB_NAME
     })

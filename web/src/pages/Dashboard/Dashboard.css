@@ -141,6 +141,23 @@ body {
     text-align: center;
 }
 
+.graficosJuntos {
+    margin-bottom: 20px;
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 50px; 
+    justify-content: space-around;
+}
+
+.graficoPizza {
+    height: 400px;
+}
+
+.chart-container h2 {
+    color: #f57c00;
+    margin-bottom: 15px;
+}
+
 .chart-container h3 {
     color: #f57c00;
     margin-bottom: 15px;
@@ -243,6 +260,19 @@ tbody tr:hover {
     .filter-container select {
         font-size: 14px;
         padding: 8px;
+    }
+
+
+    .conteudo {
+        width: 250px;
+    }
+
+    .graficosJuntos {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
     }
 
     .grafico1 {

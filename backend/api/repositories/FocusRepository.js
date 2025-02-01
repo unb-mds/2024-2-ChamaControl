@@ -70,6 +70,25 @@ class FocusRepository {
     })
   }
 
+  async getFocusFromBiomes (year) {
+    const query = `
+            SELECT bioma, sum(quantidade_focos) as quantidade_focos, ano
+            FROM focos
+            WHERE ano = ?
+            GROUP BY bioma
+            order by bioma;
+        `
+
+    return new Promise((resolve, reject) => {
+      connection.query(query, [year], (err, results) => {
+        if (err) {
+          reject(new Error('Erro ao obter dados: ' + err.message))
+        }
+        resolve(results)
+      })
+    })
+  }
+
   async getYearFocusFromRegion (region, year) {
     const query = `
             SELECT mes, regiao, sum(quantidade_focos) as quantidade_focos, ano
@@ -119,6 +138,63 @@ class FocusRepository {
 
     return new Promise((resolve, reject) => {
       connection.query(query, [estate], (err, results) => {
+        if (err) {
+          reject(new Error('Erro ao obter dados: ' + err.message))
+        }
+        resolve(results)
+      })
+    })
+  }
+
+  async getDailyFocusByEstateMonth (estate, month) {
+    const query = `
+            SELECT dia, mes, estado, SUM(quantidade_focos) AS quantidade_focos, ano
+            FROM focosDiarios
+            WHERE estado = ? and mes = ? and ano = 2025
+            GROUP BY dia, ano
+            ORDER BY dia;
+        `
+
+    return new Promise((resolve, reject) => {
+      connection.query(query, [estate, month], (err, results) => {
+        if (err) {
+          reject(new Error('Erro ao obter dados: ' + err.message))
+        }
+        resolve(results)
+      })
+    })
+  }
+
+  async getDailyFocusFromEstatesByMonth (month) {
+    const query = `
+            SELECT mes, estado, SUM(quantidade_focos) AS quantidade_focos, ano
+            FROM focosDiarios
+            WHERE mes = ? and ano = 2025
+            GROUP BY estado
+            ORDER BY estado;
+        `
+
+    return new Promise((resolve, reject) => {
+      connection.query(query, [month], (err, results) => {
+        if (err) {
+          reject(new Error('Erro ao obter dados: ' + err.message))
+        }
+        resolve(results)
+      })
+    })
+  }
+
+  async getDailyFocusBiomeByMonth (month) {
+    const query = `
+            SELECT mes, bioma, SUM(quantidade_focos) AS quantidade_focos, ano
+            FROM focosDiarios
+            WHERE mes = ? and ano = 2025
+            GROUP BY ano, bioma, mes
+            ORDER BY bioma;
+        `
+
+    return new Promise((resolve, reject) => {
+      connection.query(query, [month], (err, results) => {
         if (err) {
           reject(new Error('Erro ao obter dados: ' + err.message))
         }

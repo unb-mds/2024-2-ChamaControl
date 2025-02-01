@@ -29,7 +29,7 @@ const Rodape = () => {
           size={30}
           color={color}
           style={{
-            marginTop: "20px",
+            marginTop: "5px",
             cursor: "pointer",
             transition: "color 0.2s ease-in-out",
           }}

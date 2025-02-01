@@ -11,6 +11,8 @@ import {
     Tooltip,
     Legend,
     ArcElement,
+    LineElement,
+    PointElement,
 } from 'chart.js';
 import axios from 'axios';
 import LoadingGraphs from "../../components/LoadingGraphs/LoadingGraphs.jsx";
@@ -24,6 +26,8 @@ ChartJS.register(
     Tooltip,
     Legend,
     ArcElement,
+    LineElement,
+    PointElement,
 );
 
 const Dashboard = () => {
@@ -32,9 +36,10 @@ const Dashboard = () => {
 
     const [estateMonthData, setEstateMonthData] = useState({ labels: [], datasets: [] });
     const [regionMonthData, setRegionMonthData] = useState({ labels: [], datasets: [] });
+    const [biomeMonthData, setBiomeMonthData] = useState({ labels: [], datasets: [] });
 
     const [yearEstateData, setYearEstateData] = useState({ labels: [], datasets: [] });
-    const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+    const [selectedMonth, setSelectedMonth] = useState(1);
     const [selectedYear, setSelectedYear] = useState(2024);
     const [selectedRegionYear, setSelectedRegionYear] = useState(currentYear);
     const [selectedEstateYear, setSelectedEstateYear] = useState(currentYear);
@@ -46,6 +51,11 @@ const Dashboard = () => {
     const [loadingRegion, setLoadingRegion] = useState(false);
     const [loadingYearEstate, setLoadingYearEstate] = useState(false);
     const [loadingHistorical, setLoadingHistorical] = useState(false);
+
+    const [dailyData, setDailyData] = useState([]);
+    const [selectedDailyMonth, setSelectedDailyMonth] = useState(1);
+    const [selectedDailyEstate, setSelectedDailyEstate] = useState('AC');
+    const [loadingDaily, setLoadingDaily] = useState(false);
 
     const estados = [
         { value: 'AC', label: 'Acre' },
@@ -93,21 +103,47 @@ const Dashboard = () => {
     ];
 
     const years = Array.from({ length: 2024 - 2003 + 1 }, (_, i) => 2003 + i);
+    const yearsWithPrediction = Array.from({ length: 2025 - 2003 + 1 }, (_, i) => 2003 + i);
 
     const fetchEstateData = async () => {
         try {
             setLoadingEstateMonth(true);
-            const estateMonth = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusEstateMonthYear/${selectedMonth}/${selectedYear}`);
-            setEstateMonthData({
-                labels: estateMonth.data.map(item => item.estado),
-                datasets: [{
-                    label: 'Focos de Incêndio',
-                    data: estateMonth.data.map(item => parseInt(item.quantidade_focos)),
-                    backgroundColor: '#f57c00',
-                    borderColor: '#f57c00',
-                    borderWidth: 1
-                }]
-            });
+            let response;
+            
+            if (selectedYear === 2025) {
+                response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusDailyEstatesMonth/${selectedMonth}`);
+                
+                const dataMap = new Map(response.data.map(item => [item.estado, item.quantidade_focos]));
+                
+                const formattedData = estados.map(estado => ({
+                    estado: estado.label,
+                    quantidade_focos: dataMap.get(estado.label.toUpperCase()) || 0
+                }));
+
+                setEstateMonthData({
+                    labels: formattedData.map(item => item.estado),
+                    datasets: [{
+                        label: 'Focos de Incêndio',
+                        data: formattedData.map(item => parseInt(item.quantidade_focos)),
+                        backgroundColor: '#f57c00',
+                        borderColor: '#f57c00',
+                        borderWidth: 1
+                    }]
+                });
+            } else {
+                response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusEstateMonthYear/${selectedMonth}/${selectedYear}`);
+                
+                setEstateMonthData({
+                    labels: response.data.map(item => item.estado),
+                    datasets: [{
+                        label: 'Focos de Incêndio',
+                        data: response.data.map(item => parseInt(item.quantidade_focos)),
+                        backgroundColor: '#f57c00',
+                        borderColor: '#f57c00',
+                        borderWidth: 1
+                    }]
+                });
+            }
         } catch (error) {
             console.error('Erro ao buscar dados por estado:', error);
         } finally {
@@ -138,12 +174,39 @@ const Dashboard = () => {
                         'rgba(33, 150, 243, 1)',
                         'rgba(156, 39, 176, 1)',
                     ],
-                    
+
+                    borderWidth: 1
+                }]
+            });
+
+            const biomeMonth = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusBiomesYear/${selectedRegionYear}`);
+            setBiomeMonthData({
+                labels: biomeMonth.data.map(item => item.bioma),
+                datasets: [{
+                    label: 'Focos de Incêndio',
+                    data: biomeMonth.data.map(item => parseInt(item.quantidade_focos)),
+                    backgroundColor: [
+                        'rgba(245, 124, 0, 0.5)',
+                        'rgba(255, 193, 7, 0.5)',
+                        'rgba(76, 175, 80, 0.5)',
+                        'rgba(33, 150, 243, 0.5)',
+                        'rgba(156, 39, 176, 0.5)',
+                        'rgba(187, 33, 33, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(245, 124, 0, 1)',
+                        'rgba(255, 193, 7, 1)',
+                        'rgba(76, 175, 80, 1)',
+                        'rgba(33, 150, 243, 1)',
+                        'rgba(156, 39, 176, 1)',
+                        'rgb(187, 33, 33)',
+                    ],
+
                     borderWidth: 1
                 }]
             });
         } catch (error) {
-            console.error('Erro ao buscar dados por região:', error);
+            console.error('Erro ao buscar dados por bioma:', error);
         } finally {
             setLoadingRegion(false);
         }
@@ -168,7 +231,7 @@ const Dashboard = () => {
                     borderWidth: 1
                 }]
             });
-            
+
         } catch (error) {
             console.error('Erro ao buscar dados por estado:', error);
         } finally {
@@ -190,6 +253,19 @@ const Dashboard = () => {
         }
     };
 
+    const fetchDailyData = async () => {
+        try {
+            setLoadingDaily(true);
+            const estadoNome = estados.find(e => e.value === selectedDailyEstate)?.label;
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/focusDailyEstateMonth/${selectedDailyMonth}/${estadoNome}`);
+            setDailyData(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar dados diários:', error);
+        } finally {
+            setLoadingDaily(false);
+        }
+    };
+
     useEffect(() => {
         fetchEstateData();
     }, [selectedMonth, selectedYear]);
@@ -206,6 +282,10 @@ const Dashboard = () => {
         fetchHistoricalData();
     }, [selectedHistoricalEstate]);
 
+    useEffect(() => {
+        fetchDailyData();
+    }, [selectedDailyMonth, selectedDailyEstate]);
+
     const options = {
         responsive: true,
         maintainAspectRatio: false,
@@ -217,11 +297,91 @@ const Dashboard = () => {
         }
     };
 
+    const getTotalFocos = (data) => {
+        return data.reduce((sum, item) => sum + parseInt(item.quantidade_focos || 0), 0);
+    };
+
     return (
         <div className="dashboard-page">
-            <Navbar/>
+            <Navbar />
             <div className="dashboard-container">
                 <div className="title-container"><h1>Dashboard de Focos de Incêndio</h1></div>
+
+                <div className="chart-container">
+                    <h2>Quantidade de focos registrados diariamente pelo stélite AQUA_M-T em 2025</h2>
+                    <div className="filter-container" style={{ marginBottom: '20px', display: 'flex', gap: '20px',  }}>
+                        <div>
+                            <label htmlFor="daily-estate-select" style={{ marginRight: '10px' }}>Estado:</label>
+                            <select
+                                id="daily-estate-select"
+                                value={selectedDailyEstate}
+                                onChange={(e) => setSelectedDailyEstate(e.target.value)}
+                                style={{ padding: '5px' }}
+                            >
+                                {estados.map(estado => (
+                                    <option key={estado.value} value={estado.value}>
+                                        {estado.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="daily-month-select" style={{ marginRight: '10px' }}>Mês:</label>
+                            <select
+                                id="daily-month-select"
+                                value={selectedDailyMonth}
+                                onChange={(e) => setSelectedDailyMonth(parseInt(e.target.value))}
+                                style={{ padding: '5px' }}
+                            >
+                                {months.map(month => (
+                                    month.value <= currentMonth ?
+                                        <option key={month.value} value={month.value}>
+                                            {month.label}
+                                        </option>
+                                        : null
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    {/* <h3>Focos Diários {estados.find(e => e.value === selectedDailyEstate)?.label} - {months.find(m => m.value === selectedDailyMonth)?.label}</h3> */}
+                    <div style={{ overflowX: 'auto' }}>
+                        {loadingDaily ? (
+                            <LoadingGraphs />
+                        ) : getTotalFocos(dailyData) === 0 ? (
+                            <div style={{
+                                padding: '20px',
+                                textAlign: 'center',
+                                backgroundColor: '#f5f5f5',
+                                border: '1px solid #ddd',
+                                borderRadius: '4px'
+                            }}>
+                                Não foram registrados focos de incêndio neste período
+                            </div>
+                        ) : (
+                            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'center' }}>
+                                <thead>
+                                    <tr>
+                                        {dailyData.map((item, index) => (
+                                            <th key={index} style={{ padding: '8px', border: '1px solid #ddd' }}>
+                                                {item.dia}/{item.mes}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {dailyData.map((item, index) => (
+                                            <td key={index} style={{ padding: '8px', border: '1px solid #ddd' }}>
+                                                {item.quantidade_focos}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+                </div>
+
                 <div className="chart-container">
                     <div className="filter-container" style={{ marginBottom: '20px', display: 'flex', gap: '20px' }}>
                         <div>
@@ -232,11 +392,14 @@ const Dashboard = () => {
                                 onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
                                 style={{ padding: '5px' }}
                             >
-                                {months.map(month => (
-                                    <option key={month.value} value={month.value}>
-                                        {month.label}
-                                    </option>
-                                ))}
+                                {months
+                                    .filter(month => selectedYear !== 2025 || month.value <= currentMonth)
+                                    .map(month => (
+                                        <option key={month.value} value={month.value}>
+                                            {month.label}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
                         <div>
@@ -244,10 +407,18 @@ const Dashboard = () => {
                             <select
                                 id="year-select"
                                 value={selectedYear}
-                                onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+                                onChange={(e) => {
+                                    const newYear = parseInt(e.target.value);
+                                    setSelectedYear(newYear);
+                                    // Reset to January if switching from 2025 to another year
+                                    // Or set to current month if switching to 2025 and selected month is beyond current month
+                                    if (newYear === 2025 && selectedMonth > currentMonth) {
+                                        setSelectedMonth(currentMonth);
+                                    }
+                                }}
                                 style={{ padding: '5px' }}
                             >
-                                {years.map(year => (
+                                {yearsWithPrediction.map(year => (
                                     <option key={year} value={year}>
                                         {year}
                                     </option>
@@ -283,13 +454,27 @@ const Dashboard = () => {
                             </select>
                         </div>
                     </div>
-                    <h3>Focos por Região ({selectedRegionYear})</h3>
-                    <div className='grafico1'>
-                        {loadingRegion ? (
-                            <LoadingGraphs />
-                        ) : (
-                            <Pie data={regionMonthData} options={options} />
-                        )}
+                    <div className="graficosJuntos">
+                        <div className='conteudo'>
+                            <h3>Focos por Região ({selectedRegionYear})</h3>
+                            <div className='graficoPizza'>
+                                {loadingRegion ? (
+                                    <LoadingGraphs />
+                                ) : (
+                                    <Pie data={regionMonthData} options={options} />
+                                )}
+                            </div>
+                        </div>
+                        <div className='conteudo'>
+                            <h3>Focos por Bioma ({selectedRegionYear})</h3>
+                            <div className='graficoPizza'>
+                                {loadingRegion ? (
+                                    <LoadingGraphs />
+                                ) : (
+                                    <Pie data={biomeMonthData} options={options} />
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -335,18 +520,18 @@ const Dashboard = () => {
                         </div>
                     </div>
                     <h3>
-                        Focos
+                        Focos registrados
                         {
                             (() => {
-                            const concordancia = {
-                                'AC': ' no', 'AL': ' em', 'AP': ' no', 'AM': ' no', 'BA': ' na', 'CE': ' no', 'DF': ' no', 'ES': ' no', 'GO': ' em',
-                                'MA': ' no', 'MT': ' no', 'MS': ' no', 'MG': ' em', 'PA': ' no', 'PB': ' na', 'PR': ' no', 'PE': ' em', 'PI': ' no', 
-                                'RJ': ' no', 'RN': ' no', 'RS': ' no', 'RO': ' em', 'RR': ' em', 'SC': ' em', 'SP': ' em', 'SE': ' em', 'TO': ' no'
-                            };
-                            return `${concordancia[selectedEstate] || ' em'} ${estados.find(e => e.value === selectedEstate)?.label}`;
+                                const concordancia = {
+                                    'AC': ' no', 'AL': ' em', 'AP': ' no', 'AM': ' no', 'BA': ' na', 'CE': ' no', 'DF': ' no', 'ES': ' no', 'GO': ' em',
+                                    'MA': ' no', 'MT': ' no', 'MS': ' no', 'MG': ' em', 'PA': ' no', 'PB': ' na', 'PR': ' no', 'PE': ' em', 'PI': ' no',
+                                    'RJ': ' no', 'RN': ' no', 'RS': ' no', 'RO': ' em', 'RR': ' em', 'SC': ' em', 'SP': ' em', 'SE': ' em', 'TO': ' no'
+                                };
+                                return `${concordancia[selectedEstate] || ' em'} ${estados.find(e => e.value === selectedEstate)?.label}`;
                             })()
                         }
-                        {' '} por Mês ({selectedEstateYear})
+                        {' '} ({selectedEstateYear})
                     </h3>
                     <div className='grafico1'>
                         {loadingYearEstate ? (
@@ -377,18 +562,18 @@ const Dashboard = () => {
                     </div>
 
                     <h3>
-  Histórico de Focos de Incêndio 
-  {
-    (() => {
-      const concordancia = {
-        'AC': ' no', 'AL': ' em', 'AP': ' no', 'AM': ' no', 'BA': ' na', 'CE': ' no', 'DF': ' no', 'ES': ' no', 'GO': ' em',
-        'MA': ' no', 'MT': ' no', 'MS': ' no', 'MG': ' em', 'PA': ' no', 'PB': ' na', 'PR': ' no', 'PE': ' em', 'PI': ' no', 
-        'RJ': ' no', 'RN': ' no', 'RS': ' no', 'RO': ' em', 'RR': ' em', 'SC': ' em', 'SP': ' em', 'SE': ' em', 'TO': ' no'
-      };
-      return `${concordancia[selectedHistoricalEstate] || ' em'} ${estados.find(e => e.value === selectedHistoricalEstate)?.label}`;
-    })()
-  }
-</h3>
+                        Histórico de Focos de Incêndio
+                        {
+                            (() => {
+                                const concordancia = {
+                                    'AC': ' no', 'AL': ' em', 'AP': ' no', 'AM': ' no', 'BA': ' na', 'CE': ' no', 'DF': ' no', 'ES': ' no', 'GO': ' em',
+                                    'MA': ' no', 'MT': ' no', 'MS': ' no', 'MG': ' em', 'PA': ' no', 'PB': ' na', 'PR': ' no', 'PE': ' em', 'PI': ' no',
+                                    'RJ': ' no', 'RN': ' no', 'RS': ' no', 'RO': ' em', 'RR': ' em', 'SC': ' em', 'SP': ' em', 'SE': ' em', 'TO': ' no'
+                                };
+                                return `${concordancia[selectedHistoricalEstate] || ' em'} ${estados.find(e => e.value === selectedHistoricalEstate)?.label}`;
+                            })()
+                        }
+                    </h3>
 
 
                     <div className="table-container" style={{ maxHeight: '400px', overflowY: 'auto' }}>
@@ -411,7 +596,7 @@ const Dashboard = () => {
                                     {years.map(year => {
                                         const yearData = historicalData.filter(item => item.ano === year);
                                         const yearTotal = yearData.reduce((sum, item) => sum + parseInt(item.quantidade_focos || 0), 0);
-                                        
+
                                         return (
                                             <tr key={year}>
                                                 <td style={{ padding: '8px', border: '1px solid #ddd', fontWeight: 'bold' }}>{year}</td>
@@ -433,7 +618,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <Rodape/>
+            <Rodape />
         </div>
     );
 };
