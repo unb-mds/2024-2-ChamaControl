@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./Rodape.module.css";
 import { FaGithub } from "react-icons/fa";
 import { useState } from "react";

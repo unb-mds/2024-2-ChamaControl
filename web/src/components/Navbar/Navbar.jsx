@@ -30,6 +30,9 @@ function Navbar() {
                 <Link to="/about" className={location.pathname === "/about" ? styles.active : ""}>
                     Equipe
                 </Link>
+                <Link to="/news" className={location.pathname === "/news" ? styles.active : ""}>
+                    Notícias
+                </Link>
             </nav>
             <div className={styles.nav_actions}>
                 <Link to="/alert">

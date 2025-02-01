@@ -1,0 +1,56 @@
+.content {
+    color: green;
+}
+
+.date {
+    color: red;
+}
+
+.img {
+    width: 50%;
+} 
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.title {
+    font-size: 25px;
+    color: #f57c00;
+    margin-bottom: 30px;
+}
+
+.img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; /* Mantém a proporção e corta excessos */
+    border-radius: 8px;
+}
+
+.content {
+    padding-top: 20px;
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+    padding-bottom: 20px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info p {
+    color: #333;
+    font-weight: 700;
+
+}
+

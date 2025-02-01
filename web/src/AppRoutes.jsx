@@ -11,6 +11,7 @@ const About = lazy(() => import("./pages/About/About"));
 const Login = lazy(() => import("./pages/Login/Login"));
 const Register = lazy(() => import("./pages/Register/Register"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
+const News = lazy(() => import("./pages/News/News"));
 
 function AppRoutes() {
     return (
@@ -24,6 +25,7 @@ function AppRoutes() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/news" element={<News />} />
                 </Routes>
             </Suspense>
         </AuthProvider>
