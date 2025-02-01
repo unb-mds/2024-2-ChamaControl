@@ -9,8 +9,7 @@ import Rodape from "../../components/Rodape/Rodape.jsx";
 import './News.css';
 
 const News = () => {
-  // const API_KEY = "f56263418e43365eafa5dd824d8d957e";
-  const API_KEY = "150cf01575de1b7e0c232be68885bbf0";
+  const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
   
   const PAGE_SIZE = 10; // Limita o número de artigos por chamada
 
