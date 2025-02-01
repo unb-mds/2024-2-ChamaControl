@@ -38,14 +38,14 @@ jobs:
       run: npm test
       working-directory: backend
 
-      - name: Install dependencies (web)
+    - name: Install dependencies (web)
       run: npm install
       working-directory: web
 
-      - name: Run build (web)
+    - name: Run build (web)
       run: npm run build
       working-directory: web
 
-      - name: Run linter (web)
+    - name: Run linter (web)
       run: npm run lint
       working-directory: web
