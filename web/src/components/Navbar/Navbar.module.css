@@ -67,7 +67,7 @@
 }
 
 /* Responsividade */
-@media (max-width: 768px) {
+@media (max-width: 840px) {
     .navigation {
         flex-direction: column;
         position: absolute;
