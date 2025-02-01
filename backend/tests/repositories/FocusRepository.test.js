@@ -207,6 +207,62 @@ describe('FocusRepository', () => {
     })
   })
 
+  describe('getDailyFocusByEstateMonth', () => {
+    it('deve retornar focos diários de um estado específico por mês', async () => {
+      const mockResults = [
+        { dia: 1, mes: 1, estado: 'SP', quantidade_focos: 10, ano: 2023 }
+      ]
+      connection.query.mockImplementation((query, params, callback) => {
+        callback(null, mockResults)
+      })
+
+      const result = await focusRepository.getDailyFocusByEstateMonth('SP', 1)
+      expect(result).toEqual(mockResults)
+      expect(connection.query).toHaveBeenCalledWith(
+        expect.stringContaining('SELECT dia, mes, estado, SUM(quantidade_focos)'),
+        ['SP', 1],
+        expect.any(Function)
+      )
+    })
+
+    it('deve rejeitar com erro quando a query falha', async () => {
+      const mockError = new Error('Erro de banco de dados')
+      connection.query.mockImplementation((query, params, callback) => {
+        callback(mockError)
+      })
+
+      await expect(focusRepository.getDailyFocusByEstateMonth('SP', 1)).rejects.toThrow('Erro ao obter dados: Erro de banco de dados')
+    })
+  })
+
+  describe('getDailyFocusFromEstatesByMonth', () => {
+    it('deve retornar focos diários de todos os estados por mês', async () => {
+      const mockResults = [
+        { mes: 1, estado: 'SP', quantidade_focos: 100, ano: 2023 }
+      ]
+      connection.query.mockImplementation((query, params, callback) => {
+        callback(null, mockResults)
+      })
+
+      const result = await focusRepository.getDailyFocusFromEstatesByMonth(1)
+      expect(result).toEqual(mockResults)
+      expect(connection.query).toHaveBeenCalledWith(
+        expect.stringContaining('SELECT mes, estado, SUM(quantidade_focos)'),
+        [1],
+        expect.any(Function)
+      )
+    })
+
+    it('deve rejeitar com erro quando a query falha', async () => {
+      const mockError = new Error('Erro de banco de dados')
+      connection.query.mockImplementation((query, params, callback) => {
+        callback(mockError)
+      })
+
+      await expect(focusRepository.getDailyFocusFromEstatesByMonth(1)).rejects.toThrow('Erro ao obter dados: Erro de banco de dados')
+    })
+  })
+
   describe('getFocusFromBiomes', () => {
     it('deve retornar focos por bioma em um ano específico', async () => {
       const mockResults = [
