@@ -53,7 +53,7 @@ const Dashboard = () => {
     const [loadingHistorical, setLoadingHistorical] = useState(false);
 
     const [dailyData, setDailyData] = useState([]);
-    const [selectedDailyMonth, setSelectedDailyMonth] = useState(currentMonth);
+    const [selectedDailyMonth, setSelectedDailyMonth] = useState(1);
     const [selectedDailyEstate, setSelectedDailyEstate] = useState('AC');
     const [loadingDaily, setLoadingDaily] = useState(false);
 

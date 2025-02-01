@@ -8,7 +8,7 @@ body {
 }
 
 .home-page {
-    height: 90vh;
+    min-height: 95vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -216,9 +216,5 @@ body {
 
     .about-project p {
         font-size: 14px;
-    }
-
-    .home-page {
-        height: 100%;
     }
 }

@@ -71,6 +71,7 @@ body {
 
 /* Conteúdo */
 .about-content {
+    min-height: 95vh;
     position: relative;
     z-index: 2; 
     padding-bottom: 15px;
@@ -198,6 +199,12 @@ body {
 }
 
 /* Responsividade */
+@media (max-width: 820px) {
+    .about-intro {
+        margin: 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .members-section {
         grid-template-columns: 1fr; /* Apenas 1 coluna */

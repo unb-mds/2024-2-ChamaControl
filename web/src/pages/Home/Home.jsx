@@ -58,12 +58,7 @@ const Home = () => {
                 <section className="about-project">
                     <h1>Sobre o ChamaControl</h1>
                     <p>
-                        O ChamaControl foi criado com o objetivo de monitorar e combater queimadas em
-                        todo o território nacional. Nosso sistema fornece informações atualizadas sobre
-                        focos de queimadas e notícias relacionadas. Além disso, oferecemos alertas
-                        personalizados para que você possa acompanhar a situação da sua região e
-                        tomar decisões mais informadas. Juntos, podemos contribuir para um ambiente
-                        mais saudável e sustentável.
+                        O ChamaControl foi desenvolvido para monitorar e informar sobre queimadas em todo o território nacional. Nosso sistema utiliza como fonte a base de dados do <a href="https://terrabrasilis.dpi.inpe.br/queimadas/portal/" target="_blank" rel="noopener noreferrer">INPE</a> para fornecer informações atualizadas por meio de gráficos interativos, permitindo uma visualização clara dos focos de incêndio. Com isso, buscamos facilitar o acesso a dados relevantes e contribuir para um maior entendimento sobre a situação das queimadas no país.
                     </p>
                 </section>
 
