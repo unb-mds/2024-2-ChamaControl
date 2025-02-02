@@ -233,6 +233,10 @@ tbody tr:hover {
         align-items: center;
     }
 
+    .chart-container h2 {
+        font-size: 20px;
+    }
+
     .navigation {
         margin-top: 10px;
     }
@@ -262,6 +266,9 @@ tbody tr:hover {
         padding: 8px;
     }
 
+    .chart-container h2 {
+        font-size: 17px;
+    }
 
     .conteudo {
         width: 250px;

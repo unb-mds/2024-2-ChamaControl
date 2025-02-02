@@ -309,7 +309,7 @@ const Dashboard = () => {
                 <div className="title-container"><h1>Dashboard de Focos de Incêndio</h1></div>
 
                 <div className="chart-container">
-                    <h2>Quantidade de focos registrados diariamente pelo stélite AQUA_M-T em 2025</h2>
+                    <h2>Quantidade de focos diários registrados pelo satélite AQUA_M-T (2025)</h2>
                     <div className="filter-container" style={{ marginBottom: '20px', display: 'flex', gap: '20px',  }}>
                         <div>
                             <label htmlFor="daily-estate-select" style={{ marginRight: '10px' }}>Estado:</label>

@@ -4,7 +4,7 @@ O [ChamaControl](https://2024-2-chama-control.vercel.app/) é um software produz
 
 - **Visualizar Informações Sobre Focos de Incêndios Anuais:** Consultar facilmente focos registrados por satélite com base em região, estado, município, ano e mês. Os focos registrados se iniciam em 2003 e vão até 2024.
 
-- **Visualizar Focos Diários dos Últimos 30 Dias:** Permite aos usuários acompanhar os focos de incêndio registrados diariamente, pelo stélite ``AQUA_M-T``, nos últimos 30 dias, fornecendo uma visão atualizada e detalhada sobre a situação recente dos incêndios em diferentes regiões do Brasil.
+- **Visualizar Focos Diários dos Últimos 30 Dias:** Permite aos usuários acompanhar os focos de incêndio registrados diariamente, pelo satélite ``AQUA_M-T``, nos últimos 30 dias, fornecendo uma visão atualizada e detalhada sobre a situação recente dos incêndios em diferentes regiões do Brasil.
 
 ## 🔗 Link do Deploy
 
