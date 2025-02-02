@@ -32,7 +32,7 @@ const Home = () => {
     // Atualizar quando a tela for redimensionada
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < 600);
+            setIsMobile(window.innerWidth < 850);
         };
 
         window.addEventListener('resize', handleResize);
