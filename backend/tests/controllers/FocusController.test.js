@@ -9,7 +9,9 @@ jest.mock('../../api/services/FocusService', () => {
     getYearFocusFromRegion: jest.fn(),
     getYearFocusFromEstate: jest.fn(),
     getAllYearsFocusFromEstate: jest.fn(),
-    getFocusFromBiomes: jest.fn()
+    getFocusFromBiomes: jest.fn(),
+    getDailyFocusByEstateMonth: jest.fn(),
+    getDailyFocusFromEstatesByMonth: jest.fn()
   }))
 })
 
@@ -224,6 +226,64 @@ describe('FocusController', () => {
       focusController.focusService.getFocusFromBiomes.mockRejectedValue(error)
 
       await focusController.getFocusFromBiomes(mockReq, mockRes)
+
+      expect(mockRes.status).toHaveBeenCalledWith(500)
+      expect(mockRes.json).toHaveBeenCalledWith({ error: error.message })
+    })
+  })
+
+  describe('getDailyFocusByEstateMonth', () => {
+    beforeEach(() => {
+      mockReq = {
+        params: { estate: 'SP', month: '1' }
+      }
+    })
+
+    it('deve retornar dados diários por estado e mês com sucesso', async () => {
+      const mockData = [{ dia: 1, estado: 'SP', quantidade_focos: 10, mes: 1 }]
+      focusController.focusService.getDailyFocusByEstateMonth.mockResolvedValue(mockData)
+
+      await focusController.getDailyFocusByEstateMonth(mockReq, mockRes)
+
+      expect(mockRes.status).toHaveBeenCalledWith(200)
+      expect(mockRes.json).toHaveBeenCalledWith(mockData)
+      expect(focusController.focusService.getDailyFocusByEstateMonth).toHaveBeenCalledWith('SP', 1)
+    })
+
+    it('deve retornar erro 500 quando o serviço falha', async () => {
+      const error = new Error('Erro no serviço')
+      focusController.focusService.getDailyFocusByEstateMonth.mockRejectedValue(error)
+
+      await focusController.getDailyFocusByEstateMonth(mockReq, mockRes)
+
+      expect(mockRes.status).toHaveBeenCalledWith(500)
+      expect(mockRes.json).toHaveBeenCalledWith({ error: error.message })
+    })
+  })
+
+  describe('getDailyFocusFromEstatesByMonth', () => {
+    beforeEach(() => {
+      mockReq = {
+        params: { month: '1' }
+      }
+    })
+
+    it('deve retornar dados diários de todos os estados por mês com sucesso', async () => {
+      const mockData = [{ dia: 1, estado: 'SP', quantidade_focos: 10, mes: 1 }]
+      focusController.focusService.getDailyFocusFromEstatesByMonth.mockResolvedValue(mockData)
+
+      await focusController.getDailyFocusFromEstatesByMonth(mockReq, mockRes)
+
+      expect(mockRes.status).toHaveBeenCalledWith(200)
+      expect(mockRes.json).toHaveBeenCalledWith(mockData)
+      expect(focusController.focusService.getDailyFocusFromEstatesByMonth).toHaveBeenCalledWith(1)
+    })
+
+    it('deve retornar erro 500 quando o serviço falha', async () => {
+      const error = new Error('Erro no serviço')
+      focusController.focusService.getDailyFocusFromEstatesByMonth.mockRejectedValue(error)
+
+      await focusController.getDailyFocusFromEstatesByMonth(mockReq, mockRes)
 
       expect(mockRes.status).toHaveBeenCalledWith(500)
       expect(mockRes.json).toHaveBeenCalledWith({ error: error.message })

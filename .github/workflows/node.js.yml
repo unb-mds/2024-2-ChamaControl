@@ -26,17 +26,26 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - name: Change directory to backend
-      run: cd backend
-
-    - name: Install dependencies
+    - name: Install dependencies (backend)
       run: npm install
       working-directory: backend
 
-    - name: Run linter
+    - name: Run linter (backend)
       run: npm run lint
       working-directory: backend
 
-    - name: Run tests
+    - name: Run tests (backend)
       run: npm test
       working-directory: backend
+
+    - name: Install dependencies (web)
+      run: npm install
+      working-directory: web
+
+    - name: Run build (web)
+      run: npm run build
+      working-directory: web
+
+    - name: Run linter (web)
+      run: npm run lint
+      working-directory: web

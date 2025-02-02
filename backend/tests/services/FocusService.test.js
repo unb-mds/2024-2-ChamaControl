@@ -10,7 +10,9 @@ jest.mock('../../api/repositories/FocusRepository', () => {
     getYearFocusFromRegion: jest.fn(),
     getYearFocusFromEstate: jest.fn(),
     getAllYearsFocusFromEstate: jest.fn(),
-    getFocusFromBiomes: jest.fn()
+    getFocusFromBiomes: jest.fn(),
+    getDailyFocusByEstateMonth: jest.fn(),
+    getDailyFocusFromEstatesByMonth: jest.fn()
   }))
 })
 
@@ -163,6 +165,52 @@ describe('FocusService', () => {
     it('deve lançar erro quando o ano não é um número inteiro', async () => {
       await expect(focusService.getFocusFromBiomes(2023.5))
         .rejects.toThrow('O ano deve ser um número inteiro com 4 dígitos.')
+    })
+  })
+
+  describe('getDailyFocusByEstateMonth', () => {
+    it('deve retornar dados diários por estado e mês quando os parâmetros são válidos', async () => {
+      const mockData = [{ dia: 1, estado: 'SP', quantidade_focos: 5, mes: 1, ano: 2023 }]
+      const service = new FocusService()
+      service.focusRepository.getDailyFocusByEstateMonth = jest.fn().mockResolvedValue(mockData)
+
+      const result = await service.getDailyFocusByEstateMonth('SP', 1)
+
+      expect(result).toEqual(mockData)
+      expect(service.focusRepository.getDailyFocusByEstateMonth).toHaveBeenCalledWith('SP', 1)
+    })
+
+    it('deve lançar erro quando o mês é inválido', async () => {
+      await expect(focusService.getDailyFocusByEstateMonth('SP', 13))
+        .rejects.toThrow('O mês deve ser um número inteiro entre 1 e 12.')
+    })
+
+    it('deve lançar erro quando o mês não é um número inteiro', async () => {
+      await expect(focusService.getDailyFocusByEstateMonth('SP', 1.5))
+        .rejects.toThrow('O mês deve ser um número inteiro entre 1 e 12.')
+    })
+  })
+
+  describe('getDailyFocusFromEstatesByMonth', () => {
+    it('deve retornar dados diários de todos os estados por mês quando o parâmetro é válido', async () => {
+      const mockData = [{ dia: 1, estado: 'SP', quantidade_focos: 5, mes: 1, ano: 2023 }]
+      const service = new FocusService()
+      service.focusRepository.getDailyFocusFromEstatesByMonth = jest.fn().mockResolvedValue(mockData)
+
+      const result = await service.getDailyFocusFromEstatesByMonth(1)
+
+      expect(result).toEqual(mockData)
+      expect(service.focusRepository.getDailyFocusFromEstatesByMonth).toHaveBeenCalledWith(1)
+    })
+
+    it('deve lançar erro quando o mês é inválido', async () => {
+      await expect(focusService.getDailyFocusFromEstatesByMonth(13))
+        .rejects.toThrow('O mês deve ser um número inteiro entre 1 e 12.')
+    })
+
+    it('deve lançar erro quando o mês não é um número inteiro', async () => {
+      await expect(focusService.getDailyFocusFromEstatesByMonth(1.5))
+        .rejects.toThrow('O mês deve ser um número inteiro entre 1 e 12.')
     })
   })
 })

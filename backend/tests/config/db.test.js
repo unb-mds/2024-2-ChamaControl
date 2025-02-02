@@ -92,4 +92,25 @@ describe('Database Configuration', () => {
     expect(consoleLogSpy).toHaveBeenCalledWith('Conexão ao banco de dados estabelecida.')
     consoleLogSpy.mockRestore()
   })
+
+  it('deve exportar a conexão corretamente', () => {
+    expect(connection).toBeDefined()
+    expect(typeof connection.connect).toBe('function')
+  })
+
+  it('deve usar a porta padrão se DB_PORT não estiver definida', () => {
+    delete process.env.DB_PORT
+
+    jest.isolateModules(() => {
+      connection = require('../../config/db')
+    })
+
+    expect(mysql.createConnection).toHaveBeenCalledWith({
+      host: mockEnv.DB_HOST,
+      user: mockEnv.DB_USER,
+      password: mockEnv.DB_PASSWORD,
+      database: mockEnv.DB_NAME,
+      port: 3306
+    })
+  })
 })
