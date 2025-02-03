@@ -1,160 +1,55 @@
 # Arquitetura do Sistema | ChamaControl
 
-## Visão Geral
+## Introdução
 
-O **ChamaControl** é um sistema desenvolvido para visualização de queimadas pelo terrotório brasileiro, fornecendo uma interface interativa para visualização e gestão de dados relacionados a focos de incêndio. O projeto é estruturado em uma arquitetura baseada em **backend e frontend**, garantindo escalabilidade e modularidade.
+O **ChamaControl** é um sistema desenvolvido para visualização de queimadas pelo território brasileiro, fornecendo uma interface interativa para visualização de dados relacionados a focos de incêndio. O projeto é estruturado em uma arquitetura baseada em **backend e frontend**.
 
+### Diagrama de Arquitetura
 
-## Componentes Principais
-O sistema é dividido em três camadas principais:
+Imagem...
 
-- Front-end
-- Back-end
-- Banco de Dados
+### Fluxo de Trabalho
 
+- **Coleta de dados:** É realizada diariamente às 12 horas e obtém a quantidade de focos registrada no dia.
 
-## 1. Front-end
-### Cliente (Web)
-O front-end do ChamaControl é responsável pela interface do usuário (UI), permitindo interações intuitivas e responsivas. O desenvolvimento utiliza **Vite**, que oferece um ambiente rápido para desenvolvimento moderno de JavaScript.
+- **Armazenamento:** Após os dados serem processados, eles são armazenados no banco de dados MySQL.
 
-#### Tecnologias
-- **Framework**: React
-- **Gerenciador de Pacotes**: npm
-- **Estilização**: CSS
-- **Build Tool**: Vite
+- **Visualização:** Os dados obtidos são apresentados no nosso site através de gráficos para facilitar a compreensão.
 
-#### Como rodar o front-end
-```sh
-cd web
-npm install
-npm run dev
-```
-Isso iniciará o servidor de desenvolvimento. 
-### O front-end ficará disponível em: ```http://localhost:5173/```
+## Ferramentas e Tecnologias Utilizadas
 
----
+- **Front-end:** React, HTML, CSS 
+- **Back-end:** Node.js, Express
+- **Banco de Dados:** MySQL
+- **Scraper:** JavaScript
+- **Ferramentas:** Docker, Docker-compose, Postman
 
-## 2. Back-end
-O back-end é desenvolvido em **Node.js** utilizando **Express**, responsável por gerenciar a lógica de negócio e as requisições do sistema.
+## Backend
 
-### Estrutura do Back-end
-- **API**: Expõe endpoints para o front-end consumir.
-- **Users**: Gerencia autenticação e dados dos usuários.
-- **Routes**: Define as rotas do sistema.
-- **Scraper**: Contém scripts para [extração/manipulação de dados].
+O backend é responsável por fornecer uma API que disponibiliza os dados sobre focos de incêndio armazenados no banco de dados. As consultas são realizadas utilizando parâmetros específicos que retornam os dados formatados com base nas necessidades do usuário. A API é construída utilizando **Node.js** e **Express**.
 
-#### Como rodar o back-end
+### Coleta de dados
 
-Primeiro, rode o arquivo `script-db.sql` em seu **MySql** para criar as tabelas.
+A coleta de dados é realizada através dos dados do [INPE](https://terrabrasilis.dpi.inpe.br/queimadas/portal/dados-abertos/#da-focos). Esses dados são disponibilizados em arquivos `.csv`, que são baixados, lidos, processados e armazenados no banco de dados.
 
-Dentro de `/backend`
+O ChamaControl possui 3 scrapers, são eles:
 
-```shell
-# Crie um arquivo .env com as seguintes variáveis
-SECRET_KEY=seu_segredo
-TOKEN_EXPIRATION=10m
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=sua_senha_do_banco_de_dados
-DB_NAME=mdschama
-```
-Dentro de `/web`
+- **processaDadosAnual:** É responsável por popular o banco de dados com a quantidade mensal de focos registradas de cada estado no período de 2003 a 2024. (excutado apenas uma vez)
+- **processaDadosDiarios30Dias:** É responsável por popular o banco de dados com a quantidade de focos registrados de cada estado diariamente nos últimos 30 dias. (excutado apenas uma vez)
+- **processaDadoDiario:** É executado todos os dias às 12 horas e mantém o banco de dados sempre atualizado com os últimos dados diários fornecidos pelo INPE.
 
-```shell
-# Crie um arquivo .env com a seguinte variável
-VITE_BACKEND_URL=http://localhost:3000
-```
-Depois:
-```shell
-# Para popular o banco de dados execute (isso deve ser feito apenas uma vez)
-npm run populaFocosAnual
+### Notícias
 
-# Para iniciar a API execute
-npm run app
-```
+As notícias são fornecidas através da API do [GNews](https://gnews.io/). Por meio de parâmetros passados na API é possível filtrar as notícias que são relevantes e relacionadas a queimadas e incêndios florestais. Essas notícias são então exibidas na interface do ChamaControl, fornecendo aos usuários informações atualizadas sobre eventos recentes e relevantes.
 
-### O back-end ficará disponível em: ```http://localhost:3000```
+## Front-end
 
-E para testar abra ```http://localhost:3000/api/hello```
+O front-end foi desenvolvido utilizando a biblioteca React com o framework Vite e está localizado na pasta `/web` do repositório do projeto. Os principais códigos estão na pasta src, onde o arquivo `AppRoutes.jsx` configura as rotas da página e as configurações iniciais do React. As pastas estão organizadas da seguinte forma:
 
-Isso iniciará o servidor na porta definida no arquivo de configuração.
+- **components:** Contém trechos de código reutilizados por mais de uma página do site, organizando melhor as funcionalidades do site e tornando o código mais limpo e centralizado.
 
+- **pages:** Contém subpastas dedicadas a cada página específica do site.
 
-## 3. Banco de Dados
-O sistema utiliza **MySQL** para armazenar informações dos usuários e demais entidades.
+- **context:** Contém os contextos globais do React, que permitem compartilhar dados entre vários componentes.
 
-### Configuração do Banco de Dados
-- O esquema do banco pode ser encontrado em `backend/script-db.sql`.
-- Para rodar o banco localmente:
-  ```sh
-  docker-compose up -d
-  ```
-
-
-## Tecnologias Utilizadas:
-
-### 1. **Node.js** *(Backend)*
-- O backend do projeto é desenvolvido utilizando **Node.js**, que permite a criação de uma API REST responsável pelo processamento dos dados e fornecimento das informações para o frontend.
-- Utiliza o **Express.js** (framework minimalista para Node.js) para gerenciar as rotas e requisições HTTP.
-- O backend está sendo hospedado no **[Heroku](https://www.heroku.com/)**.
-
-**Conexão com outras tecnologias:**
-- O **Node.js** se comunica com o banco de dados para armazenar e recuperar informações.
-- Serve como interface para que o frontend possa consumir os dados.
-
-
-### 2. **React.js** *(Frontend)*
-
-- O frontend da aplicação foi desenvolvido utilizando **React.js**, permitindo uma interface responsiva e dinâmica para os usuários.
-- Utiliza bibliotecas como **React Router** para navegação e **Axios** para chamadas de API.
-- O frontend está sendo hospedado no **[Vercel App](https://2024-2-chama-control.vercel.app/)**.
-
-**Conexão com outras tecnologias:**
-
-- O frontend consome a API do backend hospedado no **Heroku** para exibir os dados de queimadas e usuários.
-- Utiliza autenticação para segurança e controle de acessos.
-
-
-
-### 3. **MkDocs** *(Documentação)*
-
-- O **MkDocs** é utilizado para gerar e hospedar a documentação do projeto.
-- A estrutura de documentação é definida no arquivo `mkdocs.yml`, permitindo a geração de uma documentação navegável e responsiva.
-
-**Conexão com outras tecnologias:**
-
-- Armazena a documentação do backend e instruções para os desenvolvedores sobre o uso da API.
-
-
-## Estrutura do Banco de Dados
-
-O sistema utiliza um **banco de dados relacional** para armazenar informações sobre os focos de incêndio cadastrados no [INPE](https://www.gov.br/inpe/pt-br).
-
-### Principal Tabela:
-   
-1. **Focos_Incendio**
-   - `id` (int, PK)
-   - `latitude` (float)
-   - `longitude` (float)
-   - `data_registro` (timestamp)
-   - `nivel_severidade` (int)
-   - `descricao` (text)
-
-### Conexão com outras tecnologias:
-- O **backend (Node.js)** faz requisições SQL ao banco de dados para armazenar e recuperar informações.
-- O **frontend** consome essas informações para exibir os dados de maneira visual.
-
-
-## Fluxo de Conexão entre Tecnologias
-
-1. **Frontend** envia uma requisição HTTP para o backend.
-2. **Node.js** processa a requisição e, se necessário, consulta o banco de dados.
-3. **Banco de Dados** retorna os dados solicitados ao backend.
-4. **Backend** formata e envia a resposta ao frontend.
-5. **Frontend** exibe os dados para o usuário final.
-6. **MkDocs** armazena documentação para consulta dos desenvolvedores.
-
-Esse fluxo garante um sistema modular e escalável, permitindo futuras expansões e otimizações.
-
-
-
+- **layout:** Contém os componentes de layout que são usados para estruturar a aparência geral das páginas.

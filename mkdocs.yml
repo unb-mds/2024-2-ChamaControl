@@ -36,7 +36,7 @@ nav:
   #    - Metodologias ágeis: estudos/Metodologias_ágeis.md
   #    - Arquitetura : estudos/coelhos/arquitetura.md
   #    - Requisitos : estudos/coelhos/requisitos.md
-  - Arquitetura: arquitetura2.md
+  - Arquitetura: arquitetura.md
   - Sprints :
      - Sprint 0 : sprints/Sprint-0.md
      - Sprint 1: sprints/Sprint-1.md
