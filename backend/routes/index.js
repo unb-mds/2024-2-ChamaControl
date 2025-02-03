@@ -47,52 +47,6 @@ router.get('/focusEstateMonthYear/:month/:year', focusController.getMonthlyFocus
 
 /**
  * @swagger
- * /focusRegionMonthYear/{month}/{year}:
- *   get:
- *     summary: Get monthly focus by region
- *     tags: [Focos]
- *     parameters:
- *       - in: path
- *         name: month
- *         required: true
- *         schema:
- *           type: string
- *       - in: path
- *         name: year
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Monthly focus by region
- */
-router.get('/focusRegionMonthYear/:month/:year', focusController.getMonthlyFocusByRegion)
-
-/**
- * @swagger
- * /focusYearRegionYear/{region}/{year}:
- *   get:
- *     summary: Get year focus from region
- *     tags: [Focos]
- *     parameters:
- *       - in: path
- *         name: region
- *         required: true
- *         schema:
- *           type: string
- *       - in: path
- *         name: year
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Year focus from region
- */
-router.get('/focusYearRegionYear/:region/:year', focusController.getYearFocusFromRegion)
-
-/**
- * @swagger
  * /focusYearEstateYear/{estate}/{year}:
  *   get:
  *     summary: Quantidade de focos de um estado em cada mes do ano
@@ -121,7 +75,7 @@ router.get('/focusYearEstateYear/:estate/:year', focusController.getYearFocusFro
  * /focusRegionYear/{year}:
  *   get:
  *     summary: Total de focos de cada regiao em um ano
- *     tags: [
+ *     tags: [Focos]
  *     parameters:
  *       - in: path
  *         name: year
