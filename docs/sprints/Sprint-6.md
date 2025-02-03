@@ -1,4 +1,4 @@
-# Sprint x
+# Sprint 6
 
 Período: 19/01/2025 a 26/01/2025
 
