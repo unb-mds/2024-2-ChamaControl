@@ -19,12 +19,12 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000/api',
-        description: 'Servidor Local'
-      },
-      {
         url: 'https://chama-control-95b7a5960e80.herokuapp.com/api',
         description: 'Servidor Heroku'
+      },
+      {
+        url: 'http://localhost:3000/api',
+        description: 'Servidor Local'
       }
     ],
     tags: [
