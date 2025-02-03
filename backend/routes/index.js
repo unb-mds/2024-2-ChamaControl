@@ -41,7 +41,7 @@ router.get('/hello', (req, res) => {
  *         description: Quantidade mensal de focos de cada estado
  *       500:
  *         description: Erro interno no servidor
- * 
+ *
  */
 router.get('/focusEstateMonthYear/:month/:year', focusController.getMonthlyFocusByEstate)
 
@@ -114,7 +114,7 @@ router.get('/focusBiomesYear/:year', focusController.getFocusFromBiomes)
  * @swagger
  * /focusEstateAllYears/{estate}:
  *   get:
- *     summary: Quantidade de focos mensal de um estado de 2003 a 2024 
+ *     summary: Quantidade de focos mensal de um estado de 2003 a 2024
  *     tags: [Focos]
  *     parameters:
  *       - in: path
