@@ -6,19 +6,17 @@ O [ChamaControl](https://2024-2-chama-control.vercel.app/) é um software produz
 
 - **Visualizar Focos Diários dos Últimos 30 Dias:** Permite aos usuários acompanhar os focos de incêndio registrados diariamente, pelo satélite ``AQUA_M-T``, nos últimos 30 dias, fornecendo uma visão atualizada e detalhada sobre a situação recente dos incêndios em diferentes regiões do Brasil.
 
-## 🔗 Link do Deploy
-
-Você pode acessar o ChamaControl [aqui](https://2024-2-chama-control.vercel.app/)
+- **Ter acesso às notícias mais recentes:** Acompanhe as últimas notícias relacionadas a incêndios e queimadas no Brasil, atualizadas em tempo real, para se manter informado sobre os eventos mais recentes.
 
 ## 📑 Índice
 
 - [ChamaControl](#chamacontrol)
   - [📑 Índice](#-índice)
   - [👤 Equipe](#-equipe)
-  - [🚀 Primeiros Passos](#-primeiros-passos)
+  - [▶️ Execução do Projeto](#️-execução-do-projeto)
     - [🛠 Pré-requisitos](#-pré-requisitos)
-    - [📦 Instalação das Dependências](#-instalação-das-dependências)
-    - [▶️ Execução do Projeto](#️-execução-do-projeto)
+    - [📦 Passos para Executar](#passos-para-executar)
+    - [Configure a página de notícias](#configure-a-página-de-notícias)
   - [📖 Documentação](#-documentação)
   - [🔗 Links Úteis](#-links-úteis)
     - [Diagrama de Arquitetura](#diagrama-de-arquitetura)
