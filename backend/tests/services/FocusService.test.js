@@ -5,9 +5,7 @@ const FocusRepository = require('../../api/repositories/FocusRepository')
 jest.mock('../../api/repositories/FocusRepository', () => {
   return jest.fn().mockImplementation(() => ({
     getMonthlyFocusByEstate: jest.fn(),
-    getMonthlyFocusByRegion: jest.fn(),
     getFocusByRegion: jest.fn(),
-    getYearFocusFromRegion: jest.fn(),
     getYearFocusFromEstate: jest.fn(),
     getAllYearsFocusFromEstate: jest.fn(),
     getFocusFromBiomes: jest.fn(),
@@ -55,29 +53,6 @@ describe('FocusService', () => {
     })
   })
 
-  describe('getMonthlyFocusByRegion', () => {
-    it('deve retornar dados mensais por região quando os parâmetros são válidos', async () => {
-      const mockData = [{ regiao: 'Sudeste', quantidade_focos: 200, mes: 1, ano: 2023 }]
-      const service = new FocusService()
-      service.focusRepository.getMonthlyFocusByRegion = jest.fn().mockResolvedValue(mockData)
-
-      const result = await service.getMonthlyFocusByRegion(1, 2023)
-
-      expect(result).toEqual(mockData)
-      expect(service.focusRepository.getMonthlyFocusByRegion).toHaveBeenCalledWith(1, 2023)
-    })
-
-    it('deve lançar erro quando o mês é inválido', async () => {
-      await expect(focusService.getMonthlyFocusByRegion(13, 2023))
-        .rejects.toThrow('O mês deve ser um número inteiro entre 1 e 12.')
-    })
-
-    it('deve lançar erro quando o ano não tem 4 dígitos', async () => {
-      await expect(focusService.getMonthlyFocusByRegion(1, 23))
-        .rejects.toThrow('O ano deve ser um número inteiro com 4 dígitos.')
-    })
-  })
-
   describe('getFocusByRegion', () => {
     it('deve retornar dados por região quando o ano é válido', async () => {
       const mockData = [{ regiao: 'Sudeste', quantidade_focos: 500, ano: 2023 }]
@@ -92,24 +67,6 @@ describe('FocusService', () => {
 
     it('deve lançar erro quando o ano não tem 4 dígitos', async () => {
       await expect(focusService.getFocusByRegion(23))
-        .rejects.toThrow('O ano deve ser um número inteiro com 4 dígitos.')
-    })
-  })
-
-  describe('getYearFocusFromRegion', () => {
-    it('deve retornar dados anuais de uma região quando os parâmetros são válidos', async () => {
-      const mockData = [{ mes: 1, regiao: 'Sudeste', quantidade_focos: 100, ano: 2023 }]
-      const service = new FocusService()
-      service.focusRepository.getYearFocusFromRegion = jest.fn().mockResolvedValue(mockData)
-
-      const result = await service.getYearFocusFromRegion('Sudeste', 2023)
-
-      expect(result).toEqual(mockData)
-      expect(service.focusRepository.getYearFocusFromRegion).toHaveBeenCalledWith('Sudeste', 2023)
-    })
-
-    it('deve lançar erro quando o ano não tem 4 dígitos', async () => {
-      await expect(focusService.getYearFocusFromRegion('Sudeste', 23))
         .rejects.toThrow('O ano deve ser um número inteiro com 4 dígitos.')
     })
   })

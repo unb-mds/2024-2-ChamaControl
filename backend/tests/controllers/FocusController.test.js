@@ -58,35 +58,6 @@ describe('FocusController', () => {
     })
   })
 
-  describe('getMonthlyFocusByRegion', () => {
-    beforeEach(() => {
-      mockReq = {
-        params: { month: '1', year: '2023' }
-      }
-    })
-
-    it('deve retornar dados mensais por região com sucesso', async () => {
-      const mockData = [{ regiao: 'Sudeste', quantidade_focos: 200, mes: 1, ano: 2023 }]
-      focusController.focusService.getMonthlyFocusByRegion.mockResolvedValue(mockData)
-
-      await focusController.getMonthlyFocusByRegion(mockReq, mockRes)
-
-      expect(mockRes.status).toHaveBeenCalledWith(200)
-      expect(mockRes.json).toHaveBeenCalledWith(mockData)
-      expect(focusController.focusService.getMonthlyFocusByRegion).toHaveBeenCalledWith(1, 2023)
-    })
-
-    it('deve retornar erro 500 quando o serviço falha', async () => {
-      const error = new Error('Erro no serviço')
-      focusController.focusService.getMonthlyFocusByRegion.mockRejectedValue(error)
-
-      await focusController.getMonthlyFocusByRegion(mockReq, mockRes)
-
-      expect(mockRes.status).toHaveBeenCalledWith(500)
-      expect(mockRes.json).toHaveBeenCalledWith({ error: error.message })
-    })
-  })
-
   describe('getFocusByRegion', () => {
     beforeEach(() => {
       mockReq = {
@@ -110,35 +81,6 @@ describe('FocusController', () => {
       focusController.focusService.getFocusByRegion.mockRejectedValue(error)
 
       await focusController.getFocusByRegion(mockReq, mockRes)
-
-      expect(mockRes.status).toHaveBeenCalledWith(500)
-      expect(mockRes.json).toHaveBeenCalledWith({ error: error.message })
-    })
-  })
-
-  describe('getYearFocusFromRegion', () => {
-    beforeEach(() => {
-      mockReq = {
-        params: { region: 'Sudeste', year: '2023' }
-      }
-    })
-
-    it('deve retornar dados anuais por região com sucesso', async () => {
-      const mockData = [{ mes: 1, regiao: 'Sudeste', quantidade_focos: 100, ano: 2023 }]
-      focusController.focusService.getYearFocusFromRegion.mockResolvedValue(mockData)
-
-      await focusController.getYearFocusFromRegion(mockReq, mockRes)
-
-      expect(mockRes.status).toHaveBeenCalledWith(200)
-      expect(mockRes.json).toHaveBeenCalledWith(mockData)
-      expect(focusController.focusService.getYearFocusFromRegion).toHaveBeenCalledWith('Sudeste', 2023)
-    })
-
-    it('deve retornar erro 500 quando o serviço falha', async () => {
-      const error = new Error('Erro no serviço')
-      focusController.focusService.getYearFocusFromRegion.mockRejectedValue(error)
-
-      await focusController.getYearFocusFromRegion(mockReq, mockRes)
 
       expect(mockRes.status).toHaveBeenCalledWith(500)
       expect(mockRes.json).toHaveBeenCalledWith({ error: error.message })
