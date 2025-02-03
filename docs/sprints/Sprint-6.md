@@ -9,7 +9,9 @@ Período: 19/01/2025 a 26/01/2025
 ### Tópicos
 
 Durante essa sprint foram debatidos alguns tópicos sobre o projeto:
-
+  
+- Revisão e alteração do escopo inicial
+    Decisão sobre a implementação de uma página de notícias e decisão sobre o dashboard
 - Foco na funcionalidade do produto
 - Testes Unitários
 - UI e UX 

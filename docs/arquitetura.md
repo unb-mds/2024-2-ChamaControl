@@ -6,7 +6,7 @@ O **ChamaControl** é um sistema desenvolvido para visualização de queimadas p
 
 ### Diagrama de Arquitetura
 
-Imagem...
+![Diagrama da arquitetura](diagrama.png)
 
 ### Fluxo de Trabalho
 
