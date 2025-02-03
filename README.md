@@ -30,70 +30,67 @@ Você pode acessar o ChamaControl [aqui](https://2024-2-chama-control.vercel.app
 | :---------: | :---------: | :---------: |
 | <img src="https://github.com/fbressa.png" width="150">  <br> [**Filipe Bressanelli Azevedo Filho**](https://github.com/fbressa) | <img src="https://github.com/Guga301104.png" width="150">  <br> [**Gustavo Gontijo Lima**](https://github.com/Guga301104) | <img src="https://github.com/leohssjr.png" width="150">  <br> [**Leonardo Henrique Sobral Sauma Junior**](https://github.com/leohssjr) |
 
-## 🚀 Primeiros Passos
-
-Para clonar este repositório, execute:
-
-```bash
-git clone https://github.com/unb-mds/2024-2-ChamaControl.git
-```
+## ▶️ Execução do Projeto
 
 ### 🛠 Pré-requisitos
 
-Antes de rodar o projeto, instale as seguintes ferramentas:
+- [Docker](https://www.docker.com/get-started) instalado na sua máquina.
+- [Docker Compose](https://docs.docker.com/compose/install/) instalado.
 
-- **Node** 22.12 ou superior
-- **MySql** 8.0 ou superior
+### Passos para Executar
 
-### 📦 Instalação das Dependências
+1. **Clone o repositório:**
 
-Execute os seguintes comandos para instalar as dependências:
-
-```bash
-# Execute o seguinte comando dentro das pasta /web e /backend
-npm install
 ```
+git clone https://github.com/unb-mds/2024-2-ChamaControl.git
+cd 2024-2-ChamaControl
+````
+2. **Execute o Docker Compose:**
 
-### ▶️ Execução do Projeto
+````sh
+docker-compose up -d
+````
 
-#### Front-end
+Isso irá iniciar os contêineres do backend, frontend e banco de dados.
 
-Dentro de `/web`
-```shell
-# Na pasta /web execute os comandos
-npm run dev
-```
+3. **Acesse a aplicação:**
 
-O front-end ficara disponivel em: http://localhost:5173/
+- O backend estará disponível em: http://localhost:3000
+- O frontend estará disponível em: http://localhost:5173
 
-#### Back-end
+4. **Crie as tabelas no banco de dados:**
 
-Primeiro, rode o arquivo `script-db.sql` em seu **MySql** para criar as tabelas.
+````
+docker-compose exec backend npm run criarTabelas
+````
 
-Dentro de `/backend`
+5. **Popule o banco de dados:**
 
-```shell
-# Crie um arquivo .env com as seguintes variáveis
-SECRET_KEY=seu_segredo
-TOKEN_EXPIRATION=10m
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=sua_senha_do_banco_de_dados
-DB_NAME=mdschama
-```
+````
+docker-compose exec backend npm run populaFocosAnual
 
-Depois:
-```shell
-# Para popular o banco de dados execute (isso deve ser feito apenas uma vez)
-npm run populaFocosAnual
+docker-compose exec backend npm run populaFocos30Dias
+````
 
-# Para iniciar a API execute
-npm run app
-```
+Pronto! Agora você deve ser capaz de acessar e utilizar o projeto ChamaControl em seu ambiente Dockerizado.
 
-O back-end ficara disponivel em: http://localhost:3000
+6. **Para encerrar o projeto execute**
 
-E para testar abra http://localhost:3000/api/hello
+````
+docker-compose down
+````
+
+### Configure a página de notícias
+
+1. **Acesse o site [GNews](https://gnews.io/), crie uma conta e copie a sua API key**
+
+2. **Crie o arquivo `.env` dentro de `/web`**
+
+````
+VITE_NEWS_API_KEY=sua_API_Key_aqui
+````
+
+Assim você terá acesso à página de notícias.
 
 ## 📖 Documentação
 
