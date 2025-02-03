@@ -19,6 +19,7 @@ const News = () => {
   const [hasMore, setHasMore] = useState(true);
   const [lastPublishedAt, setLastPublishedAt] = useState(null); // Para armazenar a data da última notícia
   const [loadedNewsIds, setLoadedNewsIds] = useState(new Set()); // Para armazenar os IDs das notícias já carregadas
+  const [error, setError] = useState(null); // Para armazenar mensagens de erro
 
   useEffect(() => {
     getNews();
@@ -28,6 +29,7 @@ const News = () => {
     if (loading || news.length >= 50) return; // Evita chamadas se já atingimos o limite
 
     setLoading(true);
+    setError(null); // Reseta o erro antes de uma nova tentativa
 
     try {
       let dateFilter = lastPublishedAt ? `&to=${lastPublishedAt}` : "";
@@ -63,6 +65,7 @@ const News = () => {
       }
     } catch (error) {
       console.error("Erro ao buscar notícias:", error);
+      setError("Ocorreu um problema ao buscar as notícias. Por favor, tente novamente mais tarde.");
     }
 
     setLoading(false);
@@ -73,6 +76,8 @@ const News = () => {
       <Navbar />
       <section id="news">
         <h1 className="news-title">Notícias</h1>
+
+        {error && <p className="error-message">{error}</p>}
 
         {loading && news.length === 0 ? (
           <Loading />
@@ -94,7 +99,7 @@ const News = () => {
           </ul>
         )}
 
-        {hasMore && !loading && (
+        {hasMore && !loading && !error && (
           <button onClick={getNews} className="load-more-btn">
             Carregar Mais
           </button>

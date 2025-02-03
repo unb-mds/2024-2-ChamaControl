@@ -3,6 +3,7 @@ body {
 }
 
 #news {
+    min-height: 95vh;
     text-align: center;
 }
 
