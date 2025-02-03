@@ -2,13 +2,6 @@ import Navbar from '../../components/Navbar/Navbar.jsx';
 
 import './About.css';
 
-import artur from '/members/artur.png';   // Importa as imagens dos membros
-import diassis from '/members/diassis.png';
-import eduardo from '/members/eduardo.png';
-import filipe from '/members/filipe.png';
-import gustavo from '/members/gustavo.png';
-import leonardo from '/members/leonardo.png';
-
 import logoGithub from '/logos/logo-github.png';
 import Rodape from '../../components/Rodape/Rodape.jsx';
 
@@ -17,37 +10,37 @@ const members = [
         name: 'Artur Krauspenhar',
         role: 'Função',
         github: 'https://github.com/Arturhk05',
-        photo: artur,
+        photo: 'https://github.com/Arturhk05.png',
     },
     {
         name: 'Diassis Nascimento',
         role: 'Função',
         github: 'https://github.com/Diaxiz',
-        photo: diassis,
+        photo: 'https://github.com/Diaxiz.png',
     },
     {
         name: 'Eduardo Morais',
         role: 'Função',
         github: 'https://github.com/Edumorais08',
-        photo: eduardo,
+        photo: 'https://github.com/Edumorais08.png',
     },
     {
         name: 'Filipe Bressanelli',
         role: 'Função',
         github: 'https://github.com/fbressa',
-        photo: filipe,
+        photo: 'https://github.com/fbressa.png',
     },
     {
         name: 'Gustavo Gontijo',
         role: 'Função',
         github: 'https://github.com/Guga301104',
-        photo: gustavo,
+        photo: 'https://github.com/Guga301104.png',
     },
     {
         name: 'Leonardo Sauma',
         role: 'Função',
         github: 'https://github.com/leohssjr',
-        photo: leonardo,
+        photo: 'https://github.com/leohssjr.png',
     },
 ];
 

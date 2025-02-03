@@ -8,10 +8,15 @@ body {
 }
 
 .news-title {
-    color: #414141;
-    padding: 20px;
-    font-size: 50px;
+    background-color: white;
+    padding: 15px;
+    color: #f57c00;
+    border-radius: 10px;
     text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    font-size: 32px;
+    margin: 30px auto;
 }
 
 .news-list {
