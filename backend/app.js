@@ -6,6 +6,40 @@ const cors = require('cors')
 const cron = require('node-cron')
 const path = require('path')
 const { fork } = require('child_process')
+const swaggerUi = require('swagger-ui-express')
+const swaggerJsDoc = require('swagger-jsdoc')
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Documentação da API',
+      version: '1.0.0',
+      description: 'Documentação da API de foco de incêndios florestais'
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000/api',
+        description: 'Servidor Local'
+      },
+      {
+        url: 'https://chama-control-95b7a5960e80.herokuapp.com/api',
+        description: 'Servidor Heroku'
+      }
+    ],
+    tags: [
+      {
+        name: 'Focos',
+        description: 'Endpoints relacionados a focos de incêndios florestais'
+      },
+      {
+        name: 'Teste',
+        description: 'Endpoints de teste'
+      }
+    ]
+  },
+  apis: ['./routes/*.js']
+}
 
 const app = express()
 
@@ -15,6 +49,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use('/api', routes)
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 cron.schedule('0 12 * * *', () => {
   console.log('Iniciando processamento diário de focos...')
