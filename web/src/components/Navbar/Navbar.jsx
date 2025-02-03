@@ -27,11 +27,11 @@ function Navbar() {
                 <Link to="/dashboard" className={location.pathname === "/dashboard" ? styles.active : ""}>
                     Dashboard
                 </Link>
-                <Link to="/about" className={location.pathname === "/about" ? styles.active : ""}>
-                    Equipe
-                </Link>
                 <Link to="/news" className={location.pathname === "/news" ? styles.active : ""}>
                     Notícias
+                </Link>
+                <Link to="/about" className={location.pathname === "/about" ? styles.active : ""}>
+                    Equipe
                 </Link>
             </nav>
         </header>
