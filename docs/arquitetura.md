@@ -22,11 +22,13 @@ O **ChamaControl** é um sistema desenvolvido para visualização de queimadas p
 - **Back-end:** Node.js, Express
 - **Banco de Dados:** MySQL
 - **Scraper:** JavaScript
-- **Ferramentas:** Docker, Docker-compose, Postman
+- **Ferramentas:** Docker, Docker-compose, Postman, Swagger
 
 ## Backend
 
 O backend é responsável por fornecer uma API que disponibiliza os dados sobre focos de incêndio armazenados no banco de dados. As consultas são realizadas utilizando parâmetros específicos que retornam os dados formatados com base nas necessidades do usuário. A API é construída utilizando **Node.js** e **Express**.
+
+A documentação da API do ChamaControl pode ser encontrada [aqui](https://chama-control-95b7a5960e80.herokuapp.com/api-docs)
 
 ### Coleta de dados
 
