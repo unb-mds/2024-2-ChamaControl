@@ -35,9 +35,9 @@ services:
   frontend:
     build: ./web
     ports:
-      - "80:80"
+      - "5173:5173"
     environment:
-      - VITE_BACKEND_URL=http://localhost:3000
+      VITE_BACKEND_URL: http://localhost:3000
     networks:
       - app-network
 
