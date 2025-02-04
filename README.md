@@ -19,7 +19,7 @@ O [ChamaControl](https://2024-2-chama-control.vercel.app/) é um software produz
     - [Configure a página de notícias](#configure-a-página-de-notícias)
   - [📖 Documentação](#-documentação)
   - [🔗 Links Úteis](#-links-úteis)
-    - [Diagrama de Arquitetura](#diagrama-de-arquitetura)
+    - [Diagrama de Arquitetura](https://unb-mds.github.io/2024-2-ChamaControl/arquitetura/)
     - [Protótipo Visual](#protótipo-visual)
 
 ## 👤 Equipe
