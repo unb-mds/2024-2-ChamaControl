@@ -8,37 +8,37 @@ import Rodape from '../../components/Rodape/Rodape.jsx';
 const members = [
     {
         name: 'Artur Krauspenhar',
-        role: 'Função',
+        role: 'Backend',
         github: 'https://github.com/Arturhk05',
         photo: 'https://github.com/Arturhk05.png',
     },
     {
         name: 'Diassis Nascimento',
-        role: 'Função',
+        role: 'Backend',
         github: 'https://github.com/Diaxiz',
         photo: 'https://github.com/Diaxiz.png',
     },
     {
         name: 'Eduardo Morais',
-        role: 'Função',
+        role: 'Frontend',
         github: 'https://github.com/Edumorais08',
         photo: 'https://github.com/Edumorais08.png',
     },
     {
         name: 'Filipe Bressanelli',
-        role: 'Função',
+        role: 'Backend',
         github: 'https://github.com/fbressa',
         photo: 'https://github.com/fbressa.png',
     },
     {
         name: 'Gustavo Gontijo',
-        role: 'Função',
+        role: 'Frontend',
         github: 'https://github.com/Guga301104',
         photo: 'https://github.com/Guga301104.png',
     },
     {
         name: 'Leonardo Sauma',
-        role: 'Função',
+        role: 'Frontend',
         github: 'https://github.com/leohssjr',
         photo: 'https://github.com/leohssjr.png',
     },
