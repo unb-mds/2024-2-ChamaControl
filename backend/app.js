@@ -53,7 +53,7 @@ app.use('/api', routes)
 const swaggerDocs = swaggerJsDoc(swaggerOptions)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
-cron.schedule('0 12 * * *', () => {
+cron.schedule('0 10 * * *', () => {
   console.log('Iniciando processamento diário de focos...')
 
   const scriptPath = path.join(__dirname, 'scraper', 'processaDadoDiario.js')
@@ -72,7 +72,7 @@ cron.schedule('0 12 * * *', () => {
   timezone: 'America/Sao_Paulo'
 })
 
-console.log('Cron job configurado para executar todos os dias às 12:00 (horário de Brasília)')
+console.log('Cron job configurado para executar todos os dias às 10:00 (horário de Brasília)')
 
 connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
   if (err) throw err

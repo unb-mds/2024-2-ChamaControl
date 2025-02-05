@@ -10,7 +10,7 @@ O **ChamaControl** é um sistema desenvolvido para visualização de queimadas p
 
 ### Fluxo de Trabalho
 
-- **Coleta de dados:** É realizada diariamente às 12 horas e obtém a quantidade de focos registrada no dia.
+- **Coleta de dados:** É realizada diariamente às 10 horas e obtém a quantidade de focos registrada no dia.
 
 - **Armazenamento:** Após os dados serem processados, eles são armazenados no banco de dados MySQL.
 
