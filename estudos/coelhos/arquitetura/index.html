@@ -1,0 +1,1289 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
+    
+    
+      
+        <title>Arquitetura de Software - Docs - ChamaControl</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.d7758b05.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="orange" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#arquitetura-de-software" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../../.." title="Docs - ChamaControl" class="md-header__button md-logo" aria-label="Docs - ChamaControl" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs - ChamaControl
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arquitetura de Software
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="orange" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="orange" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../CONTRIBUTING/" class="md-tabs__link">
+        
+  
+    
+  
+  Como Contribuir?
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../arquitetura/" class="md-tabs__link">
+        
+  
+    
+  
+  Arquitetura
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../StoryMap/" class="md-tabs__link">
+        
+  
+    
+  
+  Story Map
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../prototipo/" class="md-tabs__link">
+        
+  
+    
+  
+  Protótipo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../sprints/Sprint-0/" class="md-tabs__link">
+          
+  
+  Sprints
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Docs - ChamaControl" class="md-nav__button md-logo" aria-label="Docs - ChamaControl" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Docs - ChamaControl
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Como Contribuir?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../arquitetura/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Arquitetura
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../StoryMap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Story Map
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../prototipo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Protótipo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Sprints
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Sprints
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprints/Sprint-0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 0
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprints/Sprint-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 1
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprints/Sprint-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprints/Sprint-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprints/Sprint-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 4
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprints/Sprint-5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprints/Sprint-6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 6
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sprints/Sprint-7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 7
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="arquitetura-de-software">Arquitetura de Software</h1>
+<p>Este estudo visa abordar os principais conceitos de Arquitetura de software e pode ser modificado.</p>
+<h2 id="arquitetura">Arquitetura</h2>
+<p>Noção definida dos aspectos mais importantes do design interno de um sistema de software. Uma boa arquitetura minmiza o tempo e o custo para implementar novos recursos no futuro.</p>
+<h2 id="o-que-e">O que é?</h2>
+<p>A melhor maneira de definir e a melhor visão é <strong>o entendimento compartilhado de que os desenvolvedores especialistas têm do design do sistema</strong>. Também é definido como <strong>as decisões que você gostaria de poder acertar cedo em um projeto</strong>. Pensar arqutetonicamente sobre software é decidir o que é importante e depois, gastar energia em manter os elementos arquitetônicos em bom estado. Para um desenvolvedor se tornar um arquiteto, ele precisa ser capaz de reconhecer os elementos mais importantes, percebendo quais elementos podem resultar em problemas sérios se não forem controlados.</p>
+<p><strong>Lista de coelhos:</strong>
+- Gustavo Gontijo
+- Diassis Nascimento</p>
+<h2 id="importancia-da-arquitetura">Importância da arquitetura</h2>
+<p>A arquitetura é algo que os clientes não percebem imediatamente, mas a aquitetura pobre é um dos principais contribuintes para o crescimento de elementos cruft no software. Software com muitos crufts é mais fácil de ser modificado levando a recursos mais lentos e com mais defeitos.
+Estamos acostumados a algo que é "high quality" como algo que custa mais. Para alguns aspectos como a experiência do usuário, isso pode ser verdade. Mas quando se trata da arquitetura a outros aspectos da qualidade interna, essa relação é invertida. <strong>Alta qualidade interna leva a entrega mais rápida de novos recursos</strong>.
+Embora seja verdade que podemos sacrificar a qualidade para uma entrega mais rápida em curto prazo, antes que os crufts tenham impacto, as pessoas subestimam a rapidez com que o cruft leva a uma entrega mais lenta. Por mais que isso não possa ser medido de maneira objetiva, desenvolvedores experientes reconhecem que <strong>atenção à qualidade interna compensa em semanas não em meses.</strong></p>
+<p><img alt="" src="https://martinfowler.com/articles/is-quality-worth-cost/both.png" /></p>
+<h2 id="arquitetura-de-aplicacoes">Arquitetura de Aplicações</h2>
+<p>O primeiro problema com a definição da arquitetura de aplicativos é que não há uma definição clara do que é um aplicativo, mas pode ser razoavelmente expressado por "construção social":</p>
+<ul>
+<li>
+<p>Um corpo de código feito pelos desenvolvedores como uma única unidade</p>
+</li>
+<li>
+<p>Um grupo de funcionalidades que os clientes vêem como uma única unidade</p>
+</li>
+<li>
+<p>Uma iniciativa que aqueles com dinheiro vêem como um único orçamento</p>
+</li>
+</ul>
+<p>Isso leva a muitos tamanhos potenciais de um aplicativo, variando de algumas pessoas a algumas centenas de pessoas na equipe de desenvolvimento.
+A principal diferença para a Arquitetura Empresarial/Corporativa é que há um grau sigificativo de um propósito único em torno da "construção social".</p>
+<p>A estrutura do design e da arquitetura de um software organiza e define como os componentes de um sistema trabalham juntos, com o objetivo de criar um produto escalável, eficiente e fácil de manter. Abaixo estão os principais elementos e camadas a serem considerados ao estruturar a arquitetura de um software.</p>
+<h3 id="camadas-da-arquitetura">Camadas da Arquitetura</h3>
+<p>As camadas organizam a arquitetura para criar separação de responsabilidades e facilitar a manutenção. As camadas mais comuns são:</p>
+<ul>
+<li>
+<p>Camada de Apresentação (Frontend): Responsável pela interface com o usuário. Exemplo de tecnologias incluem HTML, CSS, JavaScript, frameworks.</p>
+</li>
+<li>
+<p>Camada de Aplicação (Backend): Gerencia a lógica de negócio. Recebe as solicitações do frontend, processa e envia os dados. Pode ser implementada com frameworks.</p>
+</li>
+<li>
+<p>Camada de Persistência de Dados (Database): Gerencia o armazenamento e a recuperação de dados. Pode incluir bancos de dados relacionais (como MySQL, PostgreSQL) ou NoSQL (MongoDB, Redis).</p>
+</li>
+<li>
+<p>Camada de Serviço (Service Layer): Pode ser separada do backend para conter lógica específica que, por vezes, se integra com APIs externas ou microserviços.</p>
+</li>
+</ul>
+<p>Visando suprir a <strong>camada de apresentação</strong>, faz-se necessário a análise das vantagens e desvantagens em comparação entre os frameworks mais utilizados no Frontend:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Framework</strong></th>
+<th><strong>React</strong></th>
+<th><strong>Angular</strong></th>
+<th><strong>Vue</strong></th>
+<th><strong>Svelte</strong></th>
+<th><strong>Ember</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Linguagem</strong></td>
+<td>JavaScript</td>
+<td>TypeScript</td>
+<td>JavaScript</td>
+<td>JavaScript</td>
+<td>JavaScript</td>
+</tr>
+<tr>
+<td><strong>Renderização</strong></td>
+<td>DOM Virtual</td>
+<td>DOM Real</td>
+<td>DOM Virtual</td>
+<td>DOM Virtual</td>
+<td>DOM Real</td>
+</tr>
+<tr>
+<td><strong>Vinculação de Dados Bidirecional</strong></td>
+<td>Não</td>
+<td>Sim</td>
+<td>Sim</td>
+<td>Não</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td><strong>Baseado em Componentes</strong></td>
+<td>Sim</td>
+<td>Sim</td>
+<td>Sim</td>
+<td>Sim</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td><strong>Curva de Aprendizado</strong></td>
+<td>Moderada</td>
+<td>Íngreme</td>
+<td>Fácil</td>
+<td>Fácil</td>
+<td>Moderada</td>
+</tr>
+<tr>
+<td><strong>Comunidade</strong></td>
+<td>Grande</td>
+<td>Grande</td>
+<td>Grande</td>
+<td>Crescente</td>
+<td>Média</td>
+</tr>
+<tr>
+<td><strong>Desempenho</strong></td>
+<td>Alta</td>
+<td>Média a Alta</td>
+<td>Alta</td>
+<td>Alta</td>
+<td>Média a Alta</td>
+</tr>
+<tr>
+<td><strong>Tamanho do Framework</strong></td>
+<td>Leve</td>
+<td>Grande</td>
+<td>Leve</td>
+<td>Muito Leve</td>
+<td>Média</td>
+</tr>
+<tr>
+<td><strong>CLI/Ferramentas Oficiais</strong></td>
+<td>Create React App</td>
+<td>Angular CLI</td>
+<td>Vue CLI</td>
+<td>Svelte CLI</td>
+<td>Ember CLI</td>
+</tr>
+<tr>
+<td><strong>Sistema de Reatividade</strong></td>
+<td>Props e Estado</td>
+<td>Vinculação de Dados Bidirecional</td>
+<td>Vinculação de Dados Reativa</td>
+<td>Declarações Reativas</td>
+<td>Propriedades Computadas</td>
+</tr>
+</tbody>
+</table>
+<p>Nesse sentido, também é necessária a análise para escolha da linguagem e do framework a ser utilizado na <strong>camada de aplicação(Backend)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Linguagem</strong></th>
+<th><strong>Características</strong></th>
+<th><strong>Vantagens</strong></th>
+<th><strong>Limitações</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JavaScript</strong></td>
+<td>- Orientada a objetos</td>
+<td>- Fácil de aprender</td>
+<td>- Sem suporte a multithreading ou multiprocessing</td>
+</tr>
+<tr>
+<td></td>
+<td>- Linguagem interpretada</td>
+<td>- Usada tanto para backend quanto frontend</td>
+<td>- Sem funcionalidade de E/S para leitura ou escrita de arquivos</td>
+</tr>
+<tr>
+<td></td>
+<td>- Leve</td>
+<td>- Independente de plataforma</td>
+<td>- Sem suporte a rede</td>
+</tr>
+<tr>
+<td><strong>SQL</strong></td>
+<td>- Não requer compilação</td>
+<td>- Comunidade de usuários extremamente grande</td>
+<td>- Dados normalizados para reduzir duplicação</td>
+</tr>
+<tr>
+<td></td>
+<td>- Regras de sintaxe simples</td>
+<td>- Linguagem de consulta padronizada</td>
+<td>- Interfaces de usuário complexas</td>
+</tr>
+<tr>
+<td></td>
+<td>- Rápida e eficiente</td>
+<td>- Independente de plataforma</td>
+<td>- Curva de aprendizado inicial íngreme</td>
+</tr>
+<tr>
+<td><strong>Python</strong></td>
+<td>- Orientada a objetos</td>
+<td>- Ótima para desenvolvimento rápido de protótipos</td>
+<td>- Velocidade de execução mais lenta</td>
+</tr>
+<tr>
+<td></td>
+<td>- Linguagem interpretada</td>
+<td>- Grande suporte a bibliotecas padrão e externas</td>
+<td>- Fraco para computação móvel</td>
+</tr>
+<tr>
+<td></td>
+<td>- Menos verbosa</td>
+<td>- Independente de plataforma</td>
+<td>- Usa muita memória</td>
+</tr>
+<tr>
+<td><strong>Java</strong></td>
+<td>- Orientada a objetos</td>
+<td>- Suporta multithreading</td>
+<td>- Independência de plataforma é menos relevante para dependências modernas como contêineres e serviços em nuvem</td>
+</tr>
+<tr>
+<td></td>
+<td>- Compilada (javac) e interpretada (JVM)</td>
+<td>- Linguagem madura com ampla comunidade de suporte</td>
+<td>- Gerenciamento de memória ruim e JVM afetam o desempenho. Mais lenta que C, C++ e C#</td>
+</tr>
+<tr>
+<td></td>
+<td>- Linguagem segura</td>
+<td>- Independente de plataforma</td>
+<td>- Código verboso e complexo</td>
+</tr>
+<tr>
+<td><strong>Bash/Shell</strong></td>
+<td>- Acesso rápido e eficiente ao sistema operacional</td>
+<td>- Ótima para automatizar tarefas repetitivas</td>
+<td>- Difícil escrever programas complexos em comparação com linguagens modernas</td>
+</tr>
+<tr>
+<td></td>
+<td>- Interpretador de linha de comando</td>
+<td>- Excelente para rodar scripts de várias linguagens</td>
+<td>- Sem suporte para programação orientada a objetos</td>
+</tr>
+<tr>
+<td></td>
+<td>- Scripts são simples de criar</td>
+<td>- Pouco uso de recursos</td>
+<td>- Dependente de plataforma (Linux e macOS)</td>
+</tr>
+<tr>
+<td><strong>C#</strong></td>
+<td>- Orientada a objetos</td>
+<td>- Multithreading simples</td>
+<td>- Mais lenta que C e C++ e requer compilação após alterações no código</td>
+</tr>
+<tr>
+<td></td>
+<td>- Rápido desenvolvimento</td>
+<td>- Grande comunidade de desenvolvedores</td>
+<td>- Não suporta programação de baixo nível</td>
+</tr>
+<tr>
+<td></td>
+<td>- Integração com outras tecnologias .NET</td>
+<td>- Mais fácil de aprender que C e C++</td>
+<td>- Curva de aprendizado maior que outras linguagens orientadas a objetos como Python e PHP</td>
+</tr>
+<tr>
+<td><strong>C++</strong></td>
+<td>- Orientada a objetos</td>
+<td>- Linguagem de baixo nível</td>
+<td>- Relativamente complexa e difícil de aprender</td>
+</tr>
+<tr>
+<td></td>
+<td>- Linguagem geral de uso eficiente</td>
+<td>- Grande comunidade de desenvolvedores</td>
+<td>- Gerenciamento manual de memória, sem coleta de lixo</td>
+</tr>
+<tr>
+<td></td>
+<td>- Execução rápida e linguagem poderosa</td>
+<td>- Independente de plataforma</td>
+<td>- Problemas de segurança devido ao uso de ponteiros</td>
+</tr>
+<tr>
+<td><strong>PHP</strong></td>
+<td>- Orientada a objetos</td>
+<td>- Curva de aprendizado baixa</td>
+<td>- Desempenho relativamente ruim</td>
+</tr>
+<tr>
+<td></td>
+<td>- Conexão de banco de dados embutida</td>
+<td>- Forte suporte a bibliotecas</td>
+<td>- Não é ideal para aplicações de nível empresarial</td>
+</tr>
+<tr>
+<td></td>
+<td>- Menos verbosa</td>
+<td>- Independente de plataforma</td>
+<td>- Questões de segurança</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Framework</strong></th>
+<th><strong>Características</strong></th>
+<th><strong>Vantagens</strong></th>
+<th><strong>Limitações</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Flask</strong></td>
+<td>- Microframework, leve e minimalista</td>
+<td>- Flexibilidade total para criar APIs e aplicações simples e complexas</td>
+<td>- Pode precisar de bibliotecas adicionais para funcionalidades avançadas</td>
+</tr>
+<tr>
+<td></td>
+<td>- Baseado em Python</td>
+<td>- Curva de aprendizado suave, ideal para iniciantes</td>
+<td>- Menos adequado para grandes aplicações empresariais sem extensões</td>
+</tr>
+<tr>
+<td></td>
+<td>- Suporte a extensões para aumentar a funcionalidade</td>
+<td>- Comunidade ativa e vasta documentação disponível</td>
+<td>- Necessita de um bom gerenciamento de dependências para grandes projetos</td>
+</tr>
+<tr>
+<td></td>
+<td>- Focado em desenvolvimento rápido e simples</td>
+<td>- Muito utilizado para prototipação rápida e MVPs</td>
+<td>- Gerenciamento de usuários e autenticação requer integração com bibliotecas externas</td>
+</tr>
+<tr>
+<td><strong>Django</strong></td>
+<td>- Full stack, baseado em Python</td>
+<td>- Inclui administração, autenticação e estrutura robusta</td>
+<td>- Estrutura complexa, pode ter curva de aprendizado íngreme</td>
+</tr>
+<tr>
+<td></td>
+<td>- Estrutura de ORM (Object-Relational Mapping)</td>
+<td>- Convenções e configurações prontas, excelente para apps grandes</td>
+<td>- Exige seguir convenções rígidas, menos flexível que Flask</td>
+</tr>
+<tr>
+<td></td>
+<td>- Escalável e adequado para projetos empresariais</td>
+<td>- Grande comunidade e suporte de plugins</td>
+<td>- Framework completo pode adicionar complexidade desnecessária para projetos pequenos</td>
+</tr>
+<tr>
+<td><strong>Express.js</strong></td>
+<td>- Minimalista, baseado em JavaScript (Node.js)</td>
+<td>- Flexível, com suporte extensivo para middleware</td>
+<td>- Necessita de pacotes externos para lidar com funcionalidades padrão</td>
+</tr>
+<tr>
+<td></td>
+<td>- Leve e rápido</td>
+<td>- Excelente para microsserviços e APIs</td>
+<td>- Estrutura menos definida, exige configuração manual</td>
+</tr>
+<tr>
+<td></td>
+<td>- Popular para desenvolvimento backend em JavaScript</td>
+<td>- Ampla comunidade e recursos</td>
+<td>- Não inclui ORM próprio, depende de bibliotecas adicionais</td>
+</tr>
+<tr>
+<td><strong>Laravel</strong></td>
+<td>- Full stack, baseado em PHP</td>
+<td>- Suporte embutido para autenticação, mailing e armazenamento em cache</td>
+<td>- Curva de aprendizado moderada devido a muitos recursos</td>
+</tr>
+<tr>
+<td></td>
+<td>- Estrutura MVC</td>
+<td>- Ótima documentação e comunidade ativa</td>
+<td>- Pode ser lento com configurações inadequadas</td>
+</tr>
+<tr>
+<td></td>
+<td>- Inclui Eloquent ORM para manipulação de banco de dados</td>
+<td>- Excelente para aplicações PHP de médio a grande porte</td>
+<td>- Específico para PHP, limita o uso com outras linguagens</td>
+</tr>
+<tr>
+<td><strong>Spring Boot</strong></td>
+<td>- Full stack, baseado em Java</td>
+<td>- Ideal para aplicações robustas e escaláveis em ambientes empresariais</td>
+<td>- Curva de aprendizado alta para iniciantes</td>
+</tr>
+<tr>
+<td></td>
+<td>- Configuração simplificada para aplicações Spring</td>
+<td>- Suporte nativo a microsserviços e integração com ferramentas Java</td>
+<td>- Framework pesado, não indicado para aplicações pequenas</td>
+</tr>
+<tr>
+<td></td>
+<td>- Suporte para segurança e autenticação avançada</td>
+<td>- Comunidade extensa e excelente suporte para empresas</td>
+<td>- Ciclo de desenvolvimento mais complexo</td>
+</tr>
+<tr>
+<td><strong>Ruby on Rails</strong></td>
+<td>- Full stack, baseado em Ruby</td>
+<td>- Convenções que facilitam o desenvolvimento rápido</td>
+<td>- Menos adequado para aplicações de grande escala</td>
+</tr>
+<tr>
+<td></td>
+<td>- Estrutura MVC</td>
+<td>- Inclui ferramentas para CRUD, autenticação e validação</td>
+<td>- Comunidade e recursos em declínio em comparação com outros frameworks</td>
+</tr>
+<tr>
+<td></td>
+<td>- Utilizado para desenvolvimento de MVPs</td>
+<td>- Alta produtividade com código menos verboso</td>
+<td>- Framework menos popular para novos desenvolvimentos</td>
+</tr>
+<tr>
+<td><strong>ASP.NET Core</strong></td>
+<td>- Full stack, baseado em C#</td>
+<td>- Muito rápido, ideal para aplicações em grande escala</td>
+<td>- Curva de aprendizado alta para quem não é do ecossistema Microsoft</td>
+</tr>
+<tr>
+<td></td>
+<td>- Suporte para multiplataforma (Windows, Linux)</td>
+<td>- Excelente para integração com serviços Microsoft e em ambientes corporativos</td>
+<td>- Comunidade menor e menos recursos gratuitos em comparação com outros</td>
+</tr>
+<tr>
+<td></td>
+<td>- Altamente escalável e bem documentado</td>
+<td>- Ideal para grandes equipes e ambientes empresariais</td>
+<td>- Mais complexo para projetos menores</td>
+</tr>
+<tr>
+<td><strong>NestJS</strong></td>
+<td>- Full stack, baseado em TypeScript</td>
+<td>- Estrutura modular, facilita a manutenção de grandes projetos</td>
+<td>- Curva de aprendizado íngreme, especialmente para iniciantes no TypeScript</td>
+</tr>
+<tr>
+<td></td>
+<td>- Inspirado em Angular, com estrutura similar</td>
+<td>- Excelente suporte a microsserviços e APIs REST</td>
+<td>- Comunidade ainda em crescimento, menos recursos que frameworks mais antigos</td>
+</tr>
+<tr>
+<td></td>
+<td>- Suporte nativo para GraphQL e WebSockets</td>
+<td>- Muito usado em arquiteturas modernas de microsserviços</td>
+<td>- Necessita de experiência com TypeScript e JavaScript avançado</td>
+</tr>
+<tr>
+<td><strong>Phoenix</strong></td>
+<td>- Full stack, baseado em Elixir</td>
+<td>- Extremamente rápido e altamente escalável</td>
+<td>- Curva de aprendizado íngreme para iniciantes no Elixir</td>
+</tr>
+<tr>
+<td></td>
+<td>- Ideal para aplicações em tempo real</td>
+<td>- Excelente para aplicações com alta concorrência</td>
+<td>- Menor comunidade e menos recursos disponíveis</td>
+</tr>
+<tr>
+<td></td>
+<td>- Focado em concorrência e escalabilidade</td>
+<td>- Suporte a WebSockets e aplicações de chat e streaming</td>
+<td>- Ecosistema em crescimento, mas menos popular que frameworks tradicionais</td>
+</tr>
+</tbody>
+</table>
+<h3 id="estilos-arquiteturais">Estilos Arquiteturais</h3>
+<p>Os estilos arquiteturais guiam a organização das camadas e dos componentes. Alguns dos mais comuns são:</p>
+<ul>
+<li>
+<p>Monolítica: Toda a aplicação é executada como uma unidade. Funciona bem para sistemas menores, mas pode ser difícil de escalar conforme a aplicação cresce.</p>
+</li>
+<li>
+<p>Arquitetura em Microserviços: A aplicação é dividida em serviços menores, cada um com uma função específica. Isso facilita a escalabilidade e o desenvolvimento paralelo.</p>
+</li>
+<li>
+<p>Arquitetura Orientada a Serviços (SOA): Similar aos microserviços, mas com maior foco na reutilização de serviços, ideal para sistemas grandes que precisam de integração com outras aplicações.</p>
+</li>
+<li>
+<p>Serverless: Cada função ou serviço é hospedado e gerenciado por um provedor (como AWS Lambda ou Google Cloud Functions). É escalável e custo-efetivo para demandas irregulares.</p>
+</li>
+</ul>
+<h3 id="padroes-de-design-de-software">Padrões de Design de Software</h3>
+<p>Os padrões de design são soluções já testadas para problemas recorrentes, promovendo boas práticas. Alguns exemplos:</p>
+<ul>
+<li>MVC (Model-View-Controller): Organiza o código em três partes principais:</li>
+<li><em>Model</em>: Gerencia a lógica de dados e regras de negócio.</li>
+<li><em>View</em>: Interface que exibe os dados.</li>
+<li>
+<p><em>Controller</em>: Lida com as solicitações do usuário e atualiza o modelo e a visão.</p>
+</li>
+<li>
+<p>MVVM (Model-View-ViewModel): Similar ao MVC, mas com uma camada de ViewModel que facilita a comunicação entre a interface e os dados.</p>
+</li>
+<li>
+<p>DAO (Data Access Object): Um padrão para abstrair o acesso a dados, isolando a camada de persistência do resto do sistema.</p>
+</li>
+</ul>
+<h3 id="componentes-essenciais">Componentes Essenciais</h3>
+<ul>
+<li>
+<p>Interface de Programação de Aplicações (API): Permite que diferentes sistemas se comuniquem entre si. Em arquitetura de microserviços, as APIs RESTful ou GraphQL são populares para integração.</p>
+</li>
+<li>
+<p>Mensageria e Filas: Componentes como RabbitMQ ou Kafka ajudam na comunicação assíncrona entre serviços, essencial para aplicações escaláveis.</p>
+</li>
+<li>
+<p>Autenticação e Autorização: Define a segurança do sistema. Pode incluir JWT, OAuth, OpenID Connect, entre outros mecanismos.</p>
+</li>
+</ul>
+<h3 id="principios-de-design-arquitetural">Princípios de Design Arquitetural</h3>
+<ul>
+<li>
+<p>Separação de Responsabilidades: Cada componente deve ter uma responsabilidade única e específica, facilitando o desenvolvimento e manutenção.</p>
+</li>
+<li>
+<p>Baixo Acoplamento e Alta Coesão: Módulos devem ser pouco dependentes uns dos outros (baixo acoplamento) e conter funcionalidades relacionadas (alta coesão).</p>
+</li>
+<li>
+<p>Escalabilidade e Resiliência: A arquitetura deve ser capaz de lidar com um aumento na carga e continuar funcionando, mesmo em caso de falhas.</p>
+</li>
+<li>
+<p>Observabilidade: Ferramentas de monitoramento e logging para acompanhar o comportamento e a saúde da aplicação.</p>
+</li>
+</ul>
+<h2 id="vantagens-do-uso-do-mysql">Vantagens do uso do MySQL</h2>
+<p>O MySQL é uma escolha popular e consolidada para bancos de dados, especialmente em projetos que exigem desempenho, escalabilidade e confiabilidade. Uma de suas maiores vantagens é a maturidade e a estabilidade que ele oferece, resultado de décadas de desenvolvimento contínuo. Com uma ampla comunidade de desenvolvedores e usuários, é fácil encontrar suporte, documentação e recursos para resolver problemas ou otimizar o uso.</p>
+<p>Outra vantagem significativa é a sua compatibilidade com diversas linguagens de programação, como Python, Java, PHP, e outras, o que facilita a integração em diferentes tipos de aplicações. Além disso, o MySQL é altamente otimizado para leituras rápidas, tornando-o ideal para sistemas que demandam consultas frequentes e grandes volumes de dados.</p>
+<p>O MySQL também oferece opções robustas de segurança, como autenticação via SSL, criptografia de dados em trânsito e suporte a usuários com privilégios personalizados, garantindo que os dados fiquem protegidos. Isso é especialmente importante em projetos onde a proteção da informação é uma prioridade.</p>
+<p>Por ser open-source, o MySQL é uma escolha econômica para startups e projetos menores, mas também está disponível em edições comerciais com suporte oficial para empresas que precisam de garantias adicionais. A sua arquitetura flexível permite a configuração e o ajuste para atender às necessidades de diferentes tipos de cargas de trabalho, desde pequenos aplicativos até sistemas empresariais de grande escala.</p>
+<p>Além disso, ferramentas como o MySQL Workbench tornam a administração mais intuitiva, facilitando a modelagem de dados, a execução de consultas e o monitoramento do desempenho. Para projetos que precisam crescer, o MySQL oferece recursos como replicação e suporte a partições, ajudando na escalabilidade sem comprometer o desempenho.</p>
+<p>Seja para um sistema web, uma aplicação corporativa ou um projeto de análise de dados, o MySQL se destaca como uma solução confiável, versátil e eficiente.</p>
+<p><strong>Links do estudo:</strong>
+<br><a href="https://martinfowler.com/architecture/">https://martinfowler.com/architecture/</a>
+<br><a href="https://www.spaceotechnologies.com/blog/front-end-frameworks-comparison/">https://www.spaceotechnologies.com/blog/front-end-frameworks-comparison/</a>
+<br><a href="https://www.couchbase.com/blog/backend-languages/">https://www.couchbase.com/blog/backend-languages/</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f13b1293.min.js"></script>
+      
+    
+  </body>
+</html>

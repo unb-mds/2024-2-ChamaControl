@@ -1,0 +1,869 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
+    
+    
+      
+        <title>Arquitetura do Sistema | ChamaControl - Docs - ChamaControl</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.d7758b05.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="orange" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#arquitetura-do-sistema-chamacontrol" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="Docs - ChamaControl" class="md-header__button md-logo" aria-label="Docs - ChamaControl" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Docs - ChamaControl
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arquitetura do Sistema | ChamaControl
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="orange" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="orange" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../CONTRIBUTING/" class="md-tabs__link">
+        
+  
+    
+  
+  Como Contribuir?
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../arquitetura/" class="md-tabs__link">
+        
+  
+    
+  
+  Arquitetura
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../StoryMap/" class="md-tabs__link">
+        
+  
+    
+  
+  Story Map
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../prototipo/" class="md-tabs__link">
+        
+  
+    
+  
+  Protótipo
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../sprints/Sprint-0/" class="md-tabs__link">
+          
+  
+  Sprints
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Docs - ChamaControl" class="md-nav__button md-logo" aria-label="Docs - ChamaControl" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Docs - ChamaControl
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CONTRIBUTING/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Como Contribuir?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arquitetura/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Arquitetura
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../StoryMap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Story Map
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prototipo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Protótipo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Sprints
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Sprints
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/Sprint-0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 0
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/Sprint-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 1
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/Sprint-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/Sprint-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/Sprint-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 4
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/Sprint-5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/Sprint-6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 6
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sprints/Sprint-7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sprint 7
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="arquitetura-do-sistema-chamacontrol">Arquitetura do Sistema | ChamaControl</h1>
+<h2 id="visao-geral">Visão Geral</h2>
+<p>O <strong>ChamaControl</strong> é um sistema desenvolvido para visualização de queimadas pelo terrotório brasileiro, fornecendo uma interface interativa para visualização e gestão de dados relacionados a focos de incêndio. O projeto é estruturado em uma arquitetura baseada em <strong>backend e frontend</strong>, garantindo escalabilidade e modularidade.</p>
+<h2 id="componentes-principais">Componentes Principais</h2>
+<p>O sistema é dividido em três camadas principais:</p>
+<ul>
+<li>Front-end</li>
+<li>Back-end</li>
+<li>Banco de Dados</li>
+</ul>
+<h2 id="1-front-end">1. Front-end</h2>
+<h3 id="cliente-web">Cliente (Web)</h3>
+<p>O front-end do ChamaControl é responsável pela interface do usuário (UI), permitindo interações intuitivas e responsivas. O desenvolvimento utiliza <strong>Vite</strong>, que oferece um ambiente rápido para desenvolvimento moderno de JavaScript.</p>
+<h4 id="tecnologias">Tecnologias</h4>
+<ul>
+<li><strong>Framework</strong>: React</li>
+<li><strong>Gerenciador de Pacotes</strong>: npm</li>
+<li><strong>Estilização</strong>: CSS</li>
+<li><strong>Build Tool</strong>: Vite</li>
+</ul>
+<h4 id="como-rodar-o-front-end">Como rodar o front-end</h4>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>web
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>npm<span class="w"> </span>install
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>npm<span class="w"> </span>run<span class="w"> </span>dev
+</code></pre></div>
+Isso iniciará o servidor de desenvolvimento. </p>
+<h3 id="o-front-end-ficara-disponivel-em-httplocalhost5173">O front-end ficará disponível em: <code>http://localhost:5173/</code></h3>
+<hr />
+<h2 id="2-back-end">2. Back-end</h2>
+<p>O back-end é desenvolvido em <strong>Node.js</strong> utilizando <strong>Express</strong>, responsável por gerenciar a lógica de negócio e as requisições do sistema.</p>
+<h3 id="estrutura-do-back-end">Estrutura do Back-end</h3>
+<ul>
+<li><strong>API</strong>: Expõe endpoints para o front-end consumir.</li>
+<li><strong>Users</strong>: Gerencia autenticação e dados dos usuários.</li>
+<li><strong>Routes</strong>: Define as rotas do sistema.</li>
+<li><strong>Scraper</strong>: Contém scripts para [extração/manipulação de dados].</li>
+</ul>
+<h4 id="como-rodar-o-back-end">Como rodar o back-end</h4>
+<p>Primeiro, rode o arquivo <code>script-db.sql</code> em seu <strong>MySql</strong> para criar as tabelas.</p>
+<p>Dentro de <code>/backend</code></p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Crie um arquivo .env com as seguintes variáveis</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">SECRET_KEY</span><span class="o">=</span>seu_segredo
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nv">TOKEN_EXPIRATION</span><span class="o">=</span>10m
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nv">DB_HOST</span><span class="o">=</span>localhost
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nv">DB_USER</span><span class="o">=</span>root
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nv">DB_PASSWORD</span><span class="o">=</span>sua_senha_do_banco_de_dados
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nv">DB_NAME</span><span class="o">=</span>mdschama
+</code></pre></div>
+Dentro de <code>/web</code></p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Crie um arquivo .env com a seguinte variável</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nv">VITE_BACKEND_URL</span><span class="o">=</span>http://localhost:3000
+</code></pre></div>
+Depois:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Para popular o banco de dados execute (isso deve ser feito apenas uma vez)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>npm<span class="w"> </span>run<span class="w"> </span>populaFocosAnual
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Para iniciar a API execute</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>npm<span class="w"> </span>run<span class="w"> </span>app
+</code></pre></div></p>
+<h3 id="o-back-end-ficara-disponivel-em-httplocalhost3000">O back-end ficará disponível em: <code>http://localhost:3000</code></h3>
+<p>E para testar abra <code>http://localhost:3000/api/hello</code></p>
+<p>Isso iniciará o servidor na porta definida no arquivo de configuração.</p>
+<h2 id="3-banco-de-dados">3. Banco de Dados</h2>
+<p>O sistema utiliza <strong>MySQL</strong> para armazenar informações dos usuários e demais entidades.</p>
+<h3 id="configuracao-do-banco-de-dados">Configuração do Banco de Dados</h3>
+<ul>
+<li>O esquema do banco pode ser encontrado em <code>backend/script-db.sql</code>.</li>
+<li>Para rodar o banco localmente:
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div></li>
+</ul>
+<h2 id="tecnologias-utilizadas">Tecnologias Utilizadas:</h2>
+<h3 id="1-nodejs-backend">1. <strong>Node.js</strong> <em>(Backend)</em></h3>
+<ul>
+<li>O backend do projeto é desenvolvido utilizando <strong>Node.js</strong>, que permite a criação de uma API REST responsável pelo processamento dos dados e fornecimento das informações para o frontend.</li>
+<li>Utiliza o <strong>Express.js</strong> (framework minimalista para Node.js) para gerenciar as rotas e requisições HTTP.</li>
+<li>O backend está sendo hospedado no <strong><a href="https://www.heroku.com/">Heroku</a></strong>.</li>
+</ul>
+<p><strong>Conexão com outras tecnologias:</strong>
+- O <strong>Node.js</strong> se comunica com o banco de dados para armazenar e recuperar informações.
+- Serve como interface para que o frontend possa consumir os dados.</p>
+<h3 id="2-reactjs-frontend">2. <strong>React.js</strong> <em>(Frontend)</em></h3>
+<ul>
+<li>O frontend da aplicação foi desenvolvido utilizando <strong>React.js</strong>, permitindo uma interface responsiva e dinâmica para os usuários.</li>
+<li>Utiliza bibliotecas como <strong>React Router</strong> para navegação e <strong>Axios</strong> para chamadas de API.</li>
+<li>O frontend está sendo hospedado no <strong><a href="https://2024-2-chama-control.vercel.app/">Vercel App</a></strong>.</li>
+</ul>
+<p><strong>Conexão com outras tecnologias:</strong></p>
+<ul>
+<li>O frontend consome a API do backend hospedado no <strong>Heroku</strong> para exibir os dados de queimadas e usuários.</li>
+<li>Utiliza autenticação para segurança e controle de acessos.</li>
+</ul>
+<h3 id="3-mkdocs-documentacao">3. <strong>MkDocs</strong> <em>(Documentação)</em></h3>
+<ul>
+<li>O <strong>MkDocs</strong> é utilizado para gerar e hospedar a documentação do projeto.</li>
+<li>A estrutura de documentação é definida no arquivo <code>mkdocs.yml</code>, permitindo a geração de uma documentação navegável e responsiva.</li>
+</ul>
+<p><strong>Conexão com outras tecnologias:</strong></p>
+<ul>
+<li>Armazena a documentação do backend e instruções para os desenvolvedores sobre o uso da API.</li>
+</ul>
+<h2 id="estrutura-do-banco-de-dados">Estrutura do Banco de Dados</h2>
+<p>O sistema utiliza um <strong>banco de dados relacional</strong> para armazenar informações sobre os focos de incêndio cadastrados no <a href="https://www.gov.br/inpe/pt-br">INPE</a>.</p>
+<h3 id="principal-tabela">Principal Tabela:</h3>
+<ol>
+<li><strong>Focos_Incendio</strong></li>
+<li><code>id</code> (int, PK)</li>
+<li><code>latitude</code> (float)</li>
+<li><code>longitude</code> (float)</li>
+<li><code>data_registro</code> (timestamp)</li>
+<li><code>nivel_severidade</code> (int)</li>
+<li><code>descricao</code> (text)</li>
+</ol>
+<h3 id="conexao-com-outras-tecnologias">Conexão com outras tecnologias:</h3>
+<ul>
+<li>O <strong>backend (Node.js)</strong> faz requisições SQL ao banco de dados para armazenar e recuperar informações.</li>
+<li>O <strong>frontend</strong> consome essas informações para exibir os dados de maneira visual.</li>
+</ul>
+<h2 id="fluxo-de-conexao-entre-tecnologias">Fluxo de Conexão entre Tecnologias</h2>
+<ol>
+<li><strong>Frontend</strong> envia uma requisição HTTP para o backend.</li>
+<li><strong>Node.js</strong> processa a requisição e, se necessário, consulta o banco de dados.</li>
+<li><strong>Banco de Dados</strong> retorna os dados solicitados ao backend.</li>
+<li><strong>Backend</strong> formata e envia a resposta ao frontend.</li>
+<li><strong>Frontend</strong> exibe os dados para o usuário final.</li>
+<li><strong>MkDocs</strong> armazena documentação para consulta dos desenvolvedores.</li>
+</ol>
+<p>Esse fluxo garante um sistema modular e escalável, permitindo futuras expansões e otimizações.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar ao topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f13b1293.min.js"></script>
+      
+    
+  </body>
+</html>
