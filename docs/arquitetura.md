@@ -38,7 +38,7 @@ O ChamaControl possui 3 scrapers, são eles:
 
 - **processaDadosAnual:** É responsável por popular o banco de dados com a quantidade mensal de focos registradas de cada estado no período de 2003 a 2024. (excutado apenas uma vez)
 - **processaDadosDiarios30Dias:** É responsável por popular o banco de dados com a quantidade de focos registrados de cada estado diariamente nos últimos 30 dias. (excutado apenas uma vez)
-- **processaDadoDiario:** É executado todos os dias às 12 horas e mantém o banco de dados sempre atualizado com os últimos dados diários fornecidos pelo INPE.
+- **processaDadoDiario:** É executado todos os dias às 10 horas e mantém o banco de dados sempre atualizado com os últimos dados diários fornecidos pelo INPE.
 
 ### Notícias
 
